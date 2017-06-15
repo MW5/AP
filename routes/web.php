@@ -17,5 +17,9 @@
 
 Auth::routes();
 
-Route::get('/', 'HomeController@index')->name('home');
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'PageController@index');
+Route::get('/home', 'PageController@index');
+Route::get('/resourcesManager', 'PageController@index');
+Route::get('/userManager', 'PageController@userManager');
+Route::get('/tireManager', 'PageController@tireManager');
+

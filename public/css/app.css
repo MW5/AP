@@ -21,3 +21,8 @@ footer {
     margin-left: -35vw;
     z-index: 10000;
 }
+
+/*current module*/
+.curr_module {
+    font-weight: bold;
+}
