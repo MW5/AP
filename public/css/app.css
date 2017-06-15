@@ -26,3 +26,22 @@ footer {
 .curr_module {
     font-weight: bold;
 }
+
+/*user list*/
+.user_list_container {
+    margin-top: 150px;
+}
+
+/*buttons*/
+
+.btn_green, .btn_red {
+    border: none;
+}
+.btn_green:hover{
+    background-color: green;
+    border: none;
+}
+.btn_red:hover {
+    background-color: red;
+    border: none;
+}

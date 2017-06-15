@@ -3,16 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use DB;
 
-class PageController extends Controller
-{
+class PageController extends Controller {
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->middleware('auth');
     }
 
@@ -21,18 +20,17 @@ class PageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index() {
         return view('resourcesManager');
     }
     
-    public function tireManager()
-    {
+    public function tireManager() {
         return view('tireManager');
     }
     
-    public function userManager() 
-    {
-        return view('userManager');
+    public function userManager() {
+        $users = DB::table('users')->get();
+        return view('userManager', compact('users'));
     }
+    
 }

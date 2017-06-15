@@ -20,6 +20,9 @@ Auth::routes();
 Route::get('/', 'PageController@index');
 Route::get('/home', 'PageController@index');
 Route::get('/resourcesManager', 'PageController@index');
+
 Route::get('/userManager', 'PageController@userManager');
+Route::post('/userManager/removeUsers', 'userManagerController@removeUsers');
+
 Route::get('/tireManager', 'PageController@tireManager');
 

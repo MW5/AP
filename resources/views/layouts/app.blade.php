@@ -48,17 +48,7 @@
                 <ul class="nav navbar-nav pull-left">
                     @yield('nav_choices')
                 </ul>
-                <ul class="nav navbar-nav pull-right">
-                    <li><a href="{{ url('/logout') }}"
-                            onclick="event.preventDefault();
-                                     document.getElementById('logout-form').submit();">
-                            Wyloguj
-                        </a>
-                        <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
-                            {{ csrf_field() }}
-                        </form>
-                    </li>
-                </ul>
+                  @yield('logout_btn')
               </div>
             </div>
         </nav>
