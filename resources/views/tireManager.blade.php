@@ -6,7 +6,7 @@
 
 @section('logged_user')
     <div id="user_greet">
-        Witaj {{Auth::user()->name}}!
+        Zalogowany: {{Auth::user()->name}}
     </div>
 @endsection
 

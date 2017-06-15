@@ -1,3 +1,7 @@
+body {
+    background-color: #f2f2f2;
+}
+
 #user_greet {
     font-weight: bold;
 }
@@ -22,26 +26,61 @@ footer {
     z-index: 10000;
 }
 
+.modal_light_grey {
+    background-color: #f2f2f2;
+}
+
 /*current module*/
 .curr_module {
     font-weight: bold;
 }
 
-/*user list*/
-.user_list_container {
-    margin-top: 150px;
-}
-
 /*buttons*/
-
+#remind_pass_btn {
+    color: #333;
+}
+.btn_grey {
+    background-color: #e2e3e5;
+}
 .btn_green, .btn_red {
     border: none;
 }
 .btn_green:hover{
-    background-color: green;
+    transition: 0.5s ease-in-out;
+    background-color: #66ff66;
     border: none;
 }
 .btn_red:hover {
-    background-color: red;
+    transition: 0.5s ease-in-out;
+    background-color: #ff3333;
     border: none;
+}
+
+/*user module*/
+.user_list_container {
+    margin-top: 60px;
+}
+
+#users_table {
+    width: 100%;
+}
+#users_table th, td {
+    text-align: center;
+}
+#users_table th {
+    background-color: #A0A5AB
+}
+#users_table .even {
+    background-color: #cccccc
+}
+#users_table .odd {
+    background-color: #e2e3e5
+}
+
+#um_action_bar {
+    margin-top: 10px;
+}
+
+.um_radio_label {
+    padding-left: 10px;
 }

@@ -16,7 +16,7 @@ return [
     'password' => 'Hasło musi mieć minimum sześć znaków i być zgodne z potwierdzeniem',
     'reset' => 'Hasło zresetowane!',
     'sent' => 'Wysłano link resetujący hasło!',
-    'token' => 'Nieprawidłowy token resetowania hasła.',
+    'token' => 'Nieprawidłowy adres email',
     'user' => "Brak użytkownika o takim adresie email.",
 
 ];

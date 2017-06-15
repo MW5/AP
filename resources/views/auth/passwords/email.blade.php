@@ -1,10 +1,14 @@
 @extends('layouts.app')
 
+@section('nav_choices')
+    <li><a href="/">Wróć</a></li>
+@endsection
+
 @section('content')
 <div class="container askbox_container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
+            <div class="panel panel-default modal_light_grey">
                 <div class="panel-heading">Resetuj hasło</div>
                 <div class="panel-body">
                     @if (session('status'))
@@ -32,7 +36,7 @@
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn_grey btn_green">
                                     Wyślij link resetujący hasło
                                 </button>
                             </div>
