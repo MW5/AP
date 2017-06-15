@@ -23,6 +23,7 @@ Route::get('/resourcesManager', 'PageController@index');
 
 Route::get('/userManager', 'PageController@userManager');
 Route::post('/userManager/removeUsers', 'userManagerController@removeUsers');
+Route::post('/userManager/addUser', 'userManagerController@addUser');
 
 Route::get('/tireManager', 'PageController@tireManager');
 
