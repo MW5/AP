@@ -14,9 +14,13 @@ class userManagerController extends Controller
                 $user = User::find($usr);
                 $user->delete();
             }
+            Session::flash('message', 'Pomyślnie usunięto użytkownika/użytkowników'); 
+            Session::flash('alert-class', 'alert-success'); 
+        } else {
+            Session::flash('message', 'Wybierz użytkowników do usunięcia'); 
+            Session::flash('alert-class', 'alert-warning');
         }
-        Session::flash('message', 'Pomyślnie usunięto użytkownika/użytkowników'); 
-        Session::flash('alert-class', 'alert-success'); 
+        
         return back();
     }
 

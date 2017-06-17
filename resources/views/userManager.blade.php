@@ -31,8 +31,8 @@
 @endsection
 
 @section('content')
-    <div class='container user_list_container'>
-        <table id='users_table'>
+    <div class='container ap_table_container'>
+        <table class='ap_table'>
             <form id="remove_users_form" method="POST" action="/userManager/removeUsers">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <tr>
@@ -70,7 +70,7 @@
                 <?php $counter=0?>  
             </form>
         </table>
-        <div id='um_action_bar'>
+        <div class='ap_action_bar'>
             <button type="button" class="btn btn_grey btn_green" data-toggle="modal" data-target="#add_user_modal">Dodaj użytkownika</button>
             <button form="remove_users_form" type="submit" class="btn btn_grey btn_red">Usuń zaznaczonych użytkowników</button>
         </div>
@@ -101,8 +101,8 @@
                         </div>
                         <div class="form-group">
                             <label for="account_type">Typ konta:</label></br>
-                            <input id="account_type" type="radio"  name="account_type" value='użytkownik'><span class='um_radio_label'>Użytkownika</span></br>
-                            <input id="account_type" type="radio"  name="account_type" value='administrator'><span class='um_radio_label'>Administracyjne</span>
+                            <input id="account_type" type="radio"  name="account_type" value='użytkownik'><span class='ap_radio_label'>Użytkownika</span></br>
+                            <input id="account_type" type="radio"  name="account_type" value='administrator'><span class='ap_radio_label'>Administracyjne</span>
                         </div>
                         
                         <div class="form-group">

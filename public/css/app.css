@@ -56,31 +56,31 @@ footer {
     border: none;
 }
 
-/*user module*/
-.user_list_container {
+/*aplication tables*/
+.ap_table_container {
     margin-top: 60px;
 }
-
-#users_table {
+.ap_table {
     width: 100%;
 }
-#users_table th, td {
+.ap_table th, td {
     text-align: center;
+    height: 35px;
 }
-#users_table th {
+.ap_table th {
     background-color: #A0A5AB
 }
-#users_table .even {
+.ap_table .even {
     background-color: #cccccc
 }
-#users_table .odd {
+.ap_table .odd {
     background-color: #e2e3e5
 }
 
-#um_action_bar {
+/*application control*/
+.ap_action_bar {
     margin-top: 10px;
 }
-
-.um_radio_label {
+.ap_radio_label {
     padding-left: 10px;
 }

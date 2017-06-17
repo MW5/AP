@@ -21,7 +21,8 @@ class PageController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        return view('resourcesManager');
+        $resources = DB::table('resources')->get();
+        return view('resourcesManager', compact('resources'));
     }
     
     public function tireManager() {
