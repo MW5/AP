@@ -32,6 +32,10 @@
 
 @section('content')
     <div class='container ap_table_container'>
+        <div class='ap_action_bar'>
+            <button type="button" class="btn btn_grey btn_green" data-toggle="modal" data-target="#add_user_modal">Dodaj użytkownika</button>
+            <button form="remove_users_form" type="submit" class="btn btn_grey btn_red">Usuń zaznaczonych użytkowników</button>
+        </div>
         <table class='ap_table'>
             <form id="remove_users_form" method="POST" action="/userManager/removeUsers">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -70,10 +74,6 @@
                 <?php $counter=0?>  
             </form>
         </table>
-        <div class='ap_action_bar'>
-            <button type="button" class="btn btn_grey btn_green" data-toggle="modal" data-target="#add_user_modal">Dodaj użytkownika</button>
-            <button form="remove_users_form" type="submit" class="btn btn_grey btn_red">Usuń zaznaczonych użytkowników</button>
-        </div>
     </div>
 
     <div class="modal fade" tabindex="-1" role="dialog" id="add_user_modal">
