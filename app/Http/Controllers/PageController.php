@@ -24,6 +24,10 @@ class PageController extends Controller {
         $resources = DB::table('resources')->get();
         return view('resourcesManager', compact('resources'));
     }
+    public function warehouseOperations() {
+        $warehouseOperations = DB::table('warehouse_operations')->get();
+        return view('warehouseOperations', compact('warehouseOperations'));
+    }
     
     public function tireManager() {
         return view('tireManager');

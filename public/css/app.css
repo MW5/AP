@@ -36,14 +36,13 @@ footer {
 }
 
 /*buttons*/
-#remind_pass_btn {
-    color: #333;
-}
+
 .btn_grey {
     background-color: #e2e3e5;
 }
 .btn_green, .btn_red {
     border: none;
+    color: #333;
 }
 .btn_green:hover{
     transition: 0.5s ease-in-out;
@@ -83,4 +82,9 @@ footer {
 }
 .ap_radio_label {
     padding-left: 10px;
+}
+
+/*warehouse release horizontal modal fix*/
+.horizontal_label, .horizontal_input {
+    text-align: center !important; 
 }

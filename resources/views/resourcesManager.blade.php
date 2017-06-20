@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    <title> Aplikacja wspomagająca zarządzanie DSU AP </title>
+    <title> Moduł zasobów </title>
 @endsection
 
 @section('logged_user')
@@ -25,7 +25,7 @@
 @endsection
 
 @section('nav_choices')
-    <li class='curr_module'><a href="/resourcesManager">Moduł środków nietrwałych</a></li>
+    <li class='curr_module'><a href="/resourcesManager">Moduł zasobów magazynowych</a></li>
     <li><a href="/tireManager">Moduł opon</a></li>
     <li><a href="/userManager">Moduł użytkowników</a></li>
 @endsection
@@ -38,6 +38,7 @@
                 <button form="remove_resources_form" type="submit" class="btn btn_grey btn_red">Usuń zaznaczone zasoby</button>
                 <button type="button" class="btn btn_grey btn_green" data-toggle="modal" data-target="#accept_delivery_modal">Przyjmij dostawę</button>
                 <button type="button" class="btn btn_grey btn_green" data-toggle="modal" data-target="#warehouse_release_modal">Wydaj zasoby</button>
+                <a href='resourcesManager/warehouseOperations' class="btn btn_grey btn_green">Rejestr operacji magazynowych</a>
             </div>
         @endif
         <table class='ap_table'>
@@ -140,19 +141,19 @@
                     <h4 class="modal-title">Przyjmij dostawę</h4>
                 </div>
                 <div class="modal-body">
-                    <form id="accept_delivery_form" method="POST" action="/resourcesManager/acceptDelivery">
+                    <form class='ap_form' id="accept_delivery_form" method="POST" action="/resourcesManager/acceptDelivery">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         
                         @foreach ($resources as $resource)
                             <div class="form-group">
-                                <label class="control-label col-sm-6" for="{{$resource->name}}_field">{{$resource->name}}</label>
+                                <label class="control-label col-sm-6 horizontal_label" for="{{$resource->name}}_field_accept">{{$resource->name}}</label>
                                 <div class="col-sm-4">
-                                    <button type="button" class="resource_increase" id="{{$resource->name}}_inc_btn">+</button>
-                                    <button type="button" class="resource_decrease" id="{{$resource->name}}_dec_btn">-</button>
+                                    <button type="button" class="resource_increase" id="{{$resource->name}}_inc_btn_accept">+</button>
+                                    <button type="button" class="resource_decrease" id="{{$resource->name}}_dec_btn_accept">-</button>
                                 </div>
                                 <div class="col-sm-2">
                                     <input type="hidden" name="res_id[]" value="{{$resource->id}}">
-                                    <input id="{{$resource->name}}_field" type="text" class="form-control" name="qty_field[]"
+                                    <input id="{{$resource->name}}_field_accept" type="text" class="form-control horizontal_input" name="qty_field_accept[]"
                                            value="0">
                                 </div>
                             </div>
@@ -167,6 +168,43 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn_grey btn_red" data-dismiss="modal">Zamknij</button>
                     <button form="accept_delivery_form" type="submit" class="btn btn_grey btn_green">Przymij dostawę</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+     <!--warehouse release modal-->  
+    <div class="modal fade" tabindex="-1" role="dialog" id="warehouse_release_modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content modal_light_grey">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Wydaj zasoby</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="warehouse_release_form" class='form-horizontal' method="POST" action="/resourcesManager/warehouseRelease">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        
+                        @foreach ($resources as $resource)
+                            <div class="form-group">
+                                <label class="control-label col-sm-6 horizontal_label" for="{{$resource->name}}_field_release">{{$resource->name}}</label>
+                                <div class="col-sm-4">
+                                    <button type="button" class="resource_increase" id="{{$resource->name}}_inc_btn_release">+</button>
+                                    <button type="button" class="resource_decrease" id="{{$resource->name}}_dec_btn_release">-</button>
+                                </div>
+                                <div class="col-sm-2">
+                                    <input type="hidden" name="res_id[]" value="{{$resource->id}}">
+                                    <input id="{{$resource->name}}_field_release" type="text" class="form-control horizontal_input" name="qty_field_release[]"
+                                           value="0">
+                                </div>
+                            </div>
+                        @endforeach
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn_grey btn_red" data-dismiss="modal">Zamknij</button>
+                    <button form="warehouse_release_form" type="submit" class="btn btn_grey btn_green">Wydaj</button>
                 </div>
             </div>
         </div>

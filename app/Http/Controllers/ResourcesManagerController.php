@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Resource;
+use App\WarehouseOperation;
 use Session;
 
 class ResourcesManagerController extends Controller
@@ -44,13 +45,16 @@ class ResourcesManagerController extends Controller
     }
     
     function acceptDelivery(Request $request) {
+        $this->validate($request,[
+            'supplier'=>'required|min:1|max:50',
+        ]);
         
         $qtyArr = array();
         $arrCounter = 0;
         $arrBadVal = false;
         $arrZeroVals = true;
         
-        foreach ($request->get('qty_field') as $qty) {
+        foreach ($request->get('qty_field_accept') as $qty) {
                 array_push($qtyArr, $qty);
         }
         
@@ -67,7 +71,16 @@ class ResourcesManagerController extends Controller
             foreach($request->get('res_id') as $res) {
                 $resource = Resource::find($res);
                 $resource->quantity = $resource->quantity+$qtyArr[$arrCounter];
-                $resource->save();
+                if($qtyArr[$arrCounter]>0) {
+                    $resource->save();
+//                    //logging
+                    $warehouseOperation = new WarehouseOperation();
+                    $warehouseOperation->resource_name = $resource->name;
+                    $warehouseOperation->operation_type = "przyjęcie magazynowe";
+                    $warehouseOperation->quantity = $qtyArr[$arrCounter];
+                    $warehouseOperation->company_name = $request->supplier;
+                    $warehouseOperation->save();
+                }
                 $arrCounter++;
             }
             Session::flash('message', 'Pomyślnie przyjęto dostawę'); 
@@ -81,4 +94,64 @@ class ResourcesManagerController extends Controller
         }
         return back();
     }
+    
+    function warehouseRelease(Request $request) {
+        $qtyArr = array();
+        $arrCounter = 0;
+        $arrBadVal = false;
+        $arrZeroVals = true;
+        $notEnough = false;
+        
+        foreach ($request->get('qty_field_release') as $qty) {
+                array_push($qtyArr, $qty);
+        }
+        
+        foreach ($qtyArr as $qty) {
+            if($qty<0) {
+                $arrBadVal = true;
+            }
+            if($qty>0) {
+                $arrZeroVals = false;
+            }
+        }
+        foreach($request->get('res_id') as $res) {
+                $resource = Resource::find($res);
+                if ($resource->quantity < $qtyArr[$arrCounter]) {
+                    $notEnough = true;
+                }
+                $arrCounter++;
+            }
+        $arrCounter = 0;
+
+        if (!$arrBadVal && !$arrZeroVals && !$notEnough) {
+            foreach($request->get('res_id') as $res) {
+                $resource = Resource::find($res);
+                $resource->quantity = $resource->quantity-$qtyArr[$arrCounter];
+                if($qtyArr[$arrCounter]>0) {
+                    $resource->save();
+//                    //logging
+                    $warehouseOperation = new WarehouseOperation();
+                    $warehouseOperation->resource_name = $resource->name;
+                    $warehouseOperation->operation_type = "wydanie magazynowe";
+                    $warehouseOperation->quantity = $qtyArr[$arrCounter];
+                    $warehouseOperation->company_name = "";
+                    $warehouseOperation->save();
+                }
+                $arrCounter++;
+            }
+            Session::flash('message', 'Pomyślnie wydano zasoby'); 
+            Session::flash('alert-class', 'alert-success'); 
+        } elseif ($notEnough) {
+            Session::flash('message', 'Wydawana ilość przekracza obecny stan magazynowy'); 
+            Session::flash('alert-class', 'alert-warning'); 
+        } elseif ($arrZeroVals) {
+            Session::flash('message', 'Nie określono żadnej wartości dodatniej'); 
+            Session::flash('alert-class', 'alert-warning'); 
+        }else {
+            Session::flash('message', 'Nie można wydać wartości ujemnej'); 
+            Session::flash('alert-class', 'alert-warning'); 
+        }
+        return back();
+    }
+    
 }
