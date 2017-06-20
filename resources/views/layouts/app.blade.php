@@ -7,9 +7,11 @@
         @yield('robots')
         @yield('title')
         <link rel="stylesheet" href="{{ URL::asset('css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ URL::asset('css/jquery-ui.min.css') }}">
         <link rel="stylesheet" href="{{ URL::asset('css/app.css') }}">
         <script src="{{ URL::asset('js/jquery-3.2.1.min.js')}}"></script>
         <script src="{{ URL::asset('js/bootstrap.min.js')}}"></script>
+        <script src="{{ URL::asset('js/jquery-ui.min.js')}}"></script>
         <script src="{{ URL::asset('js/app.js')}}"></script>
 
     </head>

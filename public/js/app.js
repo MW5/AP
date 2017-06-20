@@ -5,7 +5,7 @@ $(document).ready(function() {
             $(".alert_box").fadeOut();
         }, 2000);
         
-//    accept delivery increase/decrease buttons
+    //accept delivery increase/decrease buttons
     $(".resource_increase").click(function() {
         var clickedBtnId = $(this).attr("id");
         var inputFieldId = clickedBtnId.replace("_inc_btn", "_field");
@@ -22,4 +22,10 @@ $(document).ready(function() {
             $("#"+inputFieldId).val(currVal);
         }
     });
+    
+    //draggable modal
+    $(".modal-dialog").draggable({
+        handle: ".modal-header"
+    }); 
 });
+

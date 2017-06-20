@@ -44,22 +44,40 @@ class ResourcesManagerController extends Controller
     }
     
     function acceptDelivery(Request $request) {
-//        $this->validate($request,[
-//            $request->name.'field'=>'min:0',
-//        ]);
         
         $qtyArr = array();
         $arrCounter = 0;
+        $arrBadVal = false;
+        $arrZeroVals = true;
         
         foreach ($request->get('qty_field') as $qty) {
                 array_push($qtyArr, $qty);
         }
+        
+        foreach ($qtyArr as $qty) {
+            if($qty<0) {
+                $arrBadVal = true;
+            }
+            if($qty>0) {
+                $arrZeroVals = false;
+            }
+        }
 
-        foreach($request->get('res_id') as $res) {
-            $resource = Resource::find($res);
-            $resource->quantity = $qtyArr[$arrCounter];
-            $resource->save();
-            $arrCounter++;
+        if (!$arrBadVal && !$arrZeroVals) {
+            foreach($request->get('res_id') as $res) {
+                $resource = Resource::find($res);
+                $resource->quantity = $resource->quantity+$qtyArr[$arrCounter];
+                $resource->save();
+                $arrCounter++;
+            }
+            Session::flash('message', 'Pomyślnie przyjęto dostawę'); 
+            Session::flash('alert-class', 'alert-success'); 
+        } elseif ($arrZeroVals) {
+            Session::flash('message', 'Nie określono żadnej wartości dodatniej'); 
+            Session::flash('alert-class', 'alert-warning'); 
+        }else {
+            Session::flash('message', 'Nie można przyjąć wartości ujemnej'); 
+            Session::flash('alert-class', 'alert-warning'); 
         }
         return back();
     }

@@ -152,7 +152,8 @@
                                 </div>
                                 <div class="col-sm-2">
                                     <input type="hidden" name="res_id[]" value="{{$resource->id}}">
-                                    <input id="{{$resource->name}}_field" type="text" class="form-control" name="qty_field[]" value=0>
+                                    <input id="{{$resource->name}}_field" type="text" class="form-control" name="qty_field[]"
+                                           value="0">
                                 </div>
                             </div>
                         @endforeach
