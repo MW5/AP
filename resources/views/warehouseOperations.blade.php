@@ -42,7 +42,7 @@
                 <tr>
                     <th>Nazwa zasobu</th>
                     <th>Typ operacji</th>
-                    <th>Ilość</th>
+                    <th>Zmiana ilości</th>
                     <th>Firma</th>
                     <th>Data przyjęcia</th>
                 </tr>
@@ -62,7 +62,11 @@
                             {{$wO->operation_type}}
                         </td>
                         <td>
-                            {{$wO->quantity}}
+                            @if($wO->operation_type == "przyjęcie magazynowe")
+                                + {{$wO->quantity}}
+                            @else
+                                - {{$wO->quantity}}
+                            @endif
                         </td>
                         <td>
                             {{$wO->company_name}}
