@@ -23,6 +23,7 @@ Route::get('/home', 'PageController@index');
 Route::get('/resourcesManager', 'PageController@index');
 Route::post('/resourcesManager/addResource', 'ResourcesManagerController@addResource');
 Route::post('/resourcesManager/removeResources', 'ResourcesManagerController@removeResources');
+Route::post('/resourcesManager/acceptDelivery', 'ResourcesManagerController@acceptDelivery');
 
 Route::get('/userManager', 'PageController@userManager');
 Route::post('/userManager/addUser', 'UserManagerController@addUser');

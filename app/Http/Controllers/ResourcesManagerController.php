@@ -26,7 +26,7 @@ class ResourcesManagerController extends Controller
 
     function addResource(Request $request) {
         $this->validate($request,[
-            'name'=>'required|min:1|max:50',
+            'name'=>'required|min:1|max:50|unique:resources',
             'capacity'=>'max:20',
             'proportions'=>'max:20',
             'description'=>'max:400'
@@ -40,6 +40,27 @@ class ResourcesManagerController extends Controller
         $resource->save();
         Session::flash('message', 'Pomyślnie dodano '.$resource->name); 
         Session::flash('alert-class', 'alert-success'); 
+        return back();
+    }
+    
+    function acceptDelivery(Request $request) {
+//        $this->validate($request,[
+//            $request->name.'field'=>'min:0',
+//        ]);
+        
+        $qtyArr = array();
+        $arrCounter = 0;
+        
+        foreach ($request->get('qty_field') as $qty) {
+                array_push($qtyArr, $qty);
+        }
+
+        foreach($request->get('res_id') as $res) {
+            $resource = Resource::find($res);
+            $resource->quantity = $qtyArr[$arrCounter];
+            $resource->save();
+            $arrCounter++;
+        }
         return back();
     }
 }
