@@ -57,5 +57,20 @@ $(document).ready(function() {
             window.location = $(this).data("href");
         }
     });
+    
+    //TEMPORARY SOLUTION
+    $('#report_warehouse_operations').click(function () {
+        var pageTitle = 'Raport operacji magazynowych',
+            stylesheet = '../css/app.css',
+            win = window.open('', 'Print', 'width=500,height=300');
+        win.document.write('<html><head><title>' + pageTitle + '</title>' +
+            '<link rel="stylesheet" href="' + stylesheet + '">' +
+            '</head><body>' + $('.ap_table')[0].outerHTML + '</body></html>');
+        win.document.close();
+        win.print();
+        win.close();
+        return false;
+    });
+    
 });
 

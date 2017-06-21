@@ -19,6 +19,7 @@ class CreateWarehouseOperationsTable extends Migration
             $table->string('operation_type');
             $table->integer('quantity');
             $table->string('company_name');
+            $table->string('user_name');
             $table->timestamps();
         });
     }

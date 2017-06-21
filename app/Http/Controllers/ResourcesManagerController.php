@@ -89,6 +89,7 @@ class ResourcesManagerController extends Controller
                     $warehouseOperation->operation_type = "przyjęcie magazynowe";
                     $warehouseOperation->quantity = $qtyArr[$arrCounter];
                     $warehouseOperation->company_name = $request->supplier;
+                    $warehouseOperation->user_name = $request->user_name;
                     $warehouseOperation->save();
                 }
                 $arrCounter++;
@@ -145,6 +146,7 @@ class ResourcesManagerController extends Controller
                     $warehouseOperation->operation_type = "wydanie magazynowe";
                     $warehouseOperation->quantity = $qtyArr[$arrCounter];
                     $warehouseOperation->company_name = "";
+                    $warehouseOperation->user_name = $request->user_name;
                     $warehouseOperation->save();
                 }
                 $arrCounter++;

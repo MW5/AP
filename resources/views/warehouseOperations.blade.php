@@ -35,7 +35,11 @@
         @if (Auth::user()->account_type == "administrator")
             <div class='ap_action_bar'>
                 <a href='/resourcesManager' class="btn btn_grey btn_green">Wróć</a>
-                <button type="button" class="btn btn_grey btn_green" data-toggle="modal" data-target="#report_modal">Raportuj</button>
+                <!--<button type="button" class="btn btn_grey btn_green" data-toggle="modal" data-target="#report_modal">Raportuj</button>-->
+                
+                <!--TEMPORATY SOLUTION-->
+                <button type="button" class="btn btn_grey btn_green" id="report_warehouse_operations">Raportuj</button>
+                
             </div>
         @endif
         <table class='ap_table'>
@@ -44,6 +48,7 @@
                     <th>Typ operacji</th>
                     <th>Zmiana ilości</th>
                     <th>Firma</th>
+                    <th>Użytkownik</th>
                     <th>Data operacji</th>
                 </tr>
                 <?php $counter=0?>
@@ -82,6 +87,9 @@
                         </td>
                         <td>
                             {{$wO->company_name}}
+                        </td>
+                        <td>
+                            {{$wO->user_name}}
                         </td>
                         <td>
                             {{$wO->created_at}}

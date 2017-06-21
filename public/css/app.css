@@ -103,6 +103,16 @@ footer {
     cursor: pointer;
 }
 
+.normal_quantity {
+    color: green;
+}
+.low_quantity {
+    color: yellow;
+}
+.critical_quantity {
+    color: red;
+}
+
 /*warehouse operations*/
 .ap_table .even_accept_delivery {
     background-color: #ccffcc

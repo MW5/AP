@@ -73,7 +73,13 @@
                             <td>
                                 {{$resource->name}}
                             </td>
-                            <td>
+                            @if ($resource->quantity ==  $resource->critical_quantity+1)
+                                <td class="low_quantity">
+                            @elseif ($resource->quantity <=  $resource->critical_quantity)
+                                <td class="critical_quantity">
+                            @else
+                                <td class="normal_quantity">
+                            @endif
                                 {{$resource->quantity}}
                             </td>
                             <td>
@@ -154,6 +160,7 @@
                 <div class="modal-body">
                     <form class='ap_form' id="accept_delivery_form" method="POST" action="/resourcesManager/acceptDelivery">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        <input type="hidden" name="user_name" value="{{Auth::user()->name}}">
                         
                         @foreach ($resources as $resource)
                             <div class="form-group">
@@ -196,6 +203,7 @@
                 <div class="modal-body">
                     <form id="warehouse_release_form" class='form-horizontal' method="POST" action="/resourcesManager/warehouseRelease">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        <input type="hidden" name="user_name" value="{{Auth::user()->name}}">
                         
                         @foreach ($resources as $resource)
                             <div class="form-group">
