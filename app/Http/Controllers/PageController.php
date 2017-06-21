@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
+use App\Resource;
 
 class PageController extends Controller {
     /**
@@ -23,6 +24,11 @@ class PageController extends Controller {
     public function index() {
         $resources = DB::table('resources')->get();
         return view('resourcesManager', compact('resources'));
+    }
+    public function resourceDetails($id) {
+        $warehouseOperations = DB::table('warehouse_operations')->get();
+        $resource = Resource::find($id);
+        return view('resourceDetails', compact('warehouseOperations', 'resource'));
     }
     public function warehouseOperations() {
         $warehouseOperations = DB::table('warehouse_operations')->get();

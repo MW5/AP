@@ -25,7 +25,7 @@
 @endsection
 
 @section('nav_choices')
-    <li><a href="/resourcesManager">Moduł środków nietrwałych</a></li>
+    <li><a href="/resourcesManager">Moduł zasobów magazynowych</a></li>
     <li><a href="/tireManager">Moduł opon</a></li>
     <li class='curr_module'><a href="/userManager">Moduł użytkowników</a></li>
 @endsection
@@ -58,7 +58,7 @@
                     
                         <td>
                         @if ($user->name != Auth::user()->name && Auth::user()->account_type == "administrator")
-                            <input type="checkbox" name="ch[]" value="{{$user->id}}">
+                            <input type="checkbox" class="ap_checkbox" name="ch[]" value="{{$user->id}}">
                         @endif
                         </td>
                         <td>

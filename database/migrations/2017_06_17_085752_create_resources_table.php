@@ -17,9 +17,10 @@ class CreateResourcesTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->integer('quantity');
+            $table->integer('critical_quantity');
             $table->string('capacity');
             $table->string('proportions');
-            $table->string('description');
+            $table->longtext('description');
             $table->timestamps();
         });
     }

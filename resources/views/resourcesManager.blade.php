@@ -53,33 +53,38 @@
                 </tr>
                 <?php $counter=0?>
                 @foreach($resources as $resource)
-                    <?php
-                        if($counter%2==0) {
-                            echo"<tr class='even'>";
-                        } else {
-                            echo"<tr class ='odd'>";
-                        }?>
-                        
-                        <td>
-                            @if (Auth::user()->account_type == "administrator")
-                                <input type="checkbox" name="ch[]" value="{{$resource->id}}">
-                            @endif
-                        </td>
-                        
-                        <td>
-                            {{$resource->name}}
-                        </td>
-                        <td>
-                            {{$resource->quantity}}
-                        </td>
-                        <td>
-                            {{$resource->capacity}}
-                        </td>
-                        <td>
-                            {{$resource->proportions}}
-                        </td>
-                    </tr>
-                    <?php $counter+=1;?>
+                    
+                        <?php
+                            if($counter%2==0) {
+                                ?>
+                            <tr class='even clickable-row' data-href='resourcesManager/{{$resource->id}}'>
+                                <?php
+                            } else {
+                                ?>
+                                <tr class ='odd clickable-row' data-href='resourcesManager/{{$resource->id}}'>
+                                <?php
+                            }?>
+                            <td>
+                                @if (Auth::user()->account_type == "administrator")
+                                    <input type="checkbox" class="ap_checkbox" name="ch[]" value="{{$resource->id}}">
+                                @endif
+                            </td>
+
+                            <td>
+                                {{$resource->name}}
+                            </td>
+                            <td>
+                                {{$resource->quantity}}
+                            </td>
+                            <td>
+                                {{$resource->capacity}}
+                            </td>
+                            <td>
+                                {{$resource->proportions}}
+                            </td>
+                        </tr>
+                        <?php $counter+=1;?>
+                    
                 @endforeach
                 <?php $counter=0?>  
             </form>
@@ -106,13 +111,19 @@
                         </div>
                         
                         <div class="form-group">
+                            <label for="critical_quantity">Minimalna ilość zamkniętych opakowań:</label>
+                            <input id="critical_quantity" type="text" class="form-control" name="critical_quantity" placeholder="wartość liczbowa"
+                                value="{{ old('critical_quantity') }}">
+                        </div>
+                        
+                        <div class="form-group">
                             <label for="capacity">Pojemność opakowania:</label>
-                            <input id="capacity" type="text" class="form-control" name="capacity" placeholder="do 20 znaków"
+                            <input id="capacity" type="text" class="form-control" name="capacity" placeholder="niewymagane, do 20 znaków"
                                 value="{{ old('email') }}">
                         </div>
                         <div class="form-group">
-                            <label for="proportions">Proporcje:</label>
-                            <input id="proportions" type="text" class="form-control" name="proportions" placeholder="do 20 znaków"
+                            <label for="proportions">Proporcje [x:y]:</label>
+                            <input id="proportions" type="text" class="form-control" name="proportions" placeholder="niewymagane, do 20 znaków"
                                 value="{{ old('proportions') }}">
                         </div>
                         
@@ -148,12 +159,12 @@
                             <div class="form-group">
                                 <label class="control-label col-sm-6 horizontal_label" for="{{$resource->name}}_field_accept">{{$resource->name}}</label>
                                 <div class="col-sm-4">
-                                    <button type="button" class="resource_increase" id="{{$resource->name}}_inc_btn_accept">+</button>
-                                    <button type="button" class="resource_decrease" id="{{$resource->name}}_dec_btn_accept">-</button>
+                                    <button type="button" class="resource_increase" id="{{$resource->id}}_inc_btn_accept">+</button>
+                                    <button type="button" class="resource_decrease" id="{{$resource->id}}_dec_btn_accept">-</button>
                                 </div>
                                 <div class="col-sm-2">
                                     <input type="hidden" name="res_id[]" value="{{$resource->id}}">
-                                    <input id="{{$resource->name}}_field_accept" type="text" class="form-control horizontal_input" name="qty_field_accept[]"
+                                    <input id="{{$resource->id}}_field_accept" type="text" class="form-control horizontal_input" name="qty_field_accept[]"
                                            value="0">
                                 </div>
                             </div>

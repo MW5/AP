@@ -1,16 +1,38 @@
+html {
+    position: relative;
+    min-height: 100%;
+}
+
 body {
+    margin: 0 0 100px; /* bottom = footer height */
+    padding: 25px;
     background-color: #f2f2f2;
 }
+
+footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    overflow:hidden;
+}
+
 
 #user_greet {
     font-weight: bold;
 }
-footer {
-    position: absolute;
-    bottom: 0px;
-}
+
 .askbox_container {
     margin-top: 30vh;
+}
+
+/*checkbox size*/
+.ap_checkbox {
+    -ms-transform: scale(1.2); /* IE */
+    -moz-transform: scale(1.2); /* FF */
+    -webkit-transform: scale(1.2); /* Safari and Chrome */
+    -o-transform: scale(1.2); /* Opera */
+     padding: 10px;
 }
 
 /*alert box*/
@@ -36,7 +58,6 @@ footer {
 }
 
 /*buttons*/
-
 .btn_grey {
     background-color: #e2e3e5;
 }
@@ -46,18 +67,18 @@ footer {
 }
 .btn_green:hover{
     transition: 0.5s ease-in-out;
-    background-color: #66ff66;
+    background-color: #99ff99;
     border: none;
 }
 .btn_red:hover {
     transition: 0.5s ease-in-out;
-    background-color: #ff3333;
+    background-color: #ff9999;
     border: none;
 }
 
 /*aplication tables*/
 .ap_table_container {
-    margin-top: 60px;
+    margin-top: 50px;
 }
 .ap_table {
     width: 100%;
@@ -76,10 +97,31 @@ footer {
     background-color: #e2e3e5
 }
 
+.clickable-row:hover {
+    transition: all 0.5s ease-in-out;
+    background-color: #bfbfbf;
+    cursor: pointer;
+}
+
+/*warehouse operations*/
+.ap_table .even_accept_delivery {
+    background-color: #ccffcc
+}
+.ap_table .odd_accept_delivery {
+    background-color: #b3ffb3
+}
+.ap_table .even_warehouse_release {
+    background-color: #ffcccc
+}
+.ap_table .odd_warehouse_release {
+    background-color: #ffb3b3
+}
+
 /*application control*/
 .ap_action_bar {
     margin-bottom: 10px;
 }
+
 .ap_radio_label {
     padding-left: 10px;
 }
@@ -87,4 +129,14 @@ footer {
 /*warehouse release horizontal modal fix*/
 .horizontal_label, .horizontal_input {
     text-align: center !important; 
+}
+
+/*resource description*/
+.resource_description_container {
+    margin: 20px 0px 0px 20px;
+}
+
+.resource_description {
+    font-size: 20px;
+    margin: 20px;
 }

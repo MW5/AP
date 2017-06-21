@@ -12,6 +12,8 @@ $(document).ready(function() {
         var currVal = $("#"+inputFieldId).val();
         currVal++;
         $("#"+inputFieldId).val(currVal);
+        console.log(clickedBtnId);
+        console.log(inputFieldId);
     });
     $(".resource_decrease").click(function() {
         var clickedBtnId = $(this).attr("id");
@@ -45,5 +47,15 @@ $(document).ready(function() {
     $(".modal-dialog").draggable({
         handle: ".modal-header"
     }); 
+    
+    
+    //clickable rows and checkbox click fix
+    $(".clickable-row").click(function(e) {
+        if (e.target.type == "checkbox") {
+            e.stopPropagation();
+        } else {
+            window.location = $(this).data("href");
+        }
+    });
 });
 

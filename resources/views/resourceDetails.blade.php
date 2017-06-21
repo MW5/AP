@@ -35,12 +35,21 @@
         @if (Auth::user()->account_type == "administrator")
             <div class='ap_action_bar'>
                 <a href='/resourcesManager' class="btn btn_grey btn_green">Wróć</a>
-                <button type="button" class="btn btn_grey btn_green" data-toggle="modal" data-target="#report_modal">Raportuj</button>
             </div>
         @endif
+        <div class="resource_description_container">
+            <h1>{{$resource->name}}</h1>
+            <h3>Obecny stan magazynowy: {{$resource->quantity}}</h3>
+            @if($resource->capacity != "")
+                <h3>Pojemność opakowania: {{$resource->capacity}}</h3>
+            @endif
+            @if($resource->proportions != "")
+            <h3>Proporcje: {{$resource->proportions}}</h3>
+            @endif
+            <p class="resource_description">{{$resource->description}}</p>
+        </div>
         <table class='ap_table'>
                 <tr>
-                    <th>Nazwa zasobu</th>
                     <th>Typ operacji</th>
                     <th>Zmiana ilości</th>
                     <th>Firma</th>
@@ -48,46 +57,44 @@
                 </tr>
                 <?php $counter=0?>
                 @foreach($warehouseOperations as $wO)
-                    <?php
-                        if($counter%2==0) {
-                            ?>
-                            @if($wO->operation_type == "przyjęcie magazynowe")
-                                <tr class='even_accept_delivery'>
-                            @else
-                                <tr class='even_warehouse_release'>
-                            @endif
+                    @if($wO->resource_name == $resource->name)
                         <?php
-                        } else {
-                            ?>
-                            @if($wO->operation_type == "przyjęcie magazynowe")
-                                <tr class='odd_accept_delivery'>
-                            @else
-                                <tr class='odd_warehouse_release'>
-                            @endif
-                        <?php
-                        }?>
-                        
-                        <td>
-                            {{$wO->resource_name}}
-                        </td>
-                        <td>
-                            {{$wO->operation_type}}
-                        </td>
-                        <td>
-                            @if($wO->operation_type == "przyjęcie magazynowe")
-                                + {{$wO->quantity}}
-                            @else
-                                - {{$wO->quantity}}
-                            @endif
-                        </td>
-                        <td>
-                            {{$wO->company_name}}
-                        </td>
-                        <td>
-                            {{$wO->created_at}}
-                        </td>
-                    </tr>
-                    <?php $counter+=1;?>
+                            if($counter%2==0) {
+                                ?>
+                                @if($wO->operation_type == "przyjęcie magazynowe")
+                                    <tr class='even_accept_delivery'>
+                                @else
+                                    <tr class='even_warehouse_release'>
+                                @endif
+                            <?php
+                            } else {
+                                ?>
+                                @if($wO->operation_type == "przyjęcie magazynowe")
+                                    <tr class='odd_accept_delivery'>
+                                @else
+                                    <tr class='odd_warehouse_release'>
+                                @endif
+                            <?php
+                            }?>
+                            <td>
+                                {{$wO->operation_type}}
+                            </td>
+                            <td>
+                                @if($wO->operation_type == "przyjęcie magazynowe")
+                                    + {{$wO->quantity}}
+                                @else
+                                    - {{$wO->quantity}}
+                                @endif
+                            </td>
+                            <td>
+                                {{$wO->company_name}}
+                            </td>
+                            <td>
+                                {{$wO->created_at}}
+                            </td>
+                        </tr>
+                        <?php $counter+=1;?>
+                    @endif
                 @endforeach
                 <?php $counter=0?>  
             </form>

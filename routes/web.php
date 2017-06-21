@@ -23,6 +23,7 @@ Route::post('/resourcesManager/removeResources', 'ResourcesManagerController@rem
 Route::post('/resourcesManager/acceptDelivery', 'ResourcesManagerController@acceptDelivery');
 Route::post('/resourcesManager/warehouseRelease', 'ResourcesManagerController@warehouseRelease');
 Route::get('/resourcesManager/warehouseOperations', 'PageController@warehouseOperations');
+Route::get('/resourcesManager/{resource}', 'PageController@resourceDetails');
 
 //Route::get(report route);
 
