@@ -16,3 +16,13 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/getResourcesApi', function() {
+    $resources = DB::table('resources')->get();
+    echo($resources);
+});
+
+Route::post('/credentialsApi', function() {
+    //$users = DB::table('users')->get();
+    echo(true);//testing
+});

@@ -109,7 +109,7 @@
                         
                         <div class="form-group">
                             <label for="password">Hasło:</label>
-                            <input id ="password" type="password" class="form-control" name="password" placeholder="3-20 znaków">
+                            <input id ="password" type="password" class="form-control" name="password" placeholder="6-20 znaków">
                         </div>
                     </form>
                 </div>

@@ -29,7 +29,7 @@ class userManagerController extends Controller
             'name'=>'required|min:3|max:30',
             'email'=>'required|min:6|max:40|unique:users',
             'account_type'=>'required',
-            'password'=>'required|min:3|max:20'
+            'password'=>'required|min:6|max:20'
         ]);
         $user = new User();
         $user->name = $request->name;

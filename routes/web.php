@@ -33,3 +33,5 @@ Route::post('/userManager/removeUsers', 'UserManagerController@removeUsers');
 
 Route::get('/tireManager', 'PageController@tireManager');
 
+
+

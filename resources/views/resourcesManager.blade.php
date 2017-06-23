@@ -118,7 +118,7 @@
                         
                         <div class="form-group">
                             <label for="critical_quantity">Minimalna ilość zamkniętych opakowań:</label>
-                            <input id="critical_quantity" type="text" class="form-control" name="critical_quantity" placeholder="wartość liczbowa"
+                            <input id="critical_quantity" type="text" class="form-control" name="critical_quantity" placeholder="wartość liczbowa >= 0"
                                 value="{{ old('critical_quantity') }}">
                         </div>
                         
@@ -135,7 +135,7 @@
                         
                         <div class="form-group">
                             <label for="description">Opis:</label>
-                            <textarea id ="description" class="form-control" name="description" placeholder="do 400 znaków"
+                            <textarea id ="description" class="form-control" name="description" placeholder="5 do 400 znaków"
                                     >{{ old('description') }}</textarea>
                         </div>
                     </form>

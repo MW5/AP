@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    <title> Rejestr operacji magazynowych </title>
+    <title> {{$resource->name}} - szczegóły </title>
 @endsection
 
 @section('logged_user')

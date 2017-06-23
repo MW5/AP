@@ -31,7 +31,7 @@ class ResourcesManagerController extends Controller
             'critical_quantity'=>'required|min:0|numeric',
             'capacity'=>'max:20',
             'proportions'=>'max:20',
-            'description'=>'required|max:400'
+            'description'=>'required|min:5|max:400'
         ]);
         $resource = new Resource();
         $resource->name = $request->name;
@@ -69,7 +69,7 @@ class ResourcesManagerController extends Controller
         }
         
         foreach ($qtyArr as $qty) {
-            if($qty<0) {
+            if($qty<0 || !is_numeric($qty)) {
                 $arrBadVal = true;
             }
             if($qty>0) {
@@ -100,7 +100,7 @@ class ResourcesManagerController extends Controller
             Session::flash('message', 'Nie określono żadnej wartości dodatniej'); 
             Session::flash('alert-class', 'alert-warning'); 
         }else {
-            Session::flash('message', 'Nie można przyjąć wartości ujemnej'); 
+            Session::flash('message', 'Błędna wartość'); 
             Session::flash('alert-class', 'alert-warning'); 
         }
         return back();
