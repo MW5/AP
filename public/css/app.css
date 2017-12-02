@@ -89,6 +89,7 @@ footer {
     border-radius: 0px;
 }
 .modal_styled .panel_styled {
+    font-weight: bold;
     color: rgb(76, 72, 180);
     background: rgb(187, 185, 241);
     border-color: rgb(76, 72, 180);
@@ -96,28 +97,23 @@ footer {
 
 /*buttons*/
 .btn_styled {
+    padding: 6px 12px;
     background: rgb(76, 72, 180);
     color: white;
+    border: none;
     border-radius: 0px;
-}
-                        /*these ones are stupid*/
-                        /*must probably get rid of the safe/warn classes*/
-.btn_safe, .btn_warning {
     transition: 0.5s ease-in-out;
-    border: none;
 }
-.btn_safe:hover{  
-    background: #99ff99;
+.btn_styled:hover {
+    background: rgb(187, 185, 241);
+    color: rgb(76, 72, 180);
     border: none;
-}
-.btn_warning:hover {
-    background: #ff9999;
-    border: none;
+    text-decoration: none;
 }
 
 /*aplication tables*/
 .ap_table_container {
-/*    margin-top: 50px;*/
+
 }
 .ap_table {
     color: white;
@@ -142,56 +138,48 @@ footer {
     background-position:right;
 }
 
-.clickable-row {
+.clickable_row {
     transition: all 0.5s ease-in-out;
     cursor: pointer;
 }
 
-.clickable-row:hover {
+.clickable_row:hover {
+    color: rgb(76, 72, 180);
+    background-position: left;
+}
+.clickable_row_no_href {
+    transition: all 0.5s ease-in-out;
+    cursor: pointer;
+}
+
+.clickable_row_no_href:hover {
     color: rgb(76, 72, 180);
     background-position: left;
 }
 
+                    /*figure out an aesthetic way to signal low quantities - coloured dots?*/
 .normal_quantity {
-/*    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    border: 1px solid green;
-    font-size: 14px;
-    line-height: 14px;
-    text-align: center;*/
+
 }
 .low_quantity {
-/*    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    border: 1px solid yellow;
-    font-size: 14px;
-    line-height: 14px;
-    text-align: center;*/
+
 }
 .critical_quantity {
-/*    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    border: 1px solid red;
-    font-size: 14px;
-    line-height: 14px;
-    text-align: center;*/
-}
 
+}
+                        /*figure out a way to distinguish deliveries from warehouse releases - a green upside triangle on accept?*/
 /*warehouse operations*/
 .ap_table .even_accept_delivery {
-    background-color: #ccffcc
+    /*background-color: #ccffcc*/
 }
 .ap_table .odd_accept_delivery {
-    background-color: #b3ffb3
+    /*background-color: #b3ffb3*/
 }
 .ap_table .even_warehouse_release {
-    background-color: #ffcccc
+    /*background-color: #ffcccc*/
 }
 .ap_table .odd_warehouse_release {
-    background-color: #ffb3b3
+    /*background-color: #ffb3b3*/
 }
 
 /*application control*/

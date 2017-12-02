@@ -51,10 +51,11 @@ $(document).ready(function() {
     
     
     //clickable rows and checkbox click fix
-    $(".clickable-row").click(function(e) {
+    $(".clickable_row").click(function(e) {
         if (e.target.type == "checkbox") {
             e.stopPropagation();
-        } else {
+        }
+        else {
             window.location = $(this).data("href");
         }
     });

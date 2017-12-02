@@ -34,8 +34,8 @@
     <div class='container ap_table_container'>
         @if (Auth::user()->account_type == "administrator")
             <div class='ap_action_bar'>
-                <button type="button" class="btn btn_styled btn_safe" data-toggle="modal" data-target="#add_user_modal">Dodaj użytkownika</button>
-                <button form="remove_users_form" type="submit" class="btn btn_styled btn_warning">Usuń zaznaczonych użytkowników</button>
+                <button type="button" class="btn_styled" data-toggle="modal" data-target="#add_user_modal">Dodaj użytkownika</button>
+                <button form="remove_users_form" type="submit" class="btn_styled">Usuń zaznaczonych użytkowników</button>
             </div>
         @endif
         <table class='ap_table'>
@@ -51,9 +51,13 @@
                 @foreach($users as $user)
                     <?php
                         if($counter%2==0) {
-                            echo"<tr class='even'>";
+                            ?>
+                        <tr class='even clickable_row_no_href' data-toggle="modal" data-target="#edit_user_modal" data-user="$user">
+                            <?php
                         } else {
-                            echo"<tr class ='odd'>";
+                            ?>
+                            <tr class ='odd clickable_row_no_href' data-toggle="modal" data-target="#edit_user_modal">
+                            <?php
                         }?>
                     
                         <td>
@@ -78,6 +82,7 @@
         </table>
     </div>
 
+    <!--add user modal-->
     <div class="modal fade" tabindex="-1" role="dialog" id="add_user_modal">
         <div class="modal-dialog" role="document">
             <div class="modal-content modal_styled">
@@ -92,6 +97,50 @@
                         
                         <div class="form-group">
                             <label for="name">Nazwa użytkownika:</label>
+                            <input id="name" type="text" class="form-control" name="name" placeholder="3-30 znaków"
+                                value="{{ old('name') }}">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Adres email:</label>
+                            <input id="email" type="text" class="form-control" name="email" placeholder="6-40 znaków"
+                                value="{{ old('email') }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="account_type">Typ konta:</label></br>
+                            <input id="account_type" type="radio"  name="account_type" value='użytkownik'><span class='ap_radio_label'>Użytkownika</span></br>
+                            <input id="account_type" type="radio"  name="account_type" value='administrator'><span class='ap_radio_label'>Administracyjne</span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="password">Hasło:</label>
+                            <input id ="password" type="password" class="form-control" name="password" placeholder="6-20 znaków">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn_styled btn_warning" data-dismiss="modal">Zamknij</button>
+                    <button form="add_user_form" type="submit" class="btn btn_styled btn_safe">Dodaj użytkownika</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+<!--    edit user modal-->
+    <div class="modal fade" tabindex="-1" role="dialog" id="edit_user_modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content modal_styled">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Dodaj użytkownika</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="add_user_form" method="POST" action="/userManager/addUser">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        
+                        <div class="form-group">
+                            <label for="name"></label>
                             <input id="name" type="text" class="form-control" name="name" placeholder="3-30 znaków"
                                 value="{{ old('name') }}">
                         </div>

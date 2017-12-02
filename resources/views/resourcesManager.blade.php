@@ -34,11 +34,11 @@
     <div class='container ap_table_container'>
         @if (Auth::user()->account_type == "administrator")
             <div class='ap_action_bar'>
-                <button type="button" class="btn btn_styled btn_safe" data-toggle="modal" data-target="#add_resource_modal">Dodaj zasób</button>
-                <button form="remove_resources_form" type="submit" class="btn btn_styled btn_warning">Usuń zaznaczone zasoby</button>
-                <button type="button" class="btn btn_styled btn_safe" data-toggle="modal" data-target="#accept_delivery_modal">Przyjmij dostawę</button>
-                <button type="button" class="btn btn_styled btn_safe" data-toggle="modal" data-target="#warehouse_release_modal">Wydaj zasoby</button>
-                <a href='resourcesManager/warehouseOperations' class="btn btn_styled btn_safe">Rejestr operacji magazynowych</a>
+                <button type="button" class="btn_styled" data-toggle="modal" data-target="#add_resource_modal">Dodaj zasób</button>
+                <button form="remove_resources_form" type="submit" class="btn_styled">Usuń zaznaczone zasoby</button>
+                <button type="button" class="btn_styled" data-toggle="modal" data-target="#accept_delivery_modal">Przyjmij dostawę</button>
+                <button type="button" class=" btn_styled" data-toggle="modal" data-target="#warehouse_release_modal">Wydaj zasoby</button>
+                <a href='resourcesManager/warehouseOperations' class="btn_styled">Rejestr operacji magazynowych</a>
             </div>
         @endif
         <table class='ap_table'>
@@ -53,15 +53,14 @@
                 </tr>
                 <?php $counter=0?>
                 @foreach($resources as $resource)
-                    
                         <?php
                             if($counter%2==0) {
                                 ?>
-                            <tr class='even clickable-row' data-href='resourcesManager/{{$resource->id}}'>
+                            <tr class='even clickable_row' data-href='resourcesManager/{{$resource->id}}'>
                                 <?php
                             } else {
                                 ?>
-                                <tr class ='odd clickable-row' data-href='resourcesManager/{{$resource->id}}'>
+                                <tr class ='odd clickable_row' data-href='resourcesManager/{{$resource->id}}'>
                                 <?php
                             }?>
                             <td>
@@ -164,16 +163,18 @@
                         <input type="hidden" name="user_name" value="{{Auth::user()->name}}">
                         
                         @foreach ($resources as $resource)
-                            <div class="form-group">
-                                <label class="control-label col-sm-6 horizontal_label" for="{{$resource->name}}_field_accept">{{$resource->name}}</label>
-                                <div class="col-sm-4">
-                                    <button type="button" class="resource_increase" id="{{$resource->id}}_inc_btn_accept">+</button>
-                                    <button type="button" class="resource_decrease" id="{{$resource->id}}_dec_btn_accept">-</button>
-                                </div>
-                                <div class="col-sm-2">
-                                    <input type="hidden" name="res_id[]" value="{{$resource->id}}">
-                                    <input id="{{$resource->id}}_field_accept" type="text" class="form-control horizontal_input" name="qty_field_accept[]"
-                                           value="0">
+                            <div class="row">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-6 horizontal_label" for="{{$resource->name}}_field_accept">{{$resource->name}}</label>
+                                    <div class="col-sm-4">
+                                        <button type="button" class="resource_increase" id="{{$resource->id}}_inc_btn_accept">+</button>
+                                        <button type="button" class="resource_decrease" id="{{$resource->id}}_dec_btn_accept">-</button>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <input type="hidden" name="res_id[]" value="{{$resource->id}}">
+                                        <input id="{{$resource->id}}_field_accept" type="text" class="form-control horizontal_input" name="qty_field_accept[]"
+                                               value="0">
+                                    </div>
                                 </div>
                             </div>
                         @endforeach

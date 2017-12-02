@@ -34,11 +34,11 @@
     <div class='container ap_table_container'>
         @if (Auth::user()->account_type == "administrator")
             <div class='ap_action_bar'>
-                <a href='/resourcesManager' class="btn btn_styled btn_safe">Wróć</a>
+                <a href='/resourcesManager' class="btn_styled">Wróć</a>
                 <!--<button type="button" class="btn btn_grey btn_green" data-toggle="modal" data-target="#report_modal">Raportuj</button>-->
                 
                 <!--TEMPORATY SOLUTION-->
-                <button type="button" class="btn btn_styled btn_safe" id="report_warehouse_operations">Raportuj</button>
+                <button type="button" class="btn_styled" id="report_warehouse_operations">Raportuj</button>
                 
             </div>
         @endif
@@ -56,19 +56,11 @@
                     <?php
                         if($counter%2==0) {
                             ?>
-                            @if($wO->operation_type == "przyjęcie magazynowe")
-                                <tr class='even_accept_delivery'>
-                            @else
-                                <tr class='even_warehouse_release'>
-                            @endif
+                            <tr class='even'>
                         <?php
                         } else {
                             ?>
-                            @if($wO->operation_type == "przyjęcie magazynowe")
-                                <tr class='odd_accept_delivery'>
-                            @else
-                                <tr class='odd_warehouse_release'>
-                            @endif
+                            <tr class='odd'>
                         <?php
                         }?>
                         
