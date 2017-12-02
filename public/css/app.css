@@ -1,12 +1,48 @@
+/*paletton base rbg three colors FF796B*/
+/*nav background: rgb(76, 72, 180);*/
+/*body background: rgb(187, 185, 241);*/
+/*text color: color: rgb(255, 251, 186);*/
+
 html {
     position: relative;
     min-height: 100%;
+    color: white;
 }
 
 body {
-    margin: 0 0 100px; /* bottom = footer height */
+    margin: 0 0 100px;  /*bottom = footer height*/ 
     padding: 25px;
-    background-color: #f2f2f2;
+    background-color: rgb(187, 185, 241);
+}
+
+.navbar {
+    background: rgb(76, 72, 180);
+    border: none;
+}
+
+.navbar-brand {
+    color: white;
+}
+
+.navbar a {
+    transition: all 0.5s ease-in-out;
+    color: white;
+    background: linear-gradient(to top, rgb(187, 185, 241) 50%,  rgb(76, 72, 180) 50%);
+    background-size: 100% 200%;
+    background-position:left top;
+
+}
+.navbar:hover a:hover {
+    color: rgb(76, 72, 180);
+    background-position:left bottom;
+}
+/*current module*/
+.curr_module a {
+    color: rgb(76, 72, 180);
+    background: rgb(187, 185, 241);
+}
+.curr_module:hover a:hover {
+    background: rgb(187, 185, 241);
 }
 
 footer {
@@ -19,7 +55,7 @@ footer {
 
 
 #user_greet {
-    font-weight: bold;
+    /*font-weight: bold;*/
 }
 
 .askbox_container {
@@ -49,30 +85,27 @@ footer {
 }
 
 .modal_light_grey {
-    background-color: #f2f2f2;
-}
-
-/*current module*/
-.curr_module {
-    font-weight: bold;
+    background: #f2f2f2;
 }
 
 /*buttons*/
-.btn_grey {
-    background-color: #e2e3e5;
+.btn_styled {
+    background: rgb(76, 72, 180);
+    color: white;
+    border-radius: 0px;
 }
-.btn_green, .btn_red {
-    border: none;
-    color: #333;
-}
-.btn_green:hover{
+                        /*these ones are stupid*/
+                        /*must probably get rid of the safe/warn classes*/
+.btn_safe, .btn_warning {
     transition: 0.5s ease-in-out;
-    background-color: #99ff99;
     border: none;
 }
-.btn_red:hover {
-    transition: 0.5s ease-in-out;
-    background-color: #ff9999;
+.btn_safe:hover{  
+    background: #99ff99;
+    border: none;
+}
+.btn_warning:hover {
+    background: #ff9999;
     border: none;
 }
 
@@ -81,36 +114,64 @@ footer {
     margin-top: 50px;
 }
 .ap_table {
+    color: white;
     width: 100%;
+    border-collapse: initial;
 }
 .ap_table th, td {
     text-align: center;
     height: 35px;
 }
 .ap_table th {
-    background-color: #A0A5AB
+    background: rgb(76, 72, 180);
 }
 .ap_table .even {
-    background-color: #cccccc
+    background: linear-gradient(to left, rgb(137, 133, 237) 50%,  rgb(187, 185, 241) 50%);
+    background-size: 200% 100%;
+    background-position:right;
 }
 .ap_table .odd {
-    background-color: #e2e3e5
+    background: linear-gradient(to left, rgb(169, 167, 240) 50%,  rgb(187, 185, 241) 50%);
+    background-size: 200% 100%;
+    background-position:right;
 }
 
-.clickable-row:hover {
+.clickable-row {
     transition: all 0.5s ease-in-out;
-    background-color: #bfbfbf;
     cursor: pointer;
 }
 
+.clickable-row:hover {
+    color: rgb(76, 72, 180);
+    background-position: left;
+}
+
 .normal_quantity {
-    color: green;
+/*    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 1px solid green;
+    font-size: 14px;
+    line-height: 14px;
+    text-align: center;*/
 }
 .low_quantity {
-    color: yellow;
+/*    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 1px solid yellow;
+    font-size: 14px;
+    line-height: 14px;
+    text-align: center;*/
 }
 .critical_quantity {
-    color: red;
+/*    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 1px solid red;
+    font-size: 14px;
+    line-height: 14px;
+    text-align: center;*/
 }
 
 /*warehouse operations*/

@@ -11,7 +11,7 @@
 @endsection
 
 @section('logout_btn')
-    <ul class="nav navbar-nav pull-right">
+    <ul class="nav navbar-nav navbar-right">
         <li><a href="{{ url('/logout') }}"
                 onclick="event.preventDefault();
                          document.getElementById('logout-form').submit();">
@@ -34,8 +34,8 @@
     <div class='container ap_table_container'>
         @if (Auth::user()->account_type == "administrator")
             <div class='ap_action_bar'>
-                <button type="button" class="btn btn_grey btn_green" data-toggle="modal" data-target="#add_user_modal">Dodaj użytkownika</button>
-                <button form="remove_users_form" type="submit" class="btn btn_grey btn_red">Usuń zaznaczonych użytkowników</button>
+                <button type="button" class="btn btn_styled btn_safe" data-toggle="modal" data-target="#add_user_modal">Dodaj użytkownika</button>
+                <button form="remove_users_form" type="submit" class="btn btn_styled btn_warning">Usuń zaznaczonych użytkowników</button>
             </div>
         @endif
         <table class='ap_table'>
@@ -114,8 +114,8 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn_grey btn_red" data-dismiss="modal">Zamknij</button>
-                    <button form="add_user_form" type="submit" class="btn btn_grey btn_green">Dodaj użytkownika</button>
+                    <button type="button" class="btn btn_styled btn_warning" data-dismiss="modal">Zamknij</button>
+                    <button form="add_user_form" type="submit" class="btn btn_styled btn_safe">Dodaj użytkownika</button>
                 </div>
             </div>
         </div>

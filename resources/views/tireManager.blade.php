@@ -11,7 +11,7 @@
 @endsection
 
 @section('logout_btn')
-    <ul class="nav navbar-nav pull-right">
+    <ul class="nav navbar-nav navbar-right">
         <li><a href="{{ url('/logout') }}"
                 onclick="event.preventDefault();
                          document.getElementById('logout-form').submit();">

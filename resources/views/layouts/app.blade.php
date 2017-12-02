@@ -33,25 +33,23 @@
                 </div>
         @endif
         
-        <nav class="navbar navbar-default navbar-fixed-top">
+        <nav class="navbar navbar-fixed-top">
             <div class="container-fluid">
-              <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav_links" aria-expanded="false">
-                  <span class="sr-only">Toggle navigation</span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand">
-                    @yield('logged_user')
-                </a>
-              </div>
-              <div class="collapse navbar-collapse" id="nav_links">
-                <ul class="nav navbar-nav pull-left">
-                    @yield('nav_choices')
-                </ul>
-                  @yield('logout_btn')
-              </div>
+                <div class="navbar-header">
+                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav_links" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                  </button>
+                  <span class="navbar-brand">
+                      @yield('logged_user')
+                  </span>
+                </div>
+                  <ul class="nav navbar-nav navbar-left">
+                      @yield('nav_choices')
+                  </ul>
+                      @yield('logout_btn')
             </div>
         </nav>
         

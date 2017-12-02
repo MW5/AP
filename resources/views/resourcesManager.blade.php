@@ -11,7 +11,7 @@
 @endsection
 
 @section('logout_btn')
-    <ul class="nav navbar-nav pull-right">
+    <ul class="nav navbar-nav navbar-right">
         <li><a href="{{ url('/logout') }}"
                 onclick="event.preventDefault();
                          document.getElementById('logout-form').submit();">
@@ -34,11 +34,11 @@
     <div class='container ap_table_container'>
         @if (Auth::user()->account_type == "administrator")
             <div class='ap_action_bar'>
-                <button type="button" class="btn btn_grey btn_green" data-toggle="modal" data-target="#add_resource_modal">Dodaj zasób</button>
-                <button form="remove_resources_form" type="submit" class="btn btn_grey btn_red">Usuń zaznaczone zasoby</button>
-                <button type="button" class="btn btn_grey btn_green" data-toggle="modal" data-target="#accept_delivery_modal">Przyjmij dostawę</button>
-                <button type="button" class="btn btn_grey btn_green" data-toggle="modal" data-target="#warehouse_release_modal">Wydaj zasoby</button>
-                <a href='resourcesManager/warehouseOperations' class="btn btn_grey btn_green">Rejestr operacji magazynowych</a>
+                <button type="button" class="btn btn_styled btn_safe" data-toggle="modal" data-target="#add_resource_modal">Dodaj zasób</button>
+                <button form="remove_resources_form" type="submit" class="btn btn_styled btn_warning">Usuń zaznaczone zasoby</button>
+                <button type="button" class="btn btn_styled btn_safe" data-toggle="modal" data-target="#accept_delivery_modal">Przyjmij dostawę</button>
+                <button type="button" class="btn btn_styled btn_safe" data-toggle="modal" data-target="#warehouse_release_modal">Wydaj zasoby</button>
+                <a href='resourcesManager/warehouseOperations' class="btn btn_styled btn_safe">Rejestr operacji magazynowych</a>
             </div>
         @endif
         <table class='ap_table'>
@@ -80,6 +80,7 @@
                             @else
                                 <td class="normal_quantity">
                             @endif
+
                                 {{$resource->quantity}}
                             </td>
                             <td>
@@ -141,8 +142,8 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn_grey btn_red" data-dismiss="modal">Zamknij</button>
-                    <button form="add_resource_form" type="submit" class="btn btn_grey btn_green">Dodaj zasób</button>
+                    <button type="button" class="btn btn_styled btn_warning" data-dismiss="modal">Zamknij</button>
+                    <button form="add_resource_form" type="submit" class="btn btn_styled btn_safe">Dodaj zasób</button>
                 </div>
             </div>
         </div>
@@ -184,8 +185,8 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn_grey btn_red" data-dismiss="modal">Zamknij</button>
-                    <button form="accept_delivery_form" type="submit" class="btn btn_grey btn_green">Przymij dostawę</button>
+                    <button type="button" class="btn btn_styled btn_warning" data-dismiss="modal">Zamknij</button>
+                    <button form="accept_delivery_form" type="submit" class="btn btn_styled btn_safe">Przymij dostawę</button>
                 </div>
             </div>
         </div>
@@ -222,8 +223,8 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn_grey btn_red" data-dismiss="modal">Zamknij</button>
-                    <button form="warehouse_release_form" type="submit" class="btn btn_grey btn_green">Wydaj</button>
+                    <button type="button" class="btn btn_styled btn_warning" data-dismiss="modal">Zamknij</button>
+                    <button form="warehouse_release_form" type="submit" class="btn btn_styled btn_safe">Wydaj</button>
                 </div>
             </div>
         </div>

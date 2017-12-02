@@ -26,7 +26,7 @@ class userManagerController extends Controller
 
     function addUser(Request $request) {
         $this->validate($request,[
-            'name'=>'required|min:3|max:30',
+            'name'=>'required|min:3|max:30|unique:users',
             'email'=>'required|min:6|max:40|unique:users',
             'account_type'=>'required',
             'password'=>'required|min:6|max:20'

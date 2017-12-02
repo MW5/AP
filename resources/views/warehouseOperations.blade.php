@@ -11,7 +11,7 @@
 @endsection
 
 @section('logout_btn')
-    <ul class="nav navbar-nav pull-right">
+    <ul class="nav navbar-nav navbar-right">
         <li><a href="{{ url('/logout') }}"
                 onclick="event.preventDefault();
                          document.getElementById('logout-form').submit();">
@@ -34,11 +34,11 @@
     <div class='container ap_table_container'>
         @if (Auth::user()->account_type == "administrator")
             <div class='ap_action_bar'>
-                <a href='/resourcesManager' class="btn btn_grey btn_green">Wróć</a>
+                <a href='/resourcesManager' class="btn btn_styled btn_safe">Wróć</a>
                 <!--<button type="button" class="btn btn_grey btn_green" data-toggle="modal" data-target="#report_modal">Raportuj</button>-->
                 
                 <!--TEMPORATY SOLUTION-->
-                <button type="button" class="btn btn_grey btn_green" id="report_warehouse_operations">Raportuj</button>
+                <button type="button" class="btn btn_styled btn_safe" id="report_warehouse_operations">Raportuj</button>
                 
             </div>
         @endif
@@ -122,8 +122,8 @@
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn_grey btn_red" data-dismiss="modal">Zamknij</button>
-                        <button form="report_warehouse_operations_form" type="submit" class="btn btn_grey btn_green">Raportuj</button>
+                        <button type="button" class="btn btn_styled btn_warning" data-dismiss="modal">Zamknij</button>
+                        <button form="report_warehouse_operations_form" type="submit" class="btn btn_styled btn_safe">Raportuj</button>
                     </div>
                 </div>
             </div>

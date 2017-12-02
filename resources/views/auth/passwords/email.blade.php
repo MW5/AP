@@ -36,7 +36,7 @@
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn_grey btn_green">
+                                <button type="submit" class="btn btn_styled btn_safe">
                                     Wyślij link resetujący hasło
                                 </button>
                             </div>
