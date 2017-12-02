@@ -4,8 +4,8 @@
 <div class="container askbox_container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default modal_light_grey">
-                <div class="panel-heading">Zaloguj się</div>
+            <div class="panel panel-default modal_styled">
+                <div class="panel-heading panel_styled">Zaloguj się</div>
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST" action="{{ route('login') }}">
                         {{ csrf_field() }}

@@ -11,19 +11,17 @@ html {
 
 body {
     margin: 0 0 100px;  /*bottom = footer height*/ 
-    padding: 25px;
     background-color: rgb(187, 185, 241);
 }
 
+/*navbar*/
 .navbar {
     background: rgb(76, 72, 180);
     border: none;
 }
-
 .navbar-brand {
     color: white;
 }
-
 .navbar a {
     transition: all 0.5s ease-in-out;
     color: white;
@@ -36,6 +34,7 @@ body {
     color: rgb(76, 72, 180);
     background-position:left bottom;
 }
+
 /*current module*/
 .curr_module a {
     color: rgb(76, 72, 180);
@@ -52,7 +51,6 @@ footer {
     width: 100%;
     overflow:hidden;
 }
-
 
 #user_greet {
     /*font-weight: bold;*/
@@ -84,8 +82,16 @@ footer {
     z-index: 10000;
 }
 
-.modal_light_grey {
-    background: #f2f2f2;
+.modal_styled {
+    color: rgb(76, 72, 180);
+    background: rgb(187, 185, 241);
+    border-color: rgb(76, 72, 180);
+    border-radius: 0px;
+}
+.modal_styled .panel_styled {
+    color: rgb(76, 72, 180);
+    background: rgb(187, 185, 241);
+    border-color: rgb(76, 72, 180);
 }
 
 /*buttons*/
@@ -111,7 +117,7 @@ footer {
 
 /*aplication tables*/
 .ap_table_container {
-    margin-top: 50px;
+/*    margin-top: 50px;*/
 }
 .ap_table {
     color: white;

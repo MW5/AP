@@ -101,7 +101,7 @@
     <!--add resource modal-->
     <div class="modal fade" tabindex="-1" role="dialog" id="add_resource_modal">
         <div class="modal-dialog" role="document">
-            <div class="modal-content modal_light_grey">
+            <div class="modal-content modal_styled">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span></button>
@@ -152,7 +152,7 @@
     <!--accept delivery modal-->  
     <div class="modal fade" tabindex="-1" role="dialog" id="accept_delivery_modal">
         <div class="modal-dialog" role="document">
-            <div class="modal-content modal_light_grey">
+            <div class="modal-content modal_styled">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span></button>
@@ -195,7 +195,7 @@
      <!--warehouse release modal-->  
     <div class="modal fade" tabindex="-1" role="dialog" id="warehouse_release_modal">
         <div class="modal-dialog" role="document">
-            <div class="modal-content modal_light_grey">
+            <div class="modal-content modal_styled">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span></button>

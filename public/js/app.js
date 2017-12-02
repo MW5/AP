@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    
     //alert box
     setTimeout(
         function(){
@@ -71,6 +72,7 @@ $(document).ready(function() {
         win.close();
         return false;
     });
+    
     
 });
 
