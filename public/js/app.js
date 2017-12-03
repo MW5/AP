@@ -13,8 +13,6 @@ $(document).ready(function() {
         var currVal = $("#"+inputFieldId).val();
         currVal++;
         $("#"+inputFieldId).val(currVal);
-        console.log(clickedBtnId);
-        console.log(inputFieldId);
     });
     $(".resource_decrease").click(function() {
         var clickedBtnId = $(this).attr("id");
@@ -59,7 +57,7 @@ $(document).ready(function() {
             window.location = $(this).data("href");
         }
     });
-    //user edit clickable row
+    // user edit clickable row
     $(".clickable_row_no_href").click(function(e) {
       //default password change safeguard behaviour
       $("#edit_password").prop("disabled", true);

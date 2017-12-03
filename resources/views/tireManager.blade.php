@@ -26,6 +26,7 @@
 
 @section('nav_choices')
     <li><a href="/resourcesManager">Moduł zasobów magazynowych</a></li>
+    <li><a href="/supplierManager">Moduł dostawców</a></li>
     <li class='curr_module'><a href="/tireManager">Moduł opon</a></li>
     <li><a href="/userManager">Moduł użytkowników</a></li>
 @endsection

@@ -43,18 +43,21 @@ class userManagerController extends Controller
     }
 
     function editUser(Request $request) {
+      $user =  User::find($request->id);
+
         $this->validate($request,[
-            'name'=>'required|min:3|max:30|unique:users',
-            'email'=>'required|min:6|max:40|unique:users',
+            'name'=>'required|min:3|max:30|unique:users,name,'.$user->id,
+            'email'=>'required|min:6|max:40|unique:users,email,'.$user->id,
             'account_type'=>'required',
-            'password'=>'required|min:6|max:20'
+            'password'=>'min:6|max:20'
         ]);
-        $user =  User::find($request->id);
+
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
         $user->account_type = $request->account_type;
-        $user->save();
+        $user->update();
+
         Session::flash('message', 'Pomyślnie edytowano użytkownika '.$user->name);
         Session::flash('alert-class', 'alert-success');
         return back();

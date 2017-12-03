@@ -26,6 +26,7 @@
 
 @section('nav_choices')
     <li><a href="/resourcesManager">Moduł zasobów magazynowych</a></li>
+    <li><a href="/supplierManager">Moduł dostawców</a></li>
     <li><a href="/tireManager">Moduł opon</a></li>
     <li class='curr_module'><a href="/userManager">Moduł użytkowników</a></li>
 @endsection
@@ -146,28 +147,26 @@
                 <div class="modal-body">
                     <form id="edit_user_form" method="POST" action="/userManager/editUser">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                        <input id="user_id" type="hidden" name="user_id">
+                        <input id="edit_id" type="hidden" name="id">
 
                         <div class="form-group">
                             <label for="edit_name">Nazwa użytkownika:</label>
-                            <input id="edit_name" type="text" class="form-control" name="edit_name" placeholder="3-30 znaków"
-                                value="{{ old('edit_name') }}">
+                            <input id="edit_name" type="text" class="form-control" name="name" placeholder="3-30 znaków">
                         </div>
 
                         <div class="form-group">
                             <label for="edit_email">Adres email:</label>
-                            <input id="edit_email" type="text" class="form-control" name="edit_email" placeholder="6-40 znaków"
-                                value="{{ old('edit_email') }}">
+                            <input id="edit_email" type="text" class="form-control" name="email" placeholder="6-40 znaków">
                         </div>
                         <div class="form-group">
                             <label for="edit_account_type">Typ konta:</label></br>
-                            <input id="edit_radio_user" type="radio"  name="edit_account_type" value='użytkownik'><span class='ap_radio_label'>Użytkownika</span></br>
-                            <input id="edit_radio_admin" type="radio"  name="edit_account_type" value='administrator'><span class='ap_radio_label'>Administracyjne</span>
+                            <input id="edit_radio_user" type="radio"  name="account_type" value='użytkownik'><span class='ap_radio_label'>Użytkownika</span></br>
+                            <input id="edit_radio_admin" type="radio"  name="account_type" value='administrator'><span class='ap_radio_label'>Administracyjne</span>
                         </div>
 
                         <div class="form-group">
                             <input id="edit_pass_change_confirmation" type="checkbox"><label for="edit_password">Zmień hasło:</label>
-                            <input id ="edit_password" type="password" class="form-control" name="edit_password" placeholder="6-20 znaków">
+                            <input id ="edit_password" type="password" class="form-control" name="password" placeholder="6-20 znaków">
                         </div>
                     </form>
                 </div>

@@ -26,6 +26,7 @@
 
 @section('nav_choices')
     <li class='curr_module'><a href="/resourcesManager">Moduł zasobów magazynowych</a></li>
+    <li><a href="/supplierManager">Moduł dostawców</a></li>
     <li><a href="/tireManager">Moduł opon</a></li>
     <li><a href="/userManager">Moduł użytkowników</a></li>
 @endsection
@@ -90,9 +91,9 @@
                             </td>
                         </tr>
                         <?php $counter+=1;?>
-                    
+
                 @endforeach
-                <?php $counter=0?>  
+                <?php $counter=0?>
             </form>
         </table>
     </div>
@@ -109,19 +110,19 @@
                 <div class="modal-body">
                     <form id="add_resource_form" method="POST" action="/resourcesManager/addResource">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                        
+
                         <div class="form-group">
                             <label for="name">Nazwa:</label>
                             <input id="name" type="text" class="form-control" name="name" placeholder="1-50 znaków"
                                 value="{{ old('name') }}">
                         </div>
-                        
+
                         <div class="form-group">
                             <label for="critical_quantity">Minimalna ilość zamkniętych opakowań:</label>
                             <input id="critical_quantity" type="text" class="form-control" name="critical_quantity" placeholder="wartość liczbowa >= 0"
                                 value="{{ old('critical_quantity') }}">
                         </div>
-                        
+
                         <div class="form-group">
                             <label for="capacity">Pojemność opakowania:</label>
                             <input id="capacity" type="text" class="form-control" name="capacity" placeholder="niewymagane, do 20 znaków"
@@ -132,7 +133,7 @@
                             <input id="proportions" type="text" class="form-control" name="proportions" placeholder="niewymagane, do 20 znaków"
                                 value="{{ old('proportions') }}">
                         </div>
-                        
+
                         <div class="form-group">
                             <label for="description">Opis:</label>
                             <textarea id ="description" class="form-control" name="description" placeholder="5 do 400 znaków"
@@ -148,7 +149,7 @@
         </div>
     </div>
 
-    <!--accept delivery modal-->  
+    <!--accept delivery modal-->
     <div class="modal fade" tabindex="-1" role="dialog" id="accept_delivery_modal">
         <div class="modal-dialog" role="document">
             <div class="modal-content modal_styled">
@@ -161,7 +162,7 @@
                     <form class='ap_form' id="accept_delivery_form" method="POST" action="/resourcesManager/acceptDelivery">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <input type="hidden" name="user_name" value="{{Auth::user()->name}}">
-                        
+
                         @foreach ($resources as $resource)
                             <div class="row">
                                 <div class="form-group">
@@ -192,8 +193,8 @@
             </div>
         </div>
     </div>
-    
-     <!--warehouse release modal-->  
+
+     <!--warehouse release modal-->
     <div class="modal fade" tabindex="-1" role="dialog" id="warehouse_release_modal">
         <div class="modal-dialog" role="document">
             <div class="modal-content modal_styled">
@@ -206,7 +207,7 @@
                     <form id="warehouse_release_form" class='form-horizontal' method="POST" action="/resourcesManager/warehouseRelease">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <input type="hidden" name="user_name" value="{{Auth::user()->name}}">
-                        
+
                         @foreach ($resources as $resource)
                             <div class="form-group">
                                 <label class="control-label col-sm-6 horizontal_label" for="{{$resource->name}}_field_release">{{$resource->name}}</label>

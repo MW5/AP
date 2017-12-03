@@ -26,6 +26,7 @@
 
 @section('nav_choices')
     <li class='curr_module'><a href="/resourcesManager">Moduł zasobów magazynowych</a></li>
+    <li><a href="/supplierManager">Moduł dostawców</a></li>
     <li><a href="/tireManager">Moduł opon</a></li>
     <li><a href="/userManager">Moduł użytkowników</a></li>
 @endsection
@@ -36,10 +37,10 @@
             <div class='ap_action_bar'>
                 <a href='/resourcesManager' class="btn_styled">Wróć</a>
                 <!--<button type="button" class="btn btn_grey btn_green" data-toggle="modal" data-target="#report_modal">Raportuj</button>-->
-                
+
                 <!--TEMPORATY SOLUTION-->
                 <button type="button" class="btn_styled" id="report_warehouse_operations">Raportuj</button>
-                
+
             </div>
         @endif
         <table class='ap_table'>
@@ -63,7 +64,7 @@
                             <tr class='odd'>
                         <?php
                         }?>
-                        
+
                         <td>
                             {{$wO->resource_name}}
                         </td>
@@ -89,11 +90,11 @@
                     </tr>
                     <?php $counter+=1;?>
                 @endforeach
-                <?php $counter=0?>  
+                <?php $counter=0?>
             </form>
         </table>
-        
-        <!--report modal-->  
+
+        <!--report modal-->
         <div class="modal fade" tabindex="-1" role="dialog" id="report_modal">
             <div class="modal-dialog" role="document">
                 <div class="modal-content modal_styled">
