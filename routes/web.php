@@ -30,8 +30,6 @@ Route::get('/resourcesManager/{resource}', 'PageController@resourceDetails');
 Route::get('/userManager', 'PageController@userManager');
 Route::post('/userManager/addUser', 'UserManagerController@addUser');
 Route::post('/userManager/removeUsers', 'UserManagerController@removeUsers');
+Route::post('/userManager/editUser', 'UserManagerController@editUser');
 
 Route::get('/tireManager', 'PageController@tireManager');
-
-
-

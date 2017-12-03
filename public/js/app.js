@@ -1,11 +1,11 @@
 $(document).ready(function() {
-    
+
     //alert box
     setTimeout(
         function(){
             $(".alert_box").fadeOut();
         }, 2000);
-        
+
     //accept delivery increase/decrease buttons
     $(".resource_increase").click(function() {
         var clickedBtnId = $(this).attr("id");
@@ -25,7 +25,7 @@ $(document).ready(function() {
             $("#"+inputFieldId).val(currVal);
         }
     });
-    
+
         //warehouse release increase/decrease buttons
     $(".resource_increase").click(function() {
         var clickedBtnId = $(this).attr("id");
@@ -43,13 +43,13 @@ $(document).ready(function() {
             $("#"+inputFieldId).val(currVal);
         }
     });
-    
+
     //draggable modal
     $(".modal-dialog").draggable({
         handle: ".modal-header"
-    }); 
-    
-    
+    });
+
+
     //clickable rows and checkbox click fix
     $(".clickable_row").click(function(e) {
         if (e.target.type == "checkbox") {
@@ -59,7 +59,42 @@ $(document).ready(function() {
             window.location = $(this).data("href");
         }
     });
-    
+    //user edit clickable row
+    $(".clickable_row_no_href").click(function(e) {
+      //default password change safeguard behaviour
+      $("#edit_password").prop("disabled", true);
+      $("#edit_pass_change_confirmation").prop("checked", false);
+      //fill user data
+      if (e.target.type == "checkbox") {
+          e.stopPropagation();
+      }
+      else {
+        var userId = $(this).data("userId");
+        var userName = $(this).data("userName");
+        var userEmail = $(this).data("userEmail");
+        var userAccountType = $(this).data("userAccountType");
+        $("#edit_user_modal").find("#edit_id").val(userId);
+        $("#edit_user_modal").find("#edit_name").val(userName);
+        $("#edit_user_modal").find("#edit_email").val(userEmail);
+        if (userAccountType == "administrator") {
+          $("#edit_radio_admin").attr("checked", "checked");
+        } else {
+          $("#edit_radio_user").attr("checked", "checked");
+        }
+      }
+    });
+
+    //edit user pass change safeguard
+
+    $("#edit_pass_change_confirmation").click(function() {
+      if ($("#edit_pass_change_confirmation").is(":checked")) {
+        $("#edit_password").prop("disabled", false);
+      } else {
+        $("#edit_password").prop("disabled", true);
+      }
+    })
+
+
     //TEMPORARY SOLUTION
     $('#report_warehouse_operations').click(function () {
         var pageTitle = 'Raport operacji magazynowych',
@@ -73,7 +108,6 @@ $(document).ready(function() {
         win.close();
         return false;
     });
-    
-    
-});
 
+
+});
