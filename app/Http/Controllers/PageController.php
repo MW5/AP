@@ -25,6 +25,10 @@ class PageController extends Controller {
         $resources = DB::table('resources')->get();
         return view('resourcesManager', compact('resources'));
     }
+    public function supplierManager() {
+        $suppliers = DB::table('suppliers')->get();
+        return view('supplierManager', compact('suppliers'));
+    }
     public function resourceDetails($id) {
         $warehouseOperations = DB::table('warehouse_operations')->get();
         $resource = Resource::find($id);
@@ -34,14 +38,14 @@ class PageController extends Controller {
         $warehouseOperations = DB::table('warehouse_operations')->get();
         return view('warehouseOperations', compact('warehouseOperations'));
     }
-    
+
     public function tireManager() {
         return view('tireManager');
     }
-    
+
     public function userManager() {
         $users = DB::table('users')->get();
         return view('userManager', compact('users'));
     }
-    
+
 }
