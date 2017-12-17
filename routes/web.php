@@ -33,5 +33,7 @@ Route::post('/userManager/removeUsers', 'UserManagerController@removeUsers');
 Route::post('/userManager/editUser/', 'UserManagerController@editUser');
 
 Route::get('/supplierManager', 'PageController@supplierManager');
+Route::post('/supplierManager/addSupplier', 'SupplierManagerController@addSupplier');
+Route::post('/supplierManager/removeSuppliers', 'SupplierManagerController@removeSuppliers');
 
 Route::get('/tireManager', 'PageController@tireManager');

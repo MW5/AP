@@ -119,7 +119,7 @@
 
                         <div class="form-group">
                             <label for="critical_quantity">Minimalna ilość zamkniętych opakowań:</label>
-                            <input id="critical_quantity" type="text" class="form-control" name="critical_quantity" placeholder="wartość liczbowa >= 0"
+                            <input id="critical_quantity" type="text" class="form-control" name="critical_quantity" placeholder="wartość liczbowa, 0-1000"
                                 value="{{ old('critical_quantity') }}">
                         </div>
 

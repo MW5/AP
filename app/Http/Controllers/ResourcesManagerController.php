@@ -15,20 +15,20 @@ class ResourcesManagerController extends Controller
                 $resource = Resource::find($res);
                 $resource->delete();
             }
-            Session::flash('message', 'Pomyślnie usunięto zasob/zasoby'); 
-            Session::flash('alert-class', 'alert-success'); 
+            Session::flash('message', 'Pomyślnie usunięto zasob/zasoby');
+            Session::flash('alert-class', 'alert-success');
         } else {
-            Session::flash('message', 'Wybierz zasób do usunięcia'); 
+            Session::flash('message', 'Wybierz zasób do usunięcia');
             Session::flash('alert-class', 'alert-warning');
         }
-        
+
         return back();
     }
 
     function addResource(Request $request) {
         $this->validate($request,[
             'name'=>'required|min:1|max:50|unique:resources',
-            'critical_quantity'=>'required|min:0|numeric',
+            'critical_quantity'=>'required|min:0|max:1000|numeric',
             'capacity'=>'max:20',
             'proportions'=>'max:20',
             'description'=>'required|min:5|max:400'
@@ -37,37 +37,37 @@ class ResourcesManagerController extends Controller
         $resource->name = $request->name;
         $resource->quantity = 0;
         $resource->critical_quantity = $request->critical_quantity;
-        if($resource->capacity != "") {
+        if($request->capacity != "") {
             $resource->capacity = $request->capacity;
         } else {
-            $resource->capacity = "";
+            $resource->capacity = "-";
         }
-        if($resource->proportions != "") {
+        if($request->proportions != "") {
             $resource->proportions = $request->proportions;
         } else {
-            $resource->proportions = "";
+            $resource->proportions = "-";
         }
         $resource->description = $request->description;
         $resource->save();
-        Session::flash('message', 'Pomyślnie dodano '.$resource->name); 
-        Session::flash('alert-class', 'alert-success'); 
+        Session::flash('message', 'Pomyślnie dodano '.$resource->name);
+        Session::flash('alert-class', 'alert-success');
         return back();
     }
-    
+
     function acceptDelivery(Request $request) {
         $this->validate($request,[
             'supplier'=>'required|min:1|max:50',
         ]);
-        
+
         $qtyArr = array();
         $arrCounter = 0;
         $arrBadVal = false;
         $arrZeroVals = true;
-        
+
         foreach ($request->get('qty_field_accept') as $qty) {
                 array_push($qtyArr, $qty);
         }
-        
+
         foreach ($qtyArr as $qty) {
             if($qty<0 || !is_numeric($qty)) {
                 $arrBadVal = true;
@@ -94,29 +94,29 @@ class ResourcesManagerController extends Controller
                 }
                 $arrCounter++;
             }
-            Session::flash('message', 'Pomyślnie przyjęto dostawę'); 
-            Session::flash('alert-class', 'alert-success'); 
+            Session::flash('message', 'Pomyślnie przyjęto dostawę');
+            Session::flash('alert-class', 'alert-success');
         } elseif ($arrZeroVals) {
-            Session::flash('message', 'Nie określono żadnej wartości dodatniej'); 
-            Session::flash('alert-class', 'alert-warning'); 
+            Session::flash('message', 'Nie określono żadnej wartości dodatniej');
+            Session::flash('alert-class', 'alert-warning');
         }else {
-            Session::flash('message', 'Błędna wartość'); 
-            Session::flash('alert-class', 'alert-warning'); 
+            Session::flash('message', 'Błędna wartość');
+            Session::flash('alert-class', 'alert-warning');
         }
         return back();
     }
-    
+
     function warehouseRelease(Request $request) {
         $qtyArr = array();
         $arrCounter = 0;
         $arrBadVal = false;
         $arrZeroVals = true;
         $notEnough = false;
-        
+
         foreach ($request->get('qty_field_release') as $qty) {
                 array_push($qtyArr, $qty);
         }
-        
+
         foreach ($qtyArr as $qty) {
             if($qty<0) {
                 $arrBadVal = true;
@@ -151,19 +151,19 @@ class ResourcesManagerController extends Controller
                 }
                 $arrCounter++;
             }
-            Session::flash('message', 'Pomyślnie wydano zasoby'); 
-            Session::flash('alert-class', 'alert-success'); 
+            Session::flash('message', 'Pomyślnie wydano zasoby');
+            Session::flash('alert-class', 'alert-success');
         } elseif ($notEnough) {
-            Session::flash('message', 'Wydawana ilość przekracza obecny stan magazynowy'); 
-            Session::flash('alert-class', 'alert-warning'); 
+            Session::flash('message', 'Wydawana ilość przekracza obecny stan magazynowy');
+            Session::flash('alert-class', 'alert-warning');
         } elseif ($arrZeroVals) {
-            Session::flash('message', 'Nie określono żadnej wartości dodatniej'); 
-            Session::flash('alert-class', 'alert-warning'); 
+            Session::flash('message', 'Nie określono żadnej wartości dodatniej');
+            Session::flash('alert-class', 'alert-warning');
         }else {
-            Session::flash('message', 'Nie można wydać wartości ujemnej'); 
-            Session::flash('alert-class', 'alert-warning'); 
+            Session::flash('message', 'Nie można wydać wartości ujemnej');
+            Session::flash('alert-class', 'alert-warning');
         }
         return back();
     }
-    
+
 }

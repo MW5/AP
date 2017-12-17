@@ -44,7 +44,8 @@
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <tr>
                     <th></th>
-                    <th>Nazwa skrócona</th>
+                    <th>Nazwa</th>
+                    <th>Adres</th>
                     <th>Nip</th>
                     <th>Adres email</th>
                     <th>Numer telefonu</th>
@@ -55,35 +56,48 @@
                     <?php
                         if($counter%2==0) {
                             ?>
-                        <tr class='even clickable_row_no_href' data-toggle="modal" data-target="#edit_user_modal"
-                         data-user-id="{{$user->id}}"
-                         data-user-name="{{$user->name}}"
-                         data-user-email="{{$user->email}}"
-                         data-user-account-type="{{$user->account_type}}">
+                        <tr class='even clickable_row_no_href' data-toggle="modal" data-target="#edit_supplier_modal"
+                         data-supplier-id="{{$supplier->id}}"
+                         data-supplier-name="{{$supplier->name}}"
+                         data-supplier-address="{{$supplier->address}}"
+                         data-supplier-nip="{{$supplier->nip}}"
+                         data-supplier-email="{{$supplier->email}}"
+                         data-supplier-phone-number="{{$supplier->phone_number}}"
+                         data-supplier-details="{{$supplier->details}}">
                             <?php
                         } else {
                             ?>
-                            <tr class ='odd clickable_row_no_href' data-toggle="modal" data-target="#edit_user_modal"
-                            data-user-id="{{$user->id}}"
-                            data-user-name="{{$user->name}}"
-                            data-user-email="{{$user->email}}"
-                            data-user-account-type="{{$user->account_type}}">
+                            <tr class='odd clickable_row_no_href' data-toggle="modal" data-target="#edit_supplier_modal"
+                             data-supplier-id="{{$supplier->id}}"
+                             data-supplier-name="{{$supplier->name}}"
+                             data-supplier-address="{{$supplier->address}}"
+                             data-supplier-nip="{{$supplier->nip}}"
+                             data-supplier-email="{{$supplier->email}}"
+                             data-supplier-phone-number="{{$supplier->phone_number}}"
+                             data-supplier-details="{{$supplier->details}}">
                             <?php
                         }?>
 
                         <td>
-                        @if ($user->name != Auth::user()->name && Auth::user()->account_type == "administrator")
-                            <input type="checkbox" class="ap_checkbox" name="ch[]" value="{{$user->id}}">
-                        @endif
+                            <input type="checkbox" class="ap_checkbox" name="ch[]" value="{{$supplier->id}}">
                         </td>
                         <td>
-                            {{$user->name}}
+                            {{$supplier->name}}
                         </td>
                         <td>
-                            {{$user->email}}
+                            {{$supplier->address}}
                         </td>
                         <td>
-                            {{$user->account_type}}
+                            {{$supplier->nip}}
+                        </td>
+                        <td>
+                            {{$supplier->email}}
+                        </td>
+                        <td>
+                            {{$supplier->phone_number}}
+                        </td>
+                        <td>
+                            {{$supplier->details}}
                         </td>
                     </tr>
                     <?php $counter+=1;?>
@@ -93,23 +107,35 @@
         </table>
     </div>
 
-    <!--add user modal-->
-    <div class="modal fade" tabindex="-1" role="dialog" id="add_user_modal">
+    <!--add supplier modal-->
+    <div class="modal fade" tabindex="-1" role="dialog" id="add_supplier_modal">
         <div class="modal-dialog" role="document">
             <div class="modal-content modal_styled">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Dodaj użytkownika</h4>
+                    <h4 class="modal-title">Dodaj dostawcę</h4>
                 </div>
                 <div class="modal-body">
-                    <form id="add_user_form" method="POST" action="/userManager/addUser">
+                    <form id="add_supplier_form" method="POST" action="/supplierManager/addSupplier">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
                         <div class="form-group">
-                            <label for="name">Nazwa użytkownika:</label>
-                            <input id="name" type="text" class="form-control" name="name" placeholder="3-30 znaków"
+                            <label for="name">Nazwa dostawcy:</label>
+                            <input id="name" type="text" class="form-control" name="name" placeholder="1-50 znaków"
                                 value="{{ old('name') }}">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="address">Adres:</label>
+                            <input id="address" type="text" class="form-control" name="address" placeholder="1-150 znaków"
+                                value="{{ old('address') }}">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="name">Nip:</label>
+                            <input id="nip" type="text" class="form-control" name="nip" placeholder="10 cyfr"
+                                value="{{ old('nip') }}">
                         </div>
 
                         <div class="form-group">
@@ -117,28 +143,31 @@
                             <input id="email" type="text" class="form-control" name="email" placeholder="6-40 znaków"
                                 value="{{ old('email') }}">
                         </div>
+
                         <div class="form-group">
-                            <label for="account_type">Typ konta:</label></br>
-                            <input id="radio_user" type="radio"  name="account_type" value='użytkownik'><span class='ap_radio_label'>Użytkownika</span></br>
-                            <input id="radio_admin" type="radio"  name="account_type" value='administrator'><span class='ap_radio_label'>Administracyjne</span>
+                            <label for="phone_number">Numer telefonu:</label>
+                            <input id="phone_number" type="text" class="form-control" name="phone_number" placeholder="1-15 cyfr"
+                                value="{{ old('phone_number') }}">
                         </div>
 
                         <div class="form-group">
-                            <label for="password">Hasło:</label>
-                            <input id ="password" type="password" class="form-control" name="password" placeholder="6-20 znaków">
+                            <label for="details">Informacje dodatkowe</label>
+                            <textarea id ="details" class="form-control" name="details" placeholder="5 do 400 znaków"
+                                    >{{ old('details') }}</textarea>
                         </div>
+
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn_styled btn_warning" data-dismiss="modal">Zamknij</button>
-                    <button form="add_user_form" type="submit" class="btn btn_styled btn_safe">Dodaj użytkownika</button>
+                    <button form="add_supplier_form" type="submit" class="btn btn_styled btn_safe">Dodaj dostawcę</button>
                 </div>
             </div>
         </div>
     </div>
 
 <!--    edit user modal-->
-    <div class="modal fade" tabindex="-1" role="dialog" id="edit_user_modal">
+    <!-- <div class="modal fade" tabindex="-1" role="dialog" id="edit_user_modal">
         <div class="modal-dialog" role="document">
             <div class="modal-content modal_styled">
                 <div class="modal-header">
@@ -178,5 +207,5 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 @endsection
