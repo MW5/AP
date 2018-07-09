@@ -50,7 +50,7 @@
                     <th>Nazwa</th>
                     <th>Ilość</th>
                     <th>Pojemność</th>
-                    <th>Proporcje</th>
+                    <th>Proporcje [preparat:woda]</th>
                 </tr>
                 <?php $counter=0?>
                 @foreach($resources as $resource)
@@ -129,7 +129,7 @@
                                 value="{{ old('email') }}">
                         </div>
                         <div class="form-group">
-                            <label for="proportions">Proporcje [x:y]:</label>
+                            <label for="proportions">Proporcje [preparat:woda]:</label>
                             <input id="proportions" type="text" class="form-control" name="proportions" placeholder="niewymagane, do 20 znaków"
                                 value="{{ old('proportions') }}">
                         </div>

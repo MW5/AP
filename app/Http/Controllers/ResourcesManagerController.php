@@ -10,7 +10,7 @@ use Session;
 class ResourcesManagerController extends Controller
 {
     function removeResources(Request $request) {
-        if(count($request->get('ch')) != 0) {
+        if(!empty($request->get('ch')) != 0) {
             foreach($request->get('ch') as $res) {
                 $resource = Resource::find($res);
                 $resource->delete();

@@ -28,7 +28,7 @@ body {
     color: var(--main_text_color);
 }
 .navbar a {
-    transition: all 0.5s ease-in-out;
+    transition: all 0.2s ease-in-out;
     color: var(--main_text_color);
     background: linear-gradient(to top, var(--body_background_color) 50%,  var(--nav_background_color) 50%);
     background-size: 100% 200%;
@@ -107,7 +107,7 @@ footer {
     color: var(--main_text_color);
     border: none;
     border-radius: 0px;
-    transition: 0.5s ease-in-out;
+    transition: 0.2s ease-in-out;
 }
 .btn_styled:hover {
     background: var(--body_background_color);
@@ -144,7 +144,7 @@ footer {
 }
 
 .clickable_row {
-    transition: all 0.5s ease-in-out;
+    transition: all 0.2s ease-in-out;
     cursor: pointer;
 }
 
@@ -153,7 +153,7 @@ footer {
     background-position: left;
 }
 .clickable_row_no_href {
-    transition: all 0.5s ease-in-out;
+    transition: all 0.2s ease-in-out;
     cursor: pointer;
 }
 

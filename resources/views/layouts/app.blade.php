@@ -32,7 +32,7 @@
                     @endif
                 </div>
         @endif
-        
+
         <nav class="navbar navbar-static-top">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -52,13 +52,12 @@
                       @yield('logout_btn')
             </div>
         </nav>
-        
-        
+
+
         @yield('content')
-        
+
         <footer>
                 <div class='author'>Designed and developed by MW5</div>
         </footer>
     </body>
 </html>
-

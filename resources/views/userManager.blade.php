@@ -165,7 +165,7 @@
                         </div>
 
                         <div class="form-group">
-                            <input id="edit_pass_change_confirmation" type="checkbox"><label for="edit_password">Zmień hasło:</label>
+                            <input id="edit_pass_change_confirmation" name="pass_change_conf" type="checkbox"><label for="edit_password">Zmień hasło:</label>
                             <input id ="edit_password" type="password" class="form-control" name="password" placeholder="6-20 znaków">
                         </div>
                     </form>

@@ -9,7 +9,7 @@ use Session;
 class userManagerController extends Controller
 {
     function removeUsers(Request $request) {
-        if(count($request->get('ch')) != 0) {
+        if(!empty($request->get('ch')) != 0) {
             foreach($request->get('ch') as $usr) {
                 $user = User::find($usr);
                 $user->delete();
@@ -54,12 +54,15 @@ class userManagerController extends Controller
 
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->password = bcrypt($request->password);
+        if(isset($request->pass_change_conf)) {
+            $user->password = bcrypt($request->password);
+        }
         $user->account_type = $request->account_type;
         $user->update();
 
         Session::flash('message', 'Pomyślnie edytowano użytkownika '.$user->name);
         Session::flash('alert-class', 'alert-success');
+
         return back();
     }
 }

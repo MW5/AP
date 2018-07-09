@@ -133,7 +133,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="name">Nip:</label>
+                            <label for="nip">Nip:</label>
                             <input id="nip" type="text" class="form-control" name="nip" placeholder="10 cyfr"
                                 value="{{ old('nip') }}">
                         </div>
@@ -166,46 +166,62 @@
         </div>
     </div>
 
-<!--    edit user modal-->
-    <!-- <div class="modal fade" tabindex="-1" role="dialog" id="edit_user_modal">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content modal_styled">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Edytuj użytkownika</h4>
-                </div>
-                <div class="modal-body">
-                    <form id="edit_user_form" method="POST" action="/userManager/editUser">
-                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                        <input id="edit_id" type="hidden" name="id">
+   <!-- edit supplier modal-->
+   <div class="modal fade" tabindex="-1" role="dialog" id="edit_supplier_modal">
+       <div class="modal-dialog" role="document">
+           <div class="modal-content modal_styled">
+               <div class="modal-header">
+                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                       <span aria-hidden="true">&times;</span></button>
+                   <h4 class="modal-title">Edytuj dostawcę</h4>
+               </div>
+               <div class="modal-body">
+                   <form id="edit_supplier_form" method="POST" action="/supplierManager/editSupplier">
+                       <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                       <input id="edit_id" type="hidden" name="id">
 
-                        <div class="form-group">
-                            <label for="edit_name">Nazwa użytkownika:</label>
-                            <input id="edit_name" type="text" class="form-control" name="name" placeholder="3-30 znaków">
-                        </div>
+                       <div class="form-group">
+                           <label for="edit_name">Nazwa dostawcy:</label>
+                           <input id="edit_name" type="text" class="form-control" name="name" placeholder="1-50 znaków"
+                               value="{{ old('name') }}">
+                       </div>
 
-                        <div class="form-group">
-                            <label for="edit_email">Adres email:</label>
-                            <input id="edit_email" type="text" class="form-control" name="email" placeholder="6-40 znaków">
-                        </div>
-                        <div class="form-group">
-                            <label for="edit_account_type">Typ konta:</label></br>
-                            <input id="edit_radio_user" type="radio"  name="account_type" value='użytkownik'><span class='ap_radio_label'>Użytkownika</span></br>
-                            <input id="edit_radio_admin" type="radio"  name="account_type" value='administrator'><span class='ap_radio_label'>Administracyjne</span>
-                        </div>
+                       <div class="form-group">
+                           <label for="edit_address">Adres:</label>
+                           <input id="edit_address" type="text" class="form-control" name="address" placeholder="1-150 znaków"
+                               value="{{ old('address') }}">
+                       </div>
 
-                        <div class="form-group">
-                            <input id="edit_pass_change_confirmation" type="checkbox"><label for="edit_password">Zmień hasło:</label>
-                            <input id ="edit_password" type="password" class="form-control" name="password" placeholder="6-20 znaków">
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn_styled btn_warning" data-dismiss="modal">Zamknij</button>
-                    <button form="edit_user_form" type="submit" class="btn btn_styled btn_safe">Edytuj użytkownika</button>
-                </div>
-            </div>
-        </div>
-    </div> -->
+                       <div class="form-group">
+                           <label for="edit_nip">Nip:</label>
+                           <input id="edit_nip" type="text" class="form-control" name="nip" placeholder="10 cyfr"
+                               value="{{ old('nip') }}">
+                       </div>
+
+                       <div class="form-group">
+                           <label for="edit_email">Adres email:</label>
+                           <input id="edit_email" type="text" class="form-control" name="email" placeholder="6-40 znaków"
+                               value="{{ old('email') }}">
+                       </div>
+
+                       <div class="form-group">
+                           <label for="edit_phone_number">Numer telefonu:</label>
+                           <input id="edit_phone_number" type="text" class="form-control" name="phone_number" placeholder="1-15 cyfr"
+                               value="{{ old('phone_number') }}">
+                       </div>
+
+                       <div class="form-group">
+                           <label for="edit_details">Informacje dodatkowe</label>
+                           <textarea id ="edit_details" class="form-control" name="details" placeholder="5 do 400 znaków"
+                                   >{{ old('details') }}</textarea>
+                       </div>
+                   </form>
+               </div>
+               <div class="modal-footer">
+                   <button type="button" class="btn btn_styled btn_warning" data-dismiss="modal">Zamknij</button>
+                   <button form="edit_supplier_form" type="submit" class="btn btn_styled btn_safe">Edytuj dostawcę</button>
+               </div>
+           </div>
+       </div>
+   </div>
 @endsection

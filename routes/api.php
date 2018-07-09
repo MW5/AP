@@ -23,7 +23,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('/credentialsApi', function(Request $request) {
     $name = $request->name;
     $password = $request->password;
-    
+
     if (Auth::attempt(['name' => $name, 'password' => $password])) {
         echo "true";
     } else {
@@ -31,8 +31,6 @@ Route::post('/credentialsApi', function(Request $request) {
     }
 });
 
-
-//MOVE FUNCTION LOGIC TO CONTROLLERS!!!
 Route::post('/getResources', function(Request $request) {
     if ($request->token == "token") {
         $resources = DB::table('resources')->get();
@@ -48,7 +46,7 @@ Route::post('/releaseResource', function(Request $request) {
         if ($resource->quantity > 0) {
             $resource->quantity = $resource->quantity-1;
             $resource->save();
-            
+
             $warehouseOperation = new WarehouseOperation();
             $warehouseOperation->resource_name = $resource->name;
             $warehouseOperation->operation_type = "wydanie magazynowe";
@@ -56,7 +54,7 @@ Route::post('/releaseResource', function(Request $request) {
             $warehouseOperation->company_name = "";
             $warehouseOperation->user_name = $request->userName;
             $warehouseOperation->save();
-            
+
             echo "true";
         } else {
             echo "false";

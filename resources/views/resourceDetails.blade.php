@@ -43,7 +43,7 @@
                 <h3>Pojemność opakowania: {{$resource->capacity}}</h3>
             @endif
             @if($resource->proportions != "")
-            <h3>Proporcje: {{$resource->proportions}}</h3>
+            <h3>Proporcje [preparat:woda]: {{$resource->proportions}}</h3>
             @endif
             <p class="resource_description">{{$resource->description}}</p>
         </div>

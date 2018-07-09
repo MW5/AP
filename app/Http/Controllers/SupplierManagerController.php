@@ -9,7 +9,7 @@ use Session;
 class SupplierManagerController extends Controller
 {
   function removeSuppliers(Request $request) {
-      if(count($request->get('ch')) != 0) {
+      if(!empty($request->get('ch')) != 0) {
           foreach($request->get('ch') as $supl) {
               $supplier = Supplier::find($supl);
               $supplier->delete();
@@ -31,7 +31,7 @@ class SupplierManagerController extends Controller
           'nip'=>'required|digits:10',
           'email'=>'required|min:6|max:40|unique:suppliers',
           'phone_number'=>'required|min:1|max:15',
-          'details'=>'max:150',
+          'details'=>'max:150'
       ]);
       $supplier = new Supplier();
       $supplier->name = $request->name;
@@ -50,24 +50,28 @@ class SupplierManagerController extends Controller
       return back();
   }
 
-  // function editUser(Request $request) {
-  //   $user =  User::find($request->id);
-  //
-  //     $this->validate($request,[
-  //         'name'=>'required|min:3|max:30|unique:users,name,'.$user->id,
-  //         'email'=>'required|min:6|max:40|unique:users,email,'.$user->id,
-  //         'account_type'=>'required',
-  //         'password'=>'min:6|max:20'
-  //     ]);
-  //
-  //     $user->name = $request->name;
-  //     $user->email = $request->email;
-  //     $user->password = bcrypt($request->password);
-  //     $user->account_type = $request->account_type;
-  //     $user->update();
-  //
-  //     Session::flash('message', 'Pomyślnie edytowano użytkownika '.$user->name);
-  //     Session::flash('alert-class', 'alert-success');
-  //     return back();
-  // }
+  function editSupplier(Request $request) {
+    $supplier =  Supplier::find($request->id);
+
+      $this->validate($request,[
+          'name'=>'required|min:1|max:50|unique:suppliers,name,'.$supplier->id,
+          'address'=>'required|min:1|max:150',
+          'nip'=>'required|digits:10',
+          'email'=>'required|min:6|max:40|unique:suppliers,email,'.$supplier->id,
+          'phone_number'=>'required|min:1|max:15',
+          'details'=>'max:150'
+      ]);
+
+      $supplier->name = $request->name;
+      $supplier->address = $request->address;
+      $supplier->nip = $request->nip;
+      $supplier->phone_number = $request->phone_number;
+      $supplier->email = $request->email;
+      $supplier->details = $request->details;
+      $supplier->update();
+
+      Session::flash('message', 'Pomyślnie edytowano dostawcę '.$supplier->name);
+      Session::flash('alert-class', 'alert-success');
+      return back();
+  }
 }
