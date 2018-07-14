@@ -24,12 +24,6 @@
     </ul>
 @endsection
 
-@section('nav_choices')
-    <li class='curr_module'><a href="/resourcesManager">Moduł zasobów magazynowych</a></li>
-    <li><a href="/tireManager">Moduł opon</a></li>
-    <li><a href="/userManager">Moduł użytkowników</a></li>
-@endsection
-
 @section('content')
     <div class='container ap_table_container'>
         <div class='ap_action_bar'>
@@ -47,7 +41,7 @@
             @endif
             <p class="resource_description">{{$resource->description}}</p>
         </div>
-        
+
         @if (Auth::user()->account_type == "administrator")
             <table class='ap_table'>
                     <tr>
@@ -93,12 +87,12 @@
                             <?php $counter+=1;?>
                         @endif
                     @endforeach
-                    <?php $counter=0?>  
+                    <?php $counter=0?>
                 </form>
             </table>
         @endif
-        
-        <!--report modal-->  
+
+        <!--report modal-->
         <div class="modal fade" tabindex="-1" role="dialog" id="report_modal">
             <div class="modal-dialog" role="document">
                 <div class="modal-content modal_styled">

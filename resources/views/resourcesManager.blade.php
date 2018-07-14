@@ -24,13 +24,6 @@
     </ul>
 @endsection
 
-@section('nav_choices')
-    <li class='curr_module'><a href="/resourcesManager">Moduł zasobów magazynowych</a></li>
-    <li><a href="/supplierManager">Moduł dostawców</a></li>
-    <li><a href="/tireManager">Moduł opon</a></li>
-    <li><a href="/userManager">Moduł użytkowników</a></li>
-@endsection
-
 @section('content')
     <div class='container ap_table_container'>
         @if (Auth::user()->account_type == "administrator")

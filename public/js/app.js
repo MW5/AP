@@ -6,6 +6,14 @@ $(document).ready(function() {
             $(".alert_box").fadeOut();
         }, 2000);
 
+    //current nav indicator
+    $( ".nav_href" ).each(function( index ) {
+      var urlToCompare = $(location).attr('href').substring($(location).attr('href').lastIndexOf("/"));
+      if(urlToCompare == $(this).attr('href')) {
+        $(this).parent().addClass("curr_module");
+      }
+    });
+
     //accept delivery increase/decrease buttons
     $(".resource_increase").click(function() {
         var clickedBtnId = $(this).attr("id");
@@ -105,7 +113,24 @@ $(document).ready(function() {
            $("#edit_supplier_modal").find("#edit_phone_number").val(supplierPhoneNumber);
            $("#edit_supplier_modal").find("#edit_details").val(supplierDetails);
         }
-      }
+      } else if ($(this).data("target") == "#edit_car_modal") {
+          if (e.target.type == "checkbox") {
+              e.stopPropagation();
+          }
+          else {
+            var carId = $(this).data("carId");
+            var carRegNum = $(this).data("carRegNum");
+            var carMake = $(this).data("carMake");
+            var carModel= $(this).data("carModel");
+
+            console.log("test");
+
+            $("#edit_car_modal").find("#edit_id").val(carId);
+            $("#edit_car_modal").find("#edit_reg_num").val(carRegNum);
+            $("#edit_car_modal").find("#edit_make").val(carMake);
+            $("#edit_car_modal").find("#edit_model").val(carModel);
+          }
+        }
     });
 
     //edit user pass change safeguard

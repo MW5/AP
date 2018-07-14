@@ -19,6 +19,7 @@ Route::get('/home', 'PageController@index');
 
 Route::get('/resourcesManager', 'PageController@index');
 Route::post('/resourcesManager/addResource', 'ResourcesManagerController@addResource');
+//edit resource should also be here
 Route::post('/resourcesManager/removeResources', 'ResourcesManagerController@removeResources');
 Route::post('/resourcesManager/acceptDelivery', 'ResourcesManagerController@acceptDelivery');
 Route::post('/resourcesManager/warehouseRelease', 'ResourcesManagerController@warehouseRelease');
@@ -37,4 +38,7 @@ Route::post('/supplierManager/addSupplier', 'SupplierManagerController@addSuppli
 Route::post('/supplierManager/removeSuppliers', 'SupplierManagerController@removeSuppliers');
 Route::post('/supplierManager/editSupplier/', 'SupplierManagerController@editSupplier');
 
-Route::get('/tireManager', 'PageController@tireManager');
+Route::get('/carManager', 'PageController@carManager');
+Route::post('/carManager/addCar', 'CarManagerController@addCar');
+Route::post('/carManager/removeCars', 'CarManagerController@removeCars');
+Route::post('/carManager/editCar/', 'CarManagerController@editCar');

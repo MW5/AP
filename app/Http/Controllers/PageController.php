@@ -39,8 +39,9 @@ class PageController extends Controller {
         return view('warehouseOperations', compact('warehouseOperations'));
     }
 
-    public function tireManager() {
-        return view('tireManager');
+    public function carManager() {
+      $cars = DB::table('cars')->get();
+      return view('carManager', compact('cars'));
     }
 
     public function userManager() {

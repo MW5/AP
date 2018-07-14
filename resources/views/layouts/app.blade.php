@@ -32,9 +32,9 @@
                     @endif
                 </div>
         @endif
-
         <nav class="navbar navbar-static-top">
             <div class="container-fluid">
+              @if (Auth::user())
                 <div class="navbar-header">
                   <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav_links" aria-expanded="false">
                     <span class="sr-only">Toggle navigation</span>
@@ -46,13 +46,23 @@
                       @yield('logged_user')
                   </span>
                 </div>
-                  <ul class="nav navbar-nav navbar-left">
-                      @yield('nav_choices')
-                  </ul>
-                      @yield('logout_btn')
+                <ul class="nav navbar-nav navbar-left">
+                    <li><a class="nav_href" href="/resourcesManager">Moduł zasobów magazynowych</a></li>
+                    <li><a class="nav_href" href="/supplierManager">Moduł dostawców</a></li>
+                    <li><a class="nav_href" href="/carManager">Moduł samochodów</a></li>
+                    <li><a class="nav_href" href="/userManager">Moduł użytkowników</a></li>
+                </ul>
+                @yield('logout_btn')
+              @endif
+              @if (!Auth::user())
+                <div class="navbar-header">
+                  <span class="navbar-brand">
+                      System wspomagania zarządzania procesem przygotowania samochodów
+                  </span>
+                </div>
+              @endif
             </div>
         </nav>
-
 
         @yield('content')
 
