@@ -36,6 +36,7 @@ class CarManagerController extends Controller
       $car->model = $request->model;
       $car->status = 0;
       $car->save();
+//HAVE TO CREATE CARTASK TYPE 0
       Session::flash('message', 'Pomyślnie dodano samochód '.$car->reg_num);
       Session::flash('alert-class', 'alert-success');
       return back();
@@ -51,6 +52,7 @@ class CarManagerController extends Controller
       ]);
 
       $car->reg_num = $request->reg_num;
+//HAVE TO UPDATE REGNUM IN CARTASKS TOO
       $car->make = $request->make;
       $car->model = $request->model;
       $car->update();

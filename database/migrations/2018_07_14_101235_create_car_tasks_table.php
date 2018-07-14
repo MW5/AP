@@ -16,6 +16,8 @@ class CreateCarTasksTable extends Migration
         Schema::create('car_tasks', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('car_id');
+            $table->string('car_reg_num');
+            $table->integer('task_type');
             $table->integer('status');
             $table->dateTime('begin_time');
             $table->integer('begin_user_id');

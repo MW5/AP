@@ -23,7 +23,8 @@ class PageController extends Controller {
      */
     public function index() {
         $resources = DB::table('resources')->get();
-        return view('resourcesManager', compact('resources'));
+        $suppliers = DB::table('suppliers')->get();
+        return view('resourcesManager', compact('resources', 'suppliers'));
     }
     public function supplierManager() {
         $suppliers = DB::table('suppliers')->get();
@@ -42,6 +43,11 @@ class PageController extends Controller {
     public function carManager() {
       $cars = DB::table('cars')->get();
       return view('carManager', compact('cars'));
+    }
+    public function carTaskManager() {
+      $carTasks = DB::table('car_tasks')->get();
+      $cars = DB::table('cars')->get();
+      return view('carTaskManager', compact('carTasks', 'cars'));
     }
 
     public function userManager() {

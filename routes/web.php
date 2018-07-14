@@ -42,3 +42,7 @@ Route::get('/carManager', 'PageController@carManager');
 Route::post('/carManager/addCar', 'CarManagerController@addCar');
 Route::post('/carManager/removeCars', 'CarManagerController@removeCars');
 Route::post('/carManager/editCar/', 'CarManagerController@editCar');
+
+Route::get('/carTaskManager', 'PageController@carTaskManager');
+Route::post('/carTaskManager/addCarTask', 'CarTaskManagerController@addCarTask');
+Route::post('/carTaskManager/removeCarTasks', 'CarTaskManagerController@removeCarTasks');

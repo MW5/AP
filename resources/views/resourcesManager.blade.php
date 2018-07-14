@@ -174,8 +174,11 @@
                         @endforeach
                         <div class="form-group">
                             <label for="supplier">Dostawa z:</label>
-                                <input id="supplier" type="text" class="form-control" name="supplier" placeholder="1-50 znaków"
-                                    value="{{ old('supplier') }}">
+                              <select name='supplier'>
+                                  @foreach ($suppliers as $supplier)
+                                    <option>{{$supplier->name}}</option>
+                                  @endforeach
+                              </select>
                         </div>
                     </form>
                 </div>

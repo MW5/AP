@@ -50,6 +50,7 @@
                     <li><a class="nav_href" href="/resourcesManager">Moduł zasobów magazynowych</a></li>
                     <li><a class="nav_href" href="/supplierManager">Moduł dostawców</a></li>
                     <li><a class="nav_href" href="/carManager">Moduł samochodów</a></li>
+                    <li><a class="nav_href" href="/carTaskManager">Moduł zleceń</a></li>
                     <li><a class="nav_href" href="/userManager">Moduł użytkowników</a></li>
                 </ul>
                 @yield('logout_btn')
