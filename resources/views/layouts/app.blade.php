@@ -13,7 +13,9 @@
         <script src="{{ URL::asset('js/bootstrap.min.js')}}"></script>
         <script src="{{ URL::asset('js/jquery-ui.min.js')}}"></script>
         <script src="{{ URL::asset('js/app.js')}}"></script>
-
+        <script src="/node_modules/moment/min/moment.min.js"></script>
+        <script src="/node_modules/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+        <link rel="stylesheet" href="/node_modules/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
     </head>
     <body>
         @if (count($errors) > 0 || Session::has('message'))

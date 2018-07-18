@@ -19,10 +19,10 @@ class CreateCarTasksTable extends Migration
             $table->string('car_reg_num');
             $table->integer('task_type');
             $table->integer('status');
-            $table->dateTime('begin_time');
-            $table->integer('begin_user_id');
-            $table->dateTime('end_time');
-            $table->integer('end_user_id');
+            $table->dateTime('begin_time')->nullable();
+            $table->integer('begin_user_id')->nullable();
+            $table->dateTime('end_time')->nullable();
+            $table->integer('end_user_id')->nullable();
             $table->timestamps();
         });
     }

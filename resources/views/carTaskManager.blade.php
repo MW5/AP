@@ -30,7 +30,18 @@
             <div class='ap_action_bar'>
                 <button type="button" class="btn_styled" data-toggle="modal" data-target="#add_carTask_modal">Dodaj zlecenie</button>
                 <button form="remove_carTasks_form" type="submit" class="btn_styled">Usuń zaznaczone zlecenia</button>
+          <!-- these ones should show modal with datetimepicker -->
+                <button id="#start_datepicker_btn" type="button" class="btn_styled">Rozpocznij zlecenie</button>
+                <button id="#start_datepicker_btn" type="button" class="btn_styled">Zakończ zlecenie</button>
             </div>
+
+          <!-- get it to modal!! -->
+            <div class='input-group date' id='datetimepicker'>
+                   <input type='text' class="form-control" />
+                   <span class="input-group-addon">
+                       <span class="glyphicon glyphicon-calendar"></span>
+                   </span>
+               </div>
         @endif
         <table class='ap_table'>
             <form id="remove_carTasks_form" method="POST" action="/carTaskManager/removeCarTasks">
@@ -49,11 +60,11 @@
                     <?php
                         if($counter%2==0) {
                             ?>
-                        <tr class='even'
+                        <tr class='even'>
                             <?php
                         } else {
                             ?>
-                            <tr class='odd'
+                            <tr class='odd'>
                             <?php
                         }?>
 
@@ -61,7 +72,7 @@
                             <input type="checkbox" class="ap_checkbox" name="ch[]" value="{{$carTask->id}}">
                         </td>
                         <td>
-                            {{$carTask->reg_num}}
+                            {{$carTask->car_reg_num}}
                         </td>
                         <td>
                             {{$carTask->task_type}}

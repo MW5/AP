@@ -142,6 +142,8 @@ $(document).ready(function() {
       }
     })
 
+    $('#datetimepicker').datetimepicker();
+
 
     //TEMPORARY SOLUTION
     $('#report_warehouse_operations').click(function () {
