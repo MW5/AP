@@ -26,7 +26,7 @@
 
 @section('content')
     <div class='container ap_table_container'>
-        @if (Auth::user()->account_type == "administrator")
+        @if (Auth::user()->account_type == 0)
             <div class='ap_action_bar'>
                 <button type="button" class="btn_styled" data-toggle="modal" data-target="#add_resource_modal">Dodaj zasób</button>
                 <button form="remove_resources_form" type="submit" class="btn_styled">Usuń zaznaczone zasoby</button>
@@ -58,7 +58,7 @@
                                 <?php
                             }?>
                             <td>
-                                @if (Auth::user()->account_type == "administrator")
+                                @if (Auth::user()->account_type == 0)
                                     <input type="checkbox" class="ap_checkbox" name="ch[]" value="{{$resource->id}}">
                                 @endif
                             </td>
@@ -154,7 +154,7 @@
                 <div class="modal-body">
                     <form class='ap_form' id="accept_delivery_form" method="POST" action="/resourcesManager/acceptDelivery">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                        <input type="hidden" name="user_name" value="{{Auth::user()->name}}">
+                        <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
 
                         @foreach ($resources as $resource)
                             <div class="row">
@@ -167,16 +167,16 @@
                                     <div class="col-sm-2">
                                         <input type="hidden" name="res_id[]" value="{{$resource->id}}">
                                         <input id="{{$resource->id}}_field_accept" type="text" class="form-control horizontal_input" name="qty_field_accept[]"
-                                               value="0">
+                                               value=0>
                                     </div>
                                 </div>
                             </div>
                         @endforeach
                         <div class="form-group">
-                            <label for="supplier">Dostawa z:</label>
-                              <select name='supplier'>
+                            <label for="supplier_id">Dostawa z:</label>
+                              <select name='supplier_id'>
                                   @foreach ($suppliers as $supplier)
-                                    <option>{{$supplier->name}}</option>
+                                    <option value='{{$supplier->id}}'>{{$supplier->name}}</option>
                                   @endforeach
                               </select>
                         </div>
@@ -202,19 +202,19 @@
                 <div class="modal-body">
                     <form id="warehouse_release_form" class='form-horizontal' method="POST" action="/resourcesManager/warehouseRelease">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                        <input type="hidden" name="user_name" value="{{Auth::user()->name}}">
+                        <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
 
                         @foreach ($resources as $resource)
                             <div class="form-group">
-                                <label class="control-label col-sm-6 horizontal_label" for="{{$resource->name}}_field_release">{{$resource->name}}</label>
+                                <label class="control-label col-sm-6 horizontal_label" for="{{$resource->id}}_field_release">{{$resource->name}}</label>
                                 <div class="col-sm-4">
-                                    <button type="button" class="resource_increase" id="{{$resource->name}}_inc_btn_release">+</button>
-                                    <button type="button" class="resource_decrease" id="{{$resource->name}}_dec_btn_release">-</button>
+                                    <button type="button" class="resource_increase" id="{{$resource->id}}_inc_btn_release">+</button>
+                                    <button type="button" class="resource_decrease" id="{{$resource->id}}_dec_btn_release">-</button>
                                 </div>
                                 <div class="col-sm-2">
                                     <input type="hidden" name="res_id[]" value="{{$resource->id}}">
-                                    <input id="{{$resource->name}}_field_release" type="text" class="form-control horizontal_input" name="qty_field_release[]"
-                                           value="0">
+                                    <input id="{{$resource->id}}_field_release" type="text" class="form-control horizontal_input" name="qty_field_release[]"
+                                           value=0>
                                 </div>
                             </div>
                         @endforeach

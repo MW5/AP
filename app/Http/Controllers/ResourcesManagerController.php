@@ -55,9 +55,6 @@ class ResourcesManagerController extends Controller
     }
 
     function acceptDelivery(Request $request) {
-        $this->validate($request,[
-            'supplier'=>'required|min:1|max:50',
-        ]);
 
         $qtyArr = array();
         $arrCounter = 0;
@@ -83,13 +80,15 @@ class ResourcesManagerController extends Controller
                 $resource->quantity = $resource->quantity+$qtyArr[$arrCounter];
                 if($qtyArr[$arrCounter]>0) {
                     $resource->save();
-//                    //logging
+                    //logging
                     $warehouseOperation = new WarehouseOperation();
-                    $warehouseOperation->resource_name = $resource->name;
-                    $warehouseOperation->operation_type = "przyjęcie magazynowe";
-                    $warehouseOperation->quantity = $qtyArr[$arrCounter];
-                    $warehouseOperation->company_name = $request->supplier;
-                    $warehouseOperation->user_name = $request->user_name;
+                    $warehouseOperation->resource_id = $resource->id;
+                    $warehouseOperation->operation_type =$warehouseOperation->operationAccept;
+                    $warehouseOperation->old_val = $resource->quantity-$qtyArr[$arrCounter];
+                    $warehouseOperation->quantity_change = $qtyArr[$arrCounter];
+                    $warehouseOperation->new_val = $resource->quantity;
+                    $warehouseOperation->supplier_id = $request->supplier_id;
+                    $warehouseOperation->user_id = $request->user_id;
                     $warehouseOperation->save();
                 }
                 $arrCounter++;
@@ -140,13 +139,15 @@ class ResourcesManagerController extends Controller
                 $resource->quantity = $resource->quantity-$qtyArr[$arrCounter];
                 if($qtyArr[$arrCounter]>0) {
                     $resource->save();
-//                    //logging
+                    //logging
                     $warehouseOperation = new WarehouseOperation();
-                    $warehouseOperation->resource_name = $resource->name;
-                    $warehouseOperation->operation_type = "wydanie magazynowe";
-                    $warehouseOperation->quantity = $qtyArr[$arrCounter];
-                    $warehouseOperation->company_name = "";
-                    $warehouseOperation->user_name = $request->user_name;
+                    $warehouseOperation->resource_id = $resource->id;
+                    $warehouseOperation->operation_type =$warehouseOperation->operationRelease;
+                    $warehouseOperation->old_val = $resource->quantity+$qtyArr[$arrCounter];
+                    $warehouseOperation->quantity_change = $qtyArr[$arrCounter];
+                    $warehouseOperation->new_val = $resource->quantity;
+                    $warehouseOperation->supplier_id = $request->supplier_id;
+                    $warehouseOperation->user_id = $request->user_id;
                     $warehouseOperation->save();
                 }
                 $arrCounter++;

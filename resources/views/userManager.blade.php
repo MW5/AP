@@ -26,7 +26,7 @@
 
 @section('content')
     <div class='container ap_table_container'>
-        @if (Auth::user()->account_type == "administrator")
+        @if (Auth::user()->account_type == 0)
             <div class='ap_action_bar'>
                 <button type="button" class="btn_styled" data-toggle="modal" data-target="#add_user_modal">Dodaj użytkownika</button>
                 <button form="remove_users_form" type="submit" class="btn_styled">Usuń zaznaczonych użytkowników</button>
@@ -63,7 +63,7 @@
                         }?>
 
                         <td>
-                        @if ($user->name != Auth::user()->name && Auth::user()->account_type == "administrator")
+                        @if ($user->name != Auth::user()->name && Auth::user()->account_type == 0)
                             <input type="checkbox" class="ap_checkbox" name="ch[]" value="{{$user->id}}">
                         @endif
                         </td>
@@ -110,8 +110,8 @@
                         </div>
                         <div class="form-group">
                             <label for="account_type">Typ konta:</label></br>
-                            <input id="radio_user" type="radio"  name="account_type" value='użytkownik'><span class='ap_radio_label'>Użytkownika</span></br>
-                            <input id="radio_admin" type="radio"  name="account_type" value='administrator'><span class='ap_radio_label'>Administracyjne</span>
+                            <input id="radio_user" type="radio"  name="account_type" value='1'><span class='ap_radio_label'>Użytkownika</span></br>
+                            <input id="radio_admin" type="radio"  name="account_type" value='0'><span class='ap_radio_label'>Administracyjne</span>
                         </div>
 
                         <div class="form-group">
@@ -153,8 +153,8 @@
                         </div>
                         <div class="form-group">
                             <label for="edit_account_type">Typ konta:</label></br>
-                            <input id="edit_radio_user" type="radio"  name="account_type" value='użytkownik'><span class='ap_radio_label'>Użytkownika</span></br>
-                            <input id="edit_radio_admin" type="radio"  name="account_type" value='administrator'><span class='ap_radio_label'>Administracyjne</span>
+                            <input id="edit_radio_user" type="radio"  name="account_type" value='0'><span class='ap_radio_label'>Użytkownika</span></br>
+                            <input id="edit_radio_admin" type="radio"  name="account_type" value='1'><span class='ap_radio_label'>Administracyjne</span>
                         </div>
 
                         <div class="form-group">

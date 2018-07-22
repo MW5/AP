@@ -35,7 +35,7 @@ class userManagerController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
-        $user->account_type = $request->account_type; //added
+        $user->account_type = $request->account_type;
         $user->save();
         Session::flash('message', 'Pomyślnie dodano użytkownika '.$user->name);
         Session::flash('alert-class', 'alert-success');

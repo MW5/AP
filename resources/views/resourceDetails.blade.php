@@ -42,18 +42,20 @@
             <p class="resource_description">{{$resource->description}}</p>
         </div>
 
-        @if (Auth::user()->account_type == "administrator")
+        @if (Auth::user()->account_type == 0)
             <table class='ap_table'>
                     <tr>
                         <th>Typ operacji</th>
+                        <th>Poprzednia ilość</th>
                         <th>Zmiana ilości</th>
+                        <th>Nowa ilość</th>
                         <th>Firma</th>
                         <th>Data operacji</th>
                         <th>Użytkownik</th>
                     </tr>
                     <?php $counter=0?>
                     @foreach($warehouseOperations as $wO)
-                        @if($wO->resource_name == $resource->name)
+                        @if($wO->resource_id == $resource->id)
                             <?php
                                 if($counter%2==0) {
                                     ?>
@@ -65,23 +67,41 @@
                                 <?php
                                 }?>
                                 <td>
-                                    {{$wO->operation_type}}
+                                  @if ($wO->operation_type == 0)
+                                    przyjęcie
+                                  @else
+                                    wydanie
+                                  @endif
                                 </td>
                                 <td>
-                                    @if($wO->operation_type == "przyjęcie magazynowe")
-                                        + {{$wO->quantity}}
+                                    {{$wO->old_val}}
+                                </td>
+                                <td>
+                                    @if($wO->operation_type == 0)
+                                        + {{$wO->quantity_change}}
                                     @else
-                                        - {{$wO->quantity}}
+                                        - {{$wO->quantity_change}}
                                     @endif
                                 </td>
                                 <td>
-                                    {{$wO->company_name}}
+                                    {{$wO->new_val}}
                                 </td>
                                 <td>
-                                    {{$wO->user_name}}
+                                  @foreach ($suppliers as $s)
+                                    @if ($s->id == $wO->supplier_id)
+                                      {{$s->name}}
+                                    @endif
+                                  @endforeach
                                 </td>
                                 <td>
                                     {{$wO->created_at}}
+                                </td>
+                                <td>
+                                  @foreach ($users as $u)
+                                    @if ($u->id == $wO->user_id)
+                                      {{$u->name}}
+                                    @endif
+                                  @endforeach
                                 </td>
                             </tr>
                             <?php $counter+=1;?>

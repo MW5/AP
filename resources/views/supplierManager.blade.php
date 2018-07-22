@@ -26,7 +26,7 @@
 
 @section('content')
     <div class='container ap_table_container'>
-        @if (Auth::user()->account_type == "administrator")
+        @if (Auth::user()->account_type == 0)
             <div class='ap_action_bar'>
                 <button type="button" class="btn_styled" data-toggle="modal" data-target="#add_supplier_modal">Dodaj dostawcę</button>
                 <button form="remove_suppliers_form" type="submit" class="btn_styled">Usuń zaznaczonych dostawców</button>

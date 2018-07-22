@@ -15,11 +15,13 @@ class CreateWarehouseOperationsTable extends Migration
     {
         Schema::create('warehouse_operations', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('resource_name');
+            $table->integer('resource_id');
             $table->string('operation_type');
-            $table->integer('quantity');
-            $table->string('company_name');
-            $table->string('user_name');
+            $table->integer('old_val');
+            $table->integer('quantity_change');
+            $table->integer('new_val');
+            $table->integer('supplier_id')->nullable();
+            $table->integer('user_id');
             $table->timestamps();
         });
     }

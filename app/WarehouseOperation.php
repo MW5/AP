@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class WarehouseOperation extends Model
 {
     protected $fillable = [
-        'resource_name', 'operation_type', 'quantity', 'company_name', 'user_name'
+        'resource_id', 'operation_type', 'old_val', 'quantity_change', 'new_val', 'company_id', 'user_id'
     ];
+    public $operationAccept = 0;
+    public $operationRelease = 1;
 }

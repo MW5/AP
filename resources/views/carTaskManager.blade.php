@@ -26,7 +26,7 @@
 
 @section('content')
     <div class='container ap_table_container'>
-        @if (Auth::user()->account_type == "administrator")
+        @if (Auth::user()->account_type == 0)
             <div class='ap_action_bar'>
                 <button type="button" class="btn_styled" data-toggle="modal" data-target="#add_carTask_modal">Dodaj zlecenie</button>
                 <button form="remove_carTasks_form" type="submit" class="btn_styled">Usuń zaznaczone zlecenia</button>

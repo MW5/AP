@@ -33,11 +33,16 @@ class PageController extends Controller {
     public function resourceDetails($id) {
         $warehouseOperations = DB::table('warehouse_operations')->get();
         $resource = Resource::find($id);
-        return view('resourceDetails', compact('warehouseOperations', 'resource'));
+        $users = DB::table('users')->get();
+        $suppliers = DB::table('suppliers')->get();
+        return view('resourceDetails', compact('warehouseOperations', 'resource', 'users', 'suppliers'));
     }
     public function warehouseOperations() {
         $warehouseOperations = DB::table('warehouse_operations')->get();
-        return view('warehouseOperations', compact('warehouseOperations'));
+        $users = DB::table('users')->get();
+        $resources = DB::table('resources')->get();
+        $suppliers = DB::table('suppliers')->get();
+        return view('warehouseOperations', compact('warehouseOperations', 'users', 'resources', 'suppliers'));
     }
 
     public function carManager() {
