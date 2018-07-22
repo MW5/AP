@@ -42,6 +42,7 @@
                     <th></th>
                     <th>Nazwa</th>
                     <th>Ilość</th>
+                    <th>Ilość minimalna</th>
                     <th>Pojemność</th>
                     <th>Proporcje [preparat:woda]</th>
                 </tr>
@@ -50,11 +51,23 @@
                         <?php
                             if($counter%2==0) {
                                 ?>
-                            <tr class='even clickable_row' data-href='resourcesManager/{{$resource->id}}'>
+                                <tr class='even clickable_row_no_href' data-toggle="modal" data-target="#row_click_decision_modal"
+                                 data-resource-id="{{$resource->id}}"
+                                 data-resource-name="{{$resource->name}}"
+                                 data-resource-critical-quantity="{{$resource->critical_quantity}}"
+                                 data-resource-capacity="{{$resource->capacity}}"
+                                 data-resource-proportions="{{$resource->proportions}}"
+                                 data-resource-description="{{$resource->description}}">
                                 <?php
                             } else {
                                 ?>
-                                <tr class ='odd clickable_row' data-href='resourcesManager/{{$resource->id}}'>
+                                <tr class ='odd clickable_row_no_href' data-toggle="modal" data-target="#row_click_decision_modal"
+                                  data-resource-id="{{$resource->id}}"
+                                  data-resource-name="{{$resource->name}}"
+                                  data-resource-critical-quantity="{{$resource->critical_quantity}}"
+                                  data-resource-capacity="{{$resource->capacity}}"
+                                  data-resource-proportions="{{$resource->proportions}}"
+                                  data-resource-description="{{$resource->description}}">
                                 <?php
                             }?>
                             <td>
@@ -77,6 +90,9 @@
                                 {{$resource->quantity}}
                             </td>
                             <td>
+                                {{$resource->critical_quantity}}
+                            </td>
+                            <td>
                                 {{$resource->capacity}}
                             </td>
                             <td>
@@ -89,6 +105,27 @@
                 <?php $counter=0?>
             </form>
         </table>
+    </div>
+
+    <!-- row click decision modal -->
+    <div class="modal fade" tabindex="-1" role="dialog" id="row_click_decision_modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content modal_styled">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Wybierz akcję</h4>
+                </div>
+                <div class="modal-footer">
+                    <a id="details_btn_href">
+                      <button id="details_btn" type="button" class="btn btn_styled btn_safe">Szczegóły zasobu</button>
+                    </a>
+                    <button id="edit_resource_btn" type="button" class="btn btn_styled btn_safe" data-toggle="modal"
+                    data-dismiss="modal" data-target="#edit_resource_modal">Edytuj zasób</button>
+                    <button type="button" class="btn btn_styled btn_warning" data-dismiss="modal">Zamknij</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!--add resource modal-->
@@ -119,7 +156,7 @@
                         <div class="form-group">
                             <label for="capacity">Pojemność opakowania:</label>
                             <input id="capacity" type="text" class="form-control" name="capacity" placeholder="niewymagane, do 20 znaków"
-                                value="{{ old('email') }}">
+                                value="{{ old('capacity') }}">
                         </div>
                         <div class="form-group">
                             <label for="proportions">Proporcje [preparat:woda]:</label>
@@ -137,6 +174,58 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn_styled btn_warning" data-dismiss="modal">Zamknij</button>
                     <button form="add_resource_form" type="submit" class="btn btn_styled btn_safe">Dodaj zasób</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--edit resource modal-->
+    <div class="modal fade" tabindex="-1" role="dialog" id="edit_resource_modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content modal_styled">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Edytuj zasób</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="edit_resource_form" method="POST" action="/resourcesManager/editResource">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        <input id="edit_id" type="hidden" name="id">
+
+                        <div class="form-group">
+                            <label for="edit_name">Nazwa:</label>
+                            <input id="edit_name" type="text" class="form-control" name="name" placeholder="1-50 znaków"
+                                value="{{ old('name') }}">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="edit_critical_quantity">Minimalna ilość zamkniętych opakowań:</label>
+                            <input id="edit_critical_quantity" type="text" class="form-control" name="critical_quantity" placeholder="wartość liczbowa, 0-1000"
+                                value="{{ old('critical_quantity') }}">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="edit_capacity">Pojemność opakowania:</label>
+                            <input id="edit_capacity" type="text" class="form-control" name="capacity" placeholder="niewymagane, do 20 znaków"
+                                >
+                        </div>
+                        <div class="form-group">
+                            <label for="edit_proportions">Proporcje [preparat:woda]:</label>
+                            <input id="edit_proportions" type="text" class="form-control" name="proportions" placeholder="niewymagane, do 20 znaków"
+                                value="{{ old('proportions') }}">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="edit_description">Opis:</label>
+                            <textarea id ="edit_description" class="form-control" name="description" placeholder="5 do 400 znaków"
+                                    >{{ old('description') }}</textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn_styled btn_warning" data-dismiss="modal">Zamknij</button>
+                    <button form="edit_resource_form" type="submit" class="btn btn_styled btn_safe">Edytuj zasób</button>
                 </div>
             </div>
         </div>

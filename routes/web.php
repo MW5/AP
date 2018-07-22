@@ -19,7 +19,7 @@ Route::get('/home', 'PageController@index');
 
 Route::get('/resourcesManager', 'PageController@index');
 Route::post('/resourcesManager/addResource', 'ResourcesManagerController@addResource');
-//edit resource should also be here
+Route::post('/resourcesManager/editResource/', 'ResourcesManagerController@editResource');
 Route::post('/resourcesManager/removeResources', 'ResourcesManagerController@removeResources');
 Route::post('/resourcesManager/acceptDelivery', 'ResourcesManagerController@acceptDelivery');
 Route::post('/resourcesManager/warehouseRelease', 'ResourcesManagerController@warehouseRelease');

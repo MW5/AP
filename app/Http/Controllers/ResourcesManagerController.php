@@ -37,19 +37,35 @@ class ResourcesManagerController extends Controller
         $resource->name = $request->name;
         $resource->quantity = 0;
         $resource->critical_quantity = $request->critical_quantity;
-        if($request->capacity != "") {
-            $resource->capacity = $request->capacity;
-        } else {
-            $resource->capacity = "-";
-        }
-        if($request->proportions != "") {
-            $resource->proportions = $request->proportions;
-        } else {
-            $resource->proportions = "-";
-        }
+        $resource->capacity = $request->capacity;
+        $resource->proportions = $request->proportions;
         $resource->description = $request->description;
         $resource->save();
+
         Session::flash('message', 'Pomyślnie dodano '.$resource->name);
+        Session::flash('alert-class', 'alert-success');
+        return back();
+    }
+
+    function editResource(Request $request) {
+      $resource =  Resource::find($request->id);
+
+        $this->validate($request,[
+          'name'=>'required|min:1|max:50|unique:resources,name,'.$resource->id,
+          'critical_quantity'=>'required|min:0|max:1000|numeric',
+          'capacity'=>'max:20',
+          'proportions'=>'max:20',
+          'description'=>'required|min:5|max:400'
+        ]);
+
+        $resource->name = $request->name;
+        $resource->critical_quantity = $request->critical_quantity;
+        $resource->capacity = $request->capacity;
+        $resource->proportions = $request->proportions;
+        $resource->description = $request->description;
+        $resource->update();
+
+        Session::flash('message', 'Pomyślnie edytowano zasób '.$resource->name);
         Session::flash('alert-class', 'alert-success');
         return back();
     }

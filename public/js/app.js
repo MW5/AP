@@ -65,8 +65,10 @@ $(document).ready(function() {
             window.location = $(this).data("href");
         }
     });
+
     // edit clickable row
     $(".clickable_row_no_href").click(function(e) {
+      //edit user
       if ($(this).data("target") == "#edit_user_modal") {
         //default password change safeguard behaviour
         $("#edit_password").prop("disabled", true);
@@ -81,9 +83,9 @@ $(document).ready(function() {
           var userEmail = $(this).data("userEmail");
           var userAccountType = $(this).data("userAccountType");
 
-          $("#edit_user_modal").find("#edit_id").val(userId);
-          $("#edit_user_modal").find("#edit_name").val(userName);
-          $("#edit_user_modal").find("#edit_email").val(userEmail);
+          $("#edit_id").val(userId);
+          $("#edit_name").val(userName);
+          $("#edit_email").val(userEmail);
 
           if (userAccountType == "administrator") {
             $("#edit_radio_admin").attr("checked", "checked");
@@ -91,8 +93,8 @@ $(document).ready(function() {
             $("#edit_radio_user").attr("checked", "checked");
           }
         }
+      //edit supplier
       } else if ($(this).data("target") == "#edit_supplier_modal") {
-        console.log("supplier modal");
         if (e.target.type == "checkbox") {
             e.stopPropagation();
         }
@@ -105,14 +107,15 @@ $(document).ready(function() {
           var supplierPhoneNumber = $(this).data("supplierPhoneNumber"); //podkreslnik
           var supplierDetails= $(this).data("supplierDetails");
 
-           $("#edit_supplier_modal").find("#edit_id").val(supplierId);
-           $("#edit_supplier_modal").find("#edit_name").val(supplierName);
-           $("#edit_supplier_modal").find("#edit_address").val(supplierAddress);
-           $("#edit_supplier_modal").find("#edit_nip").val(supplierNip);
-           $("#edit_supplier_modal").find("#edit_email").val(supplierEmail);
-           $("#edit_supplier_modal").find("#edit_phone_number").val(supplierPhoneNumber);
-           $("#edit_supplier_modal").find("#edit_details").val(supplierDetails);
+           $("#edit_id").val(supplierId);
+           $("#edit_name").val(supplierName);
+           $("#edit_address").val(supplierAddress);
+           $("#edit_nip").val(supplierNip);
+           $("#edit_email").val(supplierEmail);
+           $("#edit_phone_number").val(supplierPhoneNumber);
+           $("#edit_details").val(supplierDetails);
         }
+      //edit car
       } else if ($(this).data("target") == "#edit_car_modal") {
           if (e.target.type == "checkbox") {
               e.stopPropagation();
@@ -123,15 +126,52 @@ $(document).ready(function() {
             var carMake = $(this).data("carMake");
             var carModel= $(this).data("carModel");
 
-            console.log("test");
-
-            $("#edit_car_modal").find("#edit_id").val(carId);
-            $("#edit_car_modal").find("#edit_reg_num").val(carRegNum);
-            $("#edit_car_modal").find("#edit_make").val(carMake);
-            $("#edit_car_modal").find("#edit_model").val(carModel);
+            $("#edit_id").val(carId);
+            $("#edit_reg_num").val(carRegNum);
+            $("#edit_make").val(carMake);
+            $("#edit_model").val(carModel);
           }
+      //resource row click decision modal
+      } else if ($(this).data("target") == "#row_click_decision_modal") {
+        if (e.target.type == "checkbox") {
+            e.stopPropagation();
+        } else {
+          var resourceId = $(this).data("resourceId");
+          var resourceName = $(this).data("resourceName");
+          var resourceCriticalQuantity = $(this).data("resourceCriticalQuantity");
+          var resourceCapacity = $(this).data("resourceCapacity");
+          var resourceProportions = $(this).data("resourceProportions");
+          var resourceDescription = $(this).data("resourceDescription");
+          //set properties
+            //details btn
+          $("#details_btn_href").attr("href", "resourcesManager/"+resourceId);
+            //edit btn
+          $("#edit_resource_btn").data("resource-id", resourceId);
+          $("#edit_resource_btn").data("resource-name", resourceName);
+          $("#edit_resource_btn").data("resource-critical-quantity", resourceCriticalQuantity);
+          $("#edit_resource_btn").data("resource-capacity", resourceCapacity);
+          $("#edit_resource_btn").data("resource-proportions", resourceProportions);
+          $("#edit_resource_btn").data("resource-description", resourceDescription);
         }
+      }
     });
+
+    //edit resource modal
+    $("#edit_resource_btn").click(function() {
+          var resourceId = $(this).data("resourceId");
+          var resourceName = $(this).data("resourceName");
+          var resourceCriticalQuantity = $(this).data("resourceCriticalQuantity");
+          var resourceCapacity = $(this).data("resourceCapacity");
+          var resourceProportions = $(this).data("resourceProportions");
+          var resourceDescription = $(this).data("resourceDescription");
+
+          $("#edit_id").val(resourceId);
+          $("#edit_name").val(resourceName);
+          $("#edit_critical_quantity").val(resourceCriticalQuantity);
+          $("#edit_capacity").val(resourceCapacity);
+          $("#edit_proportions").val(resourceProportions);
+          $("#edit_description").val(resourceDescription);
+      })
 
     //edit user pass change safeguard
     $("#edit_pass_change_confirmation").click(function() {
