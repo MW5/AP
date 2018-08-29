@@ -153,6 +153,34 @@ $(document).ready(function() {
           $("#edit_resource_btn").data("resource-proportions", resourceProportions);
           $("#edit_resource_btn").data("resource-description", resourceDescription);
         }
+      //edit car task
+      } else if ($(this).data("target") == "#edit_carTask_modal") {
+        if (e.target.type == "checkbox") {
+            e.stopPropagation();
+        }
+        else {
+          $("#edit_car_id").select2({
+              dropdownParent: $("#edit_carTask_modal")
+          });
+          //$('#edit_begin_time').data("DateTimePicker").moment().format("dddd, MMMM Do YYYY, h:mm:ss");
+          $('#edit_begin_time').datetimepicker({format : "DD/MM/YYYY HH:mm"});
+
+          var carTaskId = $(this).data("carTaskId");
+          var carTaskCarId = $(this).data("carTaskCarId");
+          var carTaskTaskType = $(this).data("carTaskTaskType");
+          var carTaskBeginTime = $(this).data("carTaskBeginTime");
+          var carTaskBeginUser = $(this).data("carTaskBeginUser");
+          var carTaskEndTime = $(this).data("carTaskEndTime");
+          var carTaskEndUser = $(this).data("carTaskEndUser");
+
+           $("#edit_id").val(carTaskId);
+           $("#edit_car_id").val(carTaskCarId);
+           $("#edit_task_type").val(carTaskTaskType);
+           $("#edit_begin_time").val(carTaskBeginTime);
+           $("#edit_begin_user").val(carTaskBeginUser);
+           $("#edit_end_time").val(carTaskEndTime);
+           $("#edit_end_user").val(carTaskEndUser);
+        }
       }
     });
 
@@ -181,9 +209,6 @@ $(document).ready(function() {
         $("#edit_password").prop("disabled", true);
       }
     })
-
-    $('#datetimepicker').datetimepicker();
-
 
     //TEMPORARY SOLUTION
     $('#report_warehouse_operations').click(function () {

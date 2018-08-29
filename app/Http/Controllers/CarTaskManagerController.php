@@ -27,21 +27,37 @@ class CarTaskManagerController extends Controller
 
   function addCarTask(Request $request) {
       $this->validate($request,[
-          'reg_num'=>'required',
+          'car_id'=>'required',
           'task_type'=>'required'
       ]);
 
       $carTask = new CarTask();
+      $car =  Car::find($request->car_id);
 
-      $car = Car::where('reg_num', '=' ,$request->reg_num)->firstOrFail();
+      //$car = Car::where('reg_num', '=' ,$request->reg_num)->firstOrFail();
 
       $carTask->car_id = $car->id;
-      $carTask->car_reg_num = $request->reg_num;
       $carTask->task_type = $request->task_type;
       $carTask->status = 0;
       $carTask->save();
 
-      Session::flash('message', 'Pomyślnie dodano zadanie dla samochodu '.$carTask->reg_num);
+      Session::flash('message', 'Pomyślnie dodano zadanie dla samochodu '.$carTask->reg_num.'TUTAJ ZMIANY STANÓW');
+      Session::flash('alert-class', 'alert-success');
+      return back();
+  }
+
+  function editCarTask(Request $request) {
+      $carTask =  CarTask::find($request->id);
+      $this->validate($request,[
+          'car_id'=>'required',
+          'task_type'=>'required'
+      ]);
+
+      $carTask->car_id = $request->car_id;
+      $carTask->task_type = $request->task_type;
+      $carTask->update();
+
+      Session::flash('message', 'Pomyślnie edytowano zlecenie');
       Session::flash('alert-class', 'alert-success');
       return back();
   }

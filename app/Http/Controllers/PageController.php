@@ -52,7 +52,8 @@ class PageController extends Controller {
     public function carTaskManager() {
       $carTasks = DB::table('car_tasks')->get();
       $cars = DB::table('cars')->get();
-      return view('carTaskManager', compact('carTasks', 'cars'));
+      $users = DB::table('users')->get();
+      return view('carTaskManager', compact('carTasks', 'cars', 'users'));
     }
 
     public function userManager() {
