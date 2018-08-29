@@ -39,11 +39,8 @@ class SupplierManagerController extends Controller
       $supplier->nip = $request->nip;
       $supplier->email = $request->email;
       $supplier->phone_number = $request->phone_number;
-      if ($request->details != "") {
-        $supplier->details = $request->details;
-      } else {
-        $supplier->details = "-";
-      }
+      $supplier->details = $request->details;
+      
       $supplier->save();
       Session::flash('message', 'Pomyślnie dodano dostawcę '.$supplier->name);
       Session::flash('alert-class', 'alert-success');

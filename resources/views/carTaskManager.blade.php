@@ -183,9 +183,8 @@
 
                         <div class="form-group">
                             <label for="edit_begin_time">Czas rozpoczęcia:</label>
-                            <div class='input-group date' id='edit_begin_time'>
-                               <input type='text' class="form-control" name="begin_time"
-                                   value="{{ old('begin_time') }}"/>
+                            <div class='input-group date' id="begin_time_datepicker">
+                               <input id='edit_begin_time' type='text' class="form-control" name="begin_time"/>
                                <span class="input-group-addon">
                                    <span class="glyphicon glyphicon-calendar"></span>
                                </span>
@@ -194,27 +193,33 @@
 
                         <div class="form-group">
                             <label for="edit_begin_user">Użytkownik rozpoczynający</label>
-                            <select id="edit_begin_user" name="begin_user">
+                            <select id="edit_begin_user" name="begin_user_id">
+                                <option value=""></option>
                               @foreach($users as $user)
                                 <option value="{{$user->id}}">{{$user->name}}</option>
                               @endforeach
                             </select>
                         </div>
 
-                        <!-- <div class="form-group">
-                            <label for="edit_begin_time">Czas rozpoczęcia:</label>
-                            <input id="edit_begin_time" type="text" class="form-control" name="begin_time" placeholder="1-50 znaków"
-                                value="{{ old('begin_time') }}">
+                        <div class="form-group">
+                            <label for="edit_end_time">Czas zakończenia:</label>
+                            <div class='input-group date' id="end_time_datepicker">
+                               <input id='edit_end_time' type='text' class="form-control" name="end_time"/>
+                               <span class="input-group-addon">
+                                   <span class="glyphicon glyphicon-calendar"></span>
+                               </span>
+                            </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="make">Typ zlecenia:</label>
-                            <select name="task_type">
-                              <option>0</option>
-                              <option>1</option>
-                              <option>2</option>
+                            <label for="edit_end_user">Użytkownik kończący</label>
+                            <select id="edit_end_user" name="end_user_id">
+                              <option value=""></option>
+                              @foreach($users as $user)
+                                <option value="{{$user->id}}">{{$user->name}}</option>
+                              @endforeach
                             </select>
-                        </div> -->
+                        </div>
 
 
                     </form>

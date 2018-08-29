@@ -153,8 +153,8 @@
                         </div>
                         <div class="form-group">
                             <label for="edit_account_type">Typ konta:</label></br>
-                            <input id="edit_radio_user" type="radio"  name="account_type" value='0'><span class='ap_radio_label'>Użytkownika</span></br>
-                            <input id="edit_radio_admin" type="radio"  name="account_type" value='1'><span class='ap_radio_label'>Administracyjne</span>
+                            <input id="edit_radio_user" type="radio"  name="account_type" value='1'><span class='ap_radio_label'>Użytkownika</span></br>
+                            <input id="edit_radio_admin" type="radio"  name="account_type" value='0'><span class='ap_radio_label'>Administracyjne</span>
                         </div>
 
                         <div class="form-group">

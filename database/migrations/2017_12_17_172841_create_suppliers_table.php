@@ -21,7 +21,7 @@ class CreateSuppliersTable extends Migration
             $table->bigInteger('nip');
             $table->integer('phone_number');
             $table->string('email');
-            $table->longtext('details');
+            $table->longtext('details')->nullable();
             $table->timestamps();
         });
     }

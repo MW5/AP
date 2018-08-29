@@ -4,7 +4,7 @@ $(document).ready(function() {
     setTimeout(
         function(){
             $(".alert_box").fadeOut();
-        }, 2000);
+        }, 1000);
 
     //current nav indicator
     $( ".nav_href" ).each(function( index ) {
@@ -159,11 +159,8 @@ $(document).ready(function() {
             e.stopPropagation();
         }
         else {
-          $("#edit_car_id").select2({
-              dropdownParent: $("#edit_carTask_modal")
-          });
-          //$('#edit_begin_time').data("DateTimePicker").moment().format("dddd, MMMM Do YYYY, h:mm:ss");
-          $('#edit_begin_time').datetimepicker({format : "DD/MM/YYYY HH:mm"});
+          $('#begin_time_datepicker').datetimepicker({format : "YYYY-MM-DD HH:mm:ss"});
+          $('#end_time_datepicker').datetimepicker({format : "YYYY-MM-DD HH:mm:ss"});
 
           var carTaskId = $(this).data("carTaskId");
           var carTaskCarId = $(this).data("carTaskCarId");
@@ -180,6 +177,16 @@ $(document).ready(function() {
            $("#edit_begin_user").val(carTaskBeginUser);
            $("#edit_end_time").val(carTaskEndTime);
            $("#edit_end_user").val(carTaskEndUser);
+
+           $("#edit_car_id").select2({
+               dropdownParent: $("#edit_carTask_modal")
+           });
+           $("#edit_begin_user").select2({
+               dropdownParent: $("#edit_carTask_modal")
+           });
+           $("#edit_end_user").select2({
+               dropdownParent: $("#edit_carTask_modal")
+           });
         }
       }
     });
@@ -223,6 +230,5 @@ $(document).ready(function() {
         win.close();
         return false;
     });
-
 
 });
