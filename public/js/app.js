@@ -154,7 +154,7 @@ $(document).ready(function() {
           $("#edit_resource_btn").data("resource-description", resourceDescription);
         }
       //edit car task
-      } else if ($(this).data("target") == "#edit_carTask_modal") {
+      } else if ($(this).data("target") == "#edit_car_task_modal") {
         if (e.target.type == "checkbox") {
             e.stopPropagation();
         }
@@ -179,13 +179,13 @@ $(document).ready(function() {
            $("#edit_end_user").val(carTaskEndUser);
 
            $("#edit_car_id").select2({
-               dropdownParent: $("#edit_carTask_modal")
+               dropdownParent: $("#edit_car_task_modal")
            });
            $("#edit_begin_user").select2({
-               dropdownParent: $("#edit_carTask_modal")
+               dropdownParent: $("#edit_car_task_modal")
            });
            $("#edit_end_user").select2({
-               dropdownParent: $("#edit_carTask_modal")
+               dropdownParent: $("#edit_car_task_modal")
            });
         }
       }
@@ -216,6 +216,13 @@ $(document).ready(function() {
         $("#edit_password").prop("disabled", true);
       }
     })
+
+    //add car task modal
+    $("#add_car_task_btn").click(function() {
+      $("#add_car_id").select2({
+          dropdownParent: $("#add_car_task_modal")
+      });
+    });
 
     //TEMPORARY SOLUTION
     $('#report_warehouse_operations').click(function () {

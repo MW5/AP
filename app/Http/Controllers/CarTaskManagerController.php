@@ -34,8 +34,6 @@ class CarTaskManagerController extends Controller
       $carTask = new CarTask();
       $car =  Car::find($request->car_id);
 
-      //$car = Car::where('reg_num', '=' ,$request->reg_num)->firstOrFail();
-
       $carTask->car_id = $car->id;
       $carTask->task_type = $request->task_type;
       $carTask->status = 0;
@@ -52,9 +50,9 @@ class CarTaskManagerController extends Controller
           'car_id'=>'required',
           'task_type'=>'required',
           'begin_time' => 'required_with_all:begin_user_id|date_format:Y-m-d H:i:s|nullable',
-          'begin_user_id' => 'required_with_all:begin_time',
+          'begin_user_id' => 'required_with_all:begin_time|nullable',
           'end_time' => 'required_with_all:end_user_id_time|date_format:Y-m-d H:i:s|after:begin_time|nullable',
-          'end_user_id' => 'required_with_all:end_time'
+          'end_user_id' => 'required_with_all:end_time|nullable'
       ]);
 
       $carTask->car_id = $request->car_id;
@@ -63,6 +61,7 @@ class CarTaskManagerController extends Controller
       $carTask->begin_user_id = $request->begin_user_id;
       $carTask->end_time = $request->end_time;
       $carTask->end_user_id = $request->end_user_id;
+
       if($request->begin_time!="" && $request->end_time=="") {
         $carTask->status = 1;
       } else if ($request->end_time!="") {

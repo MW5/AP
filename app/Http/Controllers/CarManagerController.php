@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Car;
+use App\CarTask;
 use Session;
 
 class CarManagerController extends Controller
@@ -12,7 +13,12 @@ class CarManagerController extends Controller
       if(!empty($request->get('ch')) != 0) {
           foreach($request->get('ch') as $c) {
               $car = Car::find($c);
-              $car->delete();
+              if($car->delete()) {
+                $carTasks = CarTask::where('car_id',$car->id)->get();
+                foreach($carTasks as $cT) {
+                  $cT->delete();
+                }
+              };
           }
           Session::flash('message', 'Pomyślnie usunięto samochody +TUTAJ USUWAJ TEŻ ZLECENIA POWIĄZANE');
           Session::flash('alert-class', 'alert-success');
@@ -35,9 +41,15 @@ class CarManagerController extends Controller
       $car->make = $request->make;
       $car->model = $request->model;
       $car->status = 0;
-      $car->save();
-//HAVE TO CREATE CARTASK TYPE 0
-      Session::flash('message', 'Pomyślnie dodano samochód '.$car->reg_num);
+      if($car->save()) {
+        $carTask = new CarTask();
+        $carTask->car_id = $car->id;
+        $carTask->task_type = 0;
+        $carTask->status = 0;
+        $carTask->save();
+      }
+
+      Session::flash('message', 'Pomyślnie dodano samochód '.$car->reg_num.'oraz zlecenie weryfikacji');
       Session::flash('alert-class', 'alert-success');
       return back();
   }
@@ -52,7 +64,6 @@ class CarManagerController extends Controller
       ]);
 
       $car->reg_num = $request->reg_num;
-//HAVE TO UPDATE REGNUM IN CARTASKS TOO
       $car->make = $request->make;
       $car->model = $request->model;
       $car->update();

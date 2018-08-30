@@ -28,12 +28,12 @@
     <div class='container ap_table_container'>
         @if (Auth::user()->account_type == 0)
             <div class='ap_action_bar'>
-                <button type="button" class="btn_styled" data-toggle="modal" data-target="#add_carTask_modal">Dodaj zlecenie</button>
-                <button form="remove_carTasks_form" type="submit" class="btn_styled">Usuń zaznaczone zlecenia</button>
+                <button id="add_car_task_btn" type="button" class="btn_styled" data-toggle="modal" data-target="#add_car_task_modal">Dodaj zlecenie</button>
+                <button form="remove_car_tasks_form" type="submit" class="btn_styled">Usuń zaznaczone zlecenia</button>
             </div>
         @endif
         <table class='ap_table'>
-            <form id="remove_carTasks_form" method="POST" action="/carTaskManager/removeCarTasks">
+            <form id="remove_car_tasks_form" method="POST" action="/carTaskManager/removeCarTasks">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <tr>
                     <th></th>
@@ -50,7 +50,7 @@
                     <?php
                         if($counter%2==0) {
                             ?>
-                        <tr class='even clickable_row_no_href' data-toggle="modal" data-target="#edit_carTask_modal"
+                        <tr class='even clickable_row_no_href' data-toggle="modal" data-target="#edit_car_task_modal"
                          data-car-task-id="{{$carTask->id}}"
                          data-car-task-car-id="{{$carTask->car_id}}"
                          data-car-task-task-type="{{$carTask->task_type}}"
@@ -61,7 +61,7 @@
                             <?php
                         } else {
                             ?>
-                            <tr class='odd clickable_row_no_href' data-toggle="modal" data-target="#edit_carTask_modal"
+                            <tr class='odd clickable_row_no_href' data-toggle="modal" data-target="#edit_car_task_modal"
                              data-car-task-id="{{$carTask->id}}"
                              data-car-task-car-id="{{$carTask->car_id}}"
                              data-car-task-task-type="{{$carTask->task_type}}"
@@ -109,7 +109,7 @@
     </div>
 
     <!--add carTask modal-->
-    <div class="modal fade" tabindex="-1" role="dialog" id="add_carTask_modal">
+    <div class="modal fade" tabindex="-1" role="dialog" id="add_car_task_modal">
         <div class="modal-dialog" role="document">
             <div class="modal-content modal_styled">
                 <div class="modal-header">
@@ -118,12 +118,12 @@
                     <h4 class="modal-title">Dodaj zadanie</h4>
                 </div>
                 <div class="modal-body">
-                    <form id="add_carTask_form" method="POST" action="/carTaskManager/addCarTask">
+                    <form id="add_car_task_form" method="POST" action="/carTaskManager/addCarTask">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
                         <div class="form-group">
                             <label for="car_id">Numer rejestracyjny:</label>
-                            <select name="car_id">
+                            <select id="add_car_id" name="car_id">
                             @foreach($cars as $car)
                               <option value="{{$car->id}}">{{$car->reg_num}}</option>
                             @endforeach
@@ -143,14 +143,14 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn_styled btn_warning" data-dismiss="modal">Zamknij</button>
-                    <button form="add_carTask_form" type="submit" class="btn btn_styled btn_safe">Dodaj zlecenie</button>
+                    <button form="add_car_task_form" type="submit" class="btn btn_styled btn_safe">Dodaj zlecenie</button>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- edit car task modal -->
-    <div class="modal fade" tabindex="-1" role="dialog" id="edit_carTask_modal">
+    <div class="modal fade" tabindex="-1" role="dialog" id="edit_car_task_modal">
         <div class="modal-dialog" role="document">
             <div class="modal-content modal_styled">
                 <div class="modal-header">
@@ -159,7 +159,7 @@
                     <h4 class="modal-title">Edytuj zadanie</h4>
                 </div>
                 <div class="modal-body">
-                    <form id="edit_carTask_form" method="POST" action="/carTaskManager/editCarTask">
+                    <form id="edit_car_task_form" method="POST" action="/carTaskManager/editCarTask">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <input id="edit_id" type="hidden" name="id">
 
@@ -226,7 +226,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn_styled btn_warning" data-dismiss="modal">Zamknij</button>
-                    <button form="edit_carTask_form" type="submit" class="btn btn_styled btn_safe">Edytuj zlecenie</button>
+                    <button form="edit_car_task_form" type="submit" class="btn btn_styled btn_safe">Edytuj zlecenie</button>
                 </div>
             </div>
         </div>
