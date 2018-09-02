@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use App\Resource;
+use App\WarehouseOperation;
 
 class PageController extends Controller {
     /**
@@ -31,11 +32,12 @@ class PageController extends Controller {
         return view('supplierManager', compact('suppliers'));
     }
     public function resourceDetails($id) {
-        $warehouseOperations = DB::table('warehouse_operations')->get();
+        $warehouseOperations = WarehouseOperation::where([
+            ['created_at', '>=', date("Y-m-d", strtotime('-30 days'))],
+            ['resource_id', $id]
+          ])->get();
         $resource = Resource::find($id);
-        $users = DB::table('users')->get();
-        $suppliers = DB::table('suppliers')->get();
-        return view('resourceDetails', compact('warehouseOperations', 'resource', 'users', 'suppliers'));
+        return view('resourceDetails', compact('warehouseOperations', 'resource'));
     }
     public function warehouseOperations() {
         $warehouseOperations = DB::table('warehouse_operations')->get();

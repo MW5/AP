@@ -16,7 +16,7 @@ class CreateWarehouseOperationsTable extends Migration
         Schema::create('warehouse_operations', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('resource_id');
-            $table->string('operation_type');
+            $table->integer('operation_type');
             $table->integer('old_val');
             $table->integer('quantity_change');
             $table->integer('new_val');

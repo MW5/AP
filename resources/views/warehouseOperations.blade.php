@@ -29,8 +29,6 @@
         @if (Auth::user()->account_type == 0)
             <div class='ap_action_bar'>
                 <a href='/resourcesManager' class="btn_styled">Wróć</a>
-                <!--<button type="button" class="btn btn_grey btn_green" data-toggle="modal" data-target="#report_modal">Raportuj</button>-->
-
                 <!--TEMPORATY SOLUTION-->
                 <button type="button" class="btn_styled" id="report_warehouse_operations">Raportuj</button>
 
@@ -111,34 +109,6 @@
                 <?php $counter=0?>
             </form>
         </table>
-
-        <!--report modal-->
-        <div class="modal fade" tabindex="-1" role="dialog" id="report_modal">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content modal_styled">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">Raportuj</h4>
-                    </div>
-                    <div class="modal-body">
-                        <form id="report_warehouse_perations_form" method="POST" action="/resourcesManager/warehouseOperations/report">
-                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-
-                            <div class="form-group">
-                                <label for="supplier">Add operation type select and min/max date selection</label>
-                                    <input id="supplier" type="text" class="form-control" name="supplier" placeholder="1-50 znaków"
-                                        value="{{ old('supplier') }}">
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn_styled btn_warning" data-dismiss="modal">Zamknij</button>
-                        <button form="report_warehouse_operations_form" type="submit" class="btn btn_styled btn_safe">Raportuj</button>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 
 @endsection

@@ -30,7 +30,7 @@
             <div class='ap_action_bar'>
                 <button type="button" class="btn_styled" data-toggle="modal" data-target="#add_resource_modal">Dodaj zasób</button>
                 <button form="remove_resources_form" type="submit" class="btn_styled">Usuń zaznaczone zasoby</button>
-                <button type="button" class="btn_styled" data-toggle="modal" data-target="#accept_delivery_modal">Przyjmij dostawę</button>
+                <button id="accept_delivery_btn" type="button" class="btn_styled" data-toggle="modal" data-target="#accept_delivery_modal">Przyjmij dostawę</button>
                 <button type="button" class=" btn_styled" data-toggle="modal" data-target="#warehouse_release_modal">Wydaj zasoby</button>
                 <a href='resourcesManager/warehouseOperations' class="btn_styled">Rejestr operacji magazynowych</a>
             </div>
@@ -245,7 +245,8 @@
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
 
-                        @foreach ($resources as $resource)
+                        <div id="accept_delivery_resources">
+                        <!-- @foreach ($resources as $resource)
                             <div class="row">
                                 <div class="form-group">
                                     <label class="control-label col-sm-6 horizontal_label" for="{{$resource->name}}_field_accept">{{$resource->name}}</label>
@@ -260,10 +261,11 @@
                                     </div>
                                 </div>
                             </div>
-                        @endforeach
+                        @endforeach -->
+                        </div>
                         <div class="form-group">
                             <label for="supplier_id">Dostawa z:</label>
-                              <select name='supplier_id'>
+                              <select id="accept_delivery_select" name='supplier_id'>
                                   @foreach ($suppliers as $supplier)
                                     <option value='{{$supplier->id}}'>{{$supplier->name}}</option>
                                   @endforeach

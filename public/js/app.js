@@ -14,25 +14,7 @@ $(document).ready(function() {
       }
     });
 
-    //accept delivery increase/decrease buttons
-    $(".resource_increase").click(function() {
-        var clickedBtnId = $(this).attr("id");
-        var inputFieldId = clickedBtnId.replace("_inc_btn_accept", "_field_accept");
-        var currVal = $("#"+inputFieldId).val();
-        currVal++;
-        $("#"+inputFieldId).val(currVal);
-    });
-    $(".resource_decrease").click(function() {
-        var clickedBtnId = $(this).attr("id");
-        var inputFieldId = clickedBtnId.replace("_dec_btn_accept", "_field_accept");
-        var currVal = $("#"+inputFieldId).val();
-        if (currVal>0) {
-            currVal--;
-            $("#"+inputFieldId).val(currVal);
-        }
-    });
-
-        //warehouse release increase/decrease buttons
+    //warehouse release increase/decrease buttons
     $(".resource_increase").click(function() {
         var clickedBtnId = $(this).attr("id");
         var inputFieldId = clickedBtnId.replace("_inc_btn_release", "_field_release");
@@ -179,13 +161,16 @@ $(document).ready(function() {
            $("#edit_end_user").val(carTaskEndUser);
 
            $("#edit_car_id").select2({
-               dropdownParent: $("#edit_car_task_modal")
+              language: "pl",
+              dropdownParent: $("#edit_car_task_modal")
            });
            $("#edit_begin_user").select2({
-               dropdownParent: $("#edit_car_task_modal")
+              language: "pl",
+              dropdownParent: $("#edit_car_task_modal")
            });
            $("#edit_end_user").select2({
-               dropdownParent: $("#edit_car_task_modal")
+              language: "pl",
+              dropdownParent: $("#edit_car_task_modal")
            });
         }
       }
@@ -208,6 +193,60 @@ $(document).ready(function() {
           $("#edit_description").val(resourceDescription);
       })
 
+      //accept delivery
+      $("#accept_delivery_btn").click(function() {
+        var resourceIds = [];
+        var resourceNames = [];
+          $(':checkbox:checked').each(function(i){
+            resourceIds[i] = $(this).val();
+            resourceNames[i] = $(this).parent().parent().data("resourceName");
+          });
+
+          for (var i=0; i<resourceIds.length; i++) {
+            $("#accept_delivery_resources").append(
+              "<div class='row'>\
+                  <div class='form-group'>\
+                      <label class='control-label col-sm-6 horizontal_label' for='"+resourceNames[i]+"_field_accept'>"+resourceNames[i]+"</label>\
+                      <div class='col-sm-4'>\
+                          <button type='button' class='resource_increase' id='"+resourceIds[i]+"_inc_btn_accept'>+</button>\
+                          <button type='button' class='resource_decrease' id='"+resourceIds[i]+"_dec_btn_accept'>-</button>\
+                      </div>\
+                      <div class='col-sm-2'>\
+                          <input type='hidden' name='res_id[]' value="+resourceIds[i]+">\
+                          <input id='"+resourceIds[i]+"_field_accept' type='text' class='form-control horizontal_input' name='qty_field_accept[]'\
+                                 value=0>\
+                      </div>\
+                  </div>\
+              </div>"
+            )
+          }
+          $("#accept_delivery_select").select2({
+             language: "pl",
+             dropdownParent: $("#accept_delivery_modal")
+          });
+      });
+      $("#accept_delivery_modal").on("hidden.bs.modal", function () {
+        $("#accept_delivery_resources").empty();
+    });
+
+    //accept delivery increase/decrease buttons
+        $("#accept_delivery_modal").on("click", ".resource_increase", function() {
+            var clickedBtnId = $(this).attr("id");
+            var inputFieldId = clickedBtnId.replace("_inc_btn_accept", "_field_accept");
+            var currVal = $("#"+inputFieldId).val();
+            currVal++;
+            $("#"+inputFieldId).val(currVal);
+        });
+        $("#accept_delivery_modal").on("click", ".resource_decrease", function() {
+            var clickedBtnId = $(this).attr("id");
+            var inputFieldId = clickedBtnId.replace("_dec_btn_accept", "_field_accept");
+            var currVal = $("#"+inputFieldId).val();
+            if (currVal>0) {
+                currVal--;
+                $("#"+inputFieldId).val(currVal);
+            }
+        });
+
     //edit user pass change safeguard
     $("#edit_pass_change_confirmation").click(function() {
       if ($("#edit_pass_change_confirmation").is(":checked")) {
@@ -220,6 +259,7 @@ $(document).ready(function() {
     //add car task modal
     $("#add_car_task_btn").click(function() {
       $("#add_car_id").select2({
+          language: "pl",
           dropdownParent: $("#add_car_task_modal")
       });
     });
