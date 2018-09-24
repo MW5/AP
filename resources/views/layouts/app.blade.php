@@ -9,6 +9,7 @@
         <link rel="stylesheet" href="{{ URL::asset('css/bootstrap.min.css') }}">
         <link rel="stylesheet" href="{{ URL::asset('css/jquery-ui.min.css') }}">
         <link rel="stylesheet" href="{{ URL::asset('css/app.css') }}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <script src="{{ URL::asset('js/jquery-3.2.1.min.js')}}"></script>
         <script src="{{ URL::asset('js/bootstrap.min.js')}}"></script>
         <script src="{{ URL::asset('js/jquery-ui.min.js')}}"></script>
@@ -20,6 +21,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/i18n/pl.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
     </head>
     <body>
         @if (count($errors) > 0 || Session::has('message'))

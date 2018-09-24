@@ -18,7 +18,7 @@ class CarTaskManagerController extends Controller
           Session::flash('message', 'Pomyślnie usunięto zlecenia +TUTAJ ZMIANY STANÓW SAMOCHODU');
           Session::flash('alert-class', 'alert-success');
       } else {
-          Session::flash('message', 'Wybierz samochody do usunięcia');
+          Session::flash('message', 'Wybierz zlecenia do usunięcia');
           Session::flash('alert-class', 'alert-warning');
       }
 
@@ -70,7 +70,7 @@ class CarTaskManagerController extends Controller
       $carTask->update();
 
       Session::flash('message', $request->begin_time);
-      //Session::flash('message', 'Pomyślnie edytowano zlecenie');
+      Session::flash('message', 'Pomyślnie edytowano zlecenie');
       Session::flash('alert-class', 'alert-success');
       return back();
   }

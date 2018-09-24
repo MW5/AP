@@ -6,22 +6,15 @@ use Illuminate\Http\Request;
 use DB;
 use App\Resource;
 use App\WarehouseOperation;
+use App\CarTask;
+use App\User;
+use App\Supplier;
 
 class PageController extends Controller {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct() {
         $this->middleware('auth');
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index() {
         $resources = DB::table('resources')->get();
         $suppliers = DB::table('suppliers')->get();
@@ -62,5 +55,4 @@ class PageController extends Controller {
         $users = DB::table('users')->get();
         return view('userManager', compact('users'));
     }
-
 }

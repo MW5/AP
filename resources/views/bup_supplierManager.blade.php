@@ -25,40 +25,42 @@
 @endsection
 
 @section('content')
-<div class='container ap_table_container'>
-    @if (Auth::user()->account_type == 0)
-        <div class='ap_action_bar'>
-            <button type="button" class="btn_styled" data-toggle="modal" data-target="#add_supplier_modal">Dodaj dostawcę</button>
-            <button form="remove_suppliers_form" type="submit" class="btn_styled">Usuń zaznaczonych dostawców</button>
-        </div>
-    @endif
-
-    <div id="tableSuppliers" class="table-list-container">
-      <form id="remove_suppliers_form" method="POST" action="/supplierManager/removeSuppliers">
-        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-          <table class="table-list table ap_table" data-currentpage="1" >
-
-
-                  <thead>
+    <div class='container ap_table_container'>
+        @if (Auth::user()->account_type == 0)
+            <div class='ap_action_bar'>
+                <button type="button" class="btn_styled" data-toggle="modal" data-target="#add_supplier_modal">Dodaj dostawcę</button>
+                <button form="remove_suppliers_form" type="submit" class="btn_styled">Usuń zaznaczonych dostawców</button>
+            </div>
+        @endif
+        <table class='ap_table'>
+            <form id="remove_suppliers_form" method="POST" action="/supplierManager/removeSuppliers">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <tr>
                     <th></th>
-                    <th><button type="button" class="sort" data-sort="jSortName">Nazwa</button></th>
-                    <th><button type="button" class="sort" data-sort="jSortAddress">Adres</button></th>
-                    <th><button type="button" class="sort" data-sort="jSortNip">Nip</button></th>
-                    <th><button type="button" class="sort" data-sort="jSortEmail">Adres email</button></th>
-                    <th><button type="button" class="sort" data-sort="jSortPhoneNumber">Numer telefonu</button></th>
-                    <th><button type="button" class="sort" data-sort="jSortDetails">Informacje dodatkowe</button></th>
-                  </thead>
-
-                  <!-- IMPORTANT, class="list" must be on tbody -->
-                  <tbody class="list">
-
-
-                    <?php $counter=0?>
-                    @foreach($suppliers as $supplier)
-                        <?php
-                            if($counter%2==0) {
-                                ?>
-                            <tr class='even clickable_row_no_href' data-toggle="modal" data-target="#edit_supplier_modal"
+                    <th>Nazwa</th>
+                    <th>Adres</th>
+                    <th>Nip</th>
+                    <th>Adres email</th>
+                    <th>Numer telefonu</th>
+                    <th>Informacje dodatkowe</th>
+                </tr>
+                <?php $counter=0?>
+                @foreach($suppliers as $supplier)
+                    <?php
+                        if($counter%2==0) {
+                            ?>
+                        <tr class='even clickable_row_no_href' data-toggle="modal" data-target="#edit_supplier_modal"
+                         data-supplier-id="{{$supplier->id}}"
+                         data-supplier-name="{{$supplier->name}}"
+                         data-supplier-address="{{$supplier->address}}"
+                         data-supplier-nip="{{$supplier->nip}}"
+                         data-supplier-email="{{$supplier->email}}"
+                         data-supplier-phone-number="{{$supplier->phone_number}}"
+                         data-supplier-details="{{$supplier->details}}">
+                            <?php
+                        } else {
+                            ?>
+                            <tr class='odd clickable_row_no_href' data-toggle="modal" data-target="#edit_supplier_modal"
                              data-supplier-id="{{$supplier->id}}"
                              data-supplier-name="{{$supplier->name}}"
                              data-supplier-address="{{$supplier->address}}"
@@ -66,69 +68,37 @@
                              data-supplier-email="{{$supplier->email}}"
                              data-supplier-phone-number="{{$supplier->phone_number}}"
                              data-supplier-details="{{$supplier->details}}">
-                                <?php
-                            } else {
-                                ?>
-                                <tr class='odd clickable_row_no_href' data-toggle="modal" data-target="#edit_supplier_modal"
-                                 data-supplier-id="{{$supplier->id}}"
-                                 data-supplier-name="{{$supplier->name}}"
-                                 data-supplier-address="{{$supplier->address}}"
-                                 data-supplier-nip="{{$supplier->nip}}"
-                                 data-supplier-email="{{$supplier->email}}"
-                                 data-supplier-phone-number="{{$supplier->phone_number}}"
-                                 data-supplier-details="{{$supplier->details}}">
-                                <?php
-                            }?>
+                            <?php
+                        }?>
 
-                            <td>
-                                <input type="checkbox" class="ap_checkbox" name="ch[]" value="{{$supplier->id}}">
-                            </td>
-                            <td class="jSortName">
-                                {{$supplier->name}}
-                            </td>
-                            <td class="jSortAddress">
-                                {{$supplier->address}}
-                            </td>
-                            <td class="jSortNip">
-                                {{$supplier->nip}}
-                            </td>
-                            <td class="jSortEmail">
-                                {{$supplier->email}}
-                            </td>
-                            <td class="jSortPhoneNumber">
-                                {{$supplier->phone_number}}
-                            </td>
-                            <td class="jSortDetails">
-                                {{$supplier->details}}
-                            </td>
-                        </tr>
-                        <?php $counter+=1;?>
-                    @endforeach
-                    <?php $counter=0?>
-
-                </tbody>
-
-            </table>
+                        <td>
+                            <input type="checkbox" class="ap_checkbox" name="ch[]" value="{{$supplier->id}}">
+                        </td>
+                        <td>
+                            {{$supplier->name}}
+                        </td>
+                        <td>
+                            {{$supplier->address}}
+                        </td>
+                        <td>
+                            {{$supplier->nip}}
+                        </td>
+                        <td>
+                            {{$supplier->email}}
+                        </td>
+                        <td>
+                            {{$supplier->phone_number}}
+                        </td>
+                        <td>
+                            {{$supplier->details}}
+                        </td>
+                    </tr>
+                    <?php $counter+=1;?>
+                @endforeach
+                <?php $counter=0?>
             </form>
-
-            <table class="table-footer">
-              <tr>
-                <td class="table-pagination">
-                  <button type="button" class="jPaginateBack"><i class="material-icons keyboard_arrow_left">&#xe314;</i></button>
-                  <ul class="pagination"></ul>
-                  <button type="button" class="jPaginateNext"><i class="material-icons keyboard_arrow_right">&#xe315;</i></button>
-                </td>
-                <td></td>
-                  <td class="table-search">
-                    <input class="search" placeholder="Search">
-                </td>
-              </tr>
-            </table>
-
-        </div>
+        </table>
     </div>
-
-
 
     <!--add supplier modal-->
     <div class="modal fade" tabindex="-1" role="dialog" id="add_supplier_modal">

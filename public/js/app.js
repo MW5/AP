@@ -1,4 +1,41 @@
 $(document).ready(function() {
+  /* List.js is required to make this table work. */
+
+var optionsSuppliers = {
+  //have to be the same as in data-sort header attributes, and td classes
+  valueNames: [ 'jSortName', 'jSortAddress', 'jSortNip', 'jSortEmail', 'jSortPhoneNumber', 'jSortDetails'],
+  page: 8, //page count for pagination
+  pagination: {
+    innerWindow: 1,
+    left: 0,
+    right: 0,
+    paginationClass: "pagination",
+    }
+};
+
+var tableList = new List('tableSuppliers', optionsSuppliers);
+
+	$('.jPaginateNext').on('click', function(){
+	    var list = $('.pagination').find('li');
+	    $.each(list, function(position, element){
+	        if($(element).is('.active')){
+	            $(list[position+1]).trigger('click');
+	        }
+	    })
+	});
+
+
+	$('.jPaginateBack').on('click', function(){
+	    var list = $('.pagination').find('li');
+	    $.each(list, function(position, element){
+	        if($(element).is('.active')){
+	            $(list[position-1]).trigger('click');
+	        }
+	    })
+	});
+
+
+
 
     //alert box
     setTimeout(
@@ -60,16 +97,11 @@ $(document).ready(function() {
             e.stopPropagation();
         }
         else {
-          var userId = $(this).data("userId");
-          var userName = $(this).data("userName");
-          var userEmail = $(this).data("userEmail");
-          var userAccountType = $(this).data("userAccountType");
+          $("#edit_id").val($(this).data("userId"));
+          $("#edit_name").val($(this).data("userName"));
+          $("#edit_email").val($(this).data("userEmail"));
 
-          $("#edit_id").val(userId);
-          $("#edit_name").val(userName);
-          $("#edit_email").val(userEmail);
-
-          if (userAccountType == "administrator") {
+          if ($(this).data("userAccountType") == 0) {
             $("#edit_radio_admin").attr("checked", "checked");
           } else {
             $("#edit_radio_user").attr("checked", "checked");
@@ -103,15 +135,10 @@ $(document).ready(function() {
               e.stopPropagation();
           }
           else {
-            var carId = $(this).data("carId");
-            var carRegNum = $(this).data("carRegNum");
-            var carMake = $(this).data("carMake");
-            var carModel= $(this).data("carModel");
-
-            $("#edit_id").val(carId);
-            $("#edit_reg_num").val(carRegNum);
-            $("#edit_make").val(carMake);
-            $("#edit_model").val(carModel);
+            $("#edit_id").val($(this).data("carId"));
+            $("#edit_reg_num").val($(this).data("carRegNum"));
+            $("#edit_make").val($(this).data("carMake"));
+            $("#edit_model").val($(this).data("carModel"));
           }
       //resource row click decision modal
       } else if ($(this).data("target") == "#row_click_decision_modal") {

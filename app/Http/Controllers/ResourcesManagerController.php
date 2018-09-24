@@ -99,7 +99,7 @@ class ResourcesManagerController extends Controller
                     //logging
                     $warehouseOperation = new WarehouseOperation();
                     $warehouseOperation->resource_id = $resource->id;
-                    $warehouseOperation->operation_type =$warehouseOperation->operationAccept;
+                    $warehouseOperation->operation_type = $warehouseOperation->operationAccept;
                     $warehouseOperation->old_val = $resource->quantity-$qtyArr[$arrCounter];
                     $warehouseOperation->quantity_change = $qtyArr[$arrCounter];
                     $warehouseOperation->new_val = $resource->quantity;
@@ -158,7 +158,7 @@ class ResourcesManagerController extends Controller
                     //logging
                     $warehouseOperation = new WarehouseOperation();
                     $warehouseOperation->resource_id = $resource->id;
-                    $warehouseOperation->operation_type =$warehouseOperation->operationRelease;
+                    $warehouseOperation->operation_type = $warehouseOperation->operationRelease;
                     $warehouseOperation->old_val = $resource->quantity+$qtyArr[$arrCounter];
                     $warehouseOperation->quantity_change = $qtyArr[$arrCounter];
                     $warehouseOperation->new_val = $resource->quantity;
