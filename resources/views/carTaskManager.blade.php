@@ -32,36 +32,28 @@
                 <button form="remove_car_tasks_form" type="submit" class="btn_styled">Usuń zaznaczone zlecenia</button>
             </div>
         @endif
-        <table class='ap_table'>
+        <div id="tableCarTasks" class="table-list-container">
             <form id="remove_car_tasks_form" method="POST" action="/carTaskManager/removeCarTasks">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                <tr>
-                    <th></th>
-                    <th>Numer rejestracyjny</th>
-                    <th>Typ zlecenia</th>
-                    <th>Status</th>
-                    <th>Czas rozpoczęcia</th>
-                    <th>Użytkownik rozpoczynający</th>
-                    <th>Czas zakończenia</th>
-                    <th>Użytkownik kończący</th>
-                </tr>
-                <?php $counter=0?>
-                @foreach($carTasks as $carTask)
-                    <?php
-                        if($counter%2==0) {
-                            ?>
-                        <tr class='even clickable_row_no_href' data-toggle="modal" data-target="#edit_car_task_modal"
-                         data-car-task-id="{{$carTask->id}}"
-                         data-car-task-car-id="{{$carTask->car_id}}"
-                         data-car-task-task-type="{{$carTask->task_type}}"
-                         data-car-task-begin-time="{{$carTask->begin_time}}"
-                         data-car-task-begin-user="{{$carTask->begin_user_id}}"
-                         data-car-task-end-time="{{$carTask->end_time}}"
-                         data-car-task-end-user="{{$carTask->end_user_id}}">
-                            <?php
-                        } else {
-                            ?>
-                            <tr class='odd clickable_row_no_href' data-toggle="modal" data-target="#edit_car_task_modal"
+                <table class="table-list table ap_table" data-currentpage="1" >
+                    
+                    <thead>
+                        <th></th>
+                        <th><button type="button" class="sort" data-sort="jSortRegNum">Numer rejestracyjny</button></th>
+                        <th><button type="button" class="sort" data-sort="jSortCarTaskType">Typ zlecenia</button></th>
+                        <th><button type="button" class="sort" data-sort="jSortStatus">Status</button></th>
+                        <th><button type="button" class="sort" data-sort="jSortBeginTime">Czas rozpoczęcia</button></th>
+                        <th><button type="button" class="sort" data-sort="jSortBeginUser">Użytkownik rozpoczynający</button></th>
+                        <th><button type="button" class="sort" data-sort="jSortEndTime">Czas zakończenia</button></th>
+                        <th><button type="button" class="sort" data-sort="jSortEndUser">Użytkownik kończący</button></th>
+                    </thead>
+                    <tbody class="list">
+                    <?php $counter=0?>
+                    @foreach($carTasks as $carTask)
+                        <?php
+                            if($counter%2==0) {
+                                ?>
+                            <tr class='even clickable_row_no_href' data-toggle="modal" data-target="#edit_car_task_modal"
                              data-car-task-id="{{$carTask->id}}"
                              data-car-task-car-id="{{$carTask->car_id}}"
                              data-car-task-task-type="{{$carTask->task_type}}"
@@ -69,43 +61,69 @@
                              data-car-task-begin-user="{{$carTask->begin_user_id}}"
                              data-car-task-end-time="{{$carTask->end_time}}"
                              data-car-task-end-user="{{$carTask->end_user_id}}">
-                            <?php
-                        }?>
+                                <?php
+                            } else {
+                                ?>
+                                <tr class='odd clickable_row_no_href' data-toggle="modal" data-target="#edit_car_task_modal"
+                                 data-car-task-id="{{$carTask->id}}"
+                                 data-car-task-car-id="{{$carTask->car_id}}"
+                                 data-car-task-task-type="{{$carTask->task_type}}"
+                                 data-car-task-begin-time="{{$carTask->begin_time}}"
+                                 data-car-task-begin-user="{{$carTask->begin_user_id}}"
+                                 data-car-task-end-time="{{$carTask->end_time}}"
+                                 data-car-task-end-user="{{$carTask->end_user_id}}">
+                                <?php
+                            }?>
 
-                        <td>
-                            <input type="checkbox" class="ap_checkbox" name="ch[]" value="{{$carTask->id}}">
-                        </td>
-                        <td>
-                          @foreach($cars as $car)
-                            @if ($carTask->car_id == $car->id)
-                              {{$car->reg_num}}
-                            @endif
-                          @endforeach
-                        </td>
-                        <td>
-                            {{$carTask->task_type}}
-                        </td>
-                        <td>
-                            {{$carTask->status}}
-                        </td>
-                        <td>
-                            {{$carTask->begin_time}}
-                        </td>
-                        <td>
-                            {{$carTask->begin_user_id}}
-                        </td>
-                        <td>
-                            {{$carTask->end_time}}
-                        </td>
-                        <td>
-                            {{$carTask->end_user_id}}
-                        </td>
-                    </tr>
-                    <?php $counter+=1;?>
-                @endforeach
-                <?php $counter=0?>
+                            <td>
+                                <input type="checkbox" class="ap_checkbox" name="ch[]" value="{{$carTask->id}}">
+                            </td>
+                            <td class="jSortRegNum">
+                              @foreach($cars as $car)
+                                @if ($carTask->car_id == $car->id)
+                                  {{$car->reg_num}}
+                                @endif
+                              @endforeach
+                            </td>
+                            <td class="jSortCarTaskType">
+                                {{$carTask->task_type}}
+                            </td>
+                            <td class="jSortStatus">
+                                {{$carTask->status}}
+                            </td>
+                            <td class="jSortBeginTime">
+                                {{$carTask->begin_time}}
+                            </td>
+                            <td class="jSortBeginUser">
+                                {{$carTask->begin_user_id}}
+                            </td>
+                            <td class="jSortEndTime">
+                                {{$carTask->end_time}}
+                            </td>
+                            <td class="jSortEndUser">
+                                {{$carTask->end_user_id}}
+                            </td>
+                        </tr>
+                        <?php $counter+=1;?>
+                    @endforeach
+                    <?php $counter=0?>
+                    </tbody>
+                </table>
             </form>
-        </table>
+            <table class="table-footer">
+              <tr>
+                <td class="table-pagination">
+                  <button type="button" class="jPaginateBack"><i class="material-icons keyboard_arrow_left">&#xe314;</i></button>
+                  <ul class="pagination"></ul>
+                  <button type="button" class="jPaginateNext"><i class="material-icons keyboard_arrow_right">&#xe315;</i></button>
+                </td>
+                <td></td>
+                  <td class="table-search">
+                    <input class="search" placeholder="Search">
+                </td>
+              </tr>
+            </table>
+        </div>
     </div>
 
     <!--add carTask modal-->

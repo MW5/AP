@@ -32,56 +32,74 @@
                 <button form="remove_users_form" type="submit" class="btn_styled">Usuń zaznaczonych użytkowników</button>
             </div>
         @endif
-        <table class='ap_table'>
-            <form id="remove_users_form" method="POST" action="/userManager/removeUsers">
-                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                <tr>
-                    <th></th>
-                    <th>Użytkownik</th>
-                    <th>Adres email</th>
-                    <th>Typ konta</th>
-                </tr>
-                <?php $counter=0?>
-                @foreach($users as $user)
-                    <?php
-                        if($counter%2==0) {
-                            ?>
-                        <tr class='even clickable_row_no_href' data-toggle="modal" data-target="#edit_user_modal"
-                         data-user-id="{{$user->id}}"
-                         data-user-name="{{$user->name}}"
-                         data-user-email="{{$user->email}}"
-                         data-user-account-type="{{$user->account_type}}">
-                            <?php
-                        } else {
-                            ?>
-                            <tr class ='odd clickable_row_no_href' data-toggle="modal" data-target="#edit_user_modal"
-                            data-user-id="{{$user->id}}"
-                            data-user-name="{{$user->name}}"
-                            data-user-email="{{$user->email}}"
-                            data-user-account-type="{{$user->account_type}}">
-                            <?php
-                        }?>
+            <div id="tableUsers" class="table-list-container">
+                <form id="remove_users_form" method="POST" action="/userManager/removeUsers">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    <table class="table-list table ap_table" data-currentpage="1" >
 
-                        <td>
-                        @if ($user->name != Auth::user()->name && Auth::user()->account_type == 0)
-                            <input type="checkbox" class="ap_checkbox" name="ch[]" value="{{$user->id}}">
-                        @endif
-                        </td>
-                        <td>
-                            {{$user->name}}
-                        </td>
-                        <td>
-                            {{$user->email}}
-                        </td>
-                        <td>
-                            {{$user->account_type}}
-                        </td>
+                      <thead>
+                            <th></th>
+                            <th><button type="button" class="sort" data-sort="jSortName">Nazwa</button></th>
+                            <th><button type="button" class="sort" data-sort="jSortEmail">Adres email</button></th>
+                            <th><button type="button" class="sort" data-sort="jSortAccountType">Numer telefonu</button></th>
+                      </thead>
+                        <tbody class="list">
+                            <?php $counter=0?>
+                            @foreach($users as $user)
+                                <?php
+                                    if($counter%2==0) {
+                                        ?>
+                                    <tr class='even clickable_row_no_href' data-toggle="modal" data-target="#edit_user_modal"
+                                     data-user-id="{{$user->id}}"
+                                     data-user-name="{{$user->name}}"
+                                     data-user-email="{{$user->email}}"
+                                     data-user-account-type="{{$user->account_type}}">
+                                        <?php
+                                    } else {
+                                        ?>
+                                        <tr class ='odd clickable_row_no_href' data-toggle="modal" data-target="#edit_user_modal"
+                                        data-user-id="{{$user->id}}"
+                                        data-user-name="{{$user->name}}"
+                                        data-user-email="{{$user->email}}"
+                                        data-user-account-type="{{$user->account_type}}">
+                                        <?php
+                                    }?>
+
+                                    <td>
+                                    @if ($user->name != Auth::user()->name && Auth::user()->account_type == 0)
+                                        <input type="checkbox" class="ap_checkbox" name="ch[]" value="{{$user->id}}">
+                                    @endif
+                                    </td>
+                                    <td class="jSortName">
+                                        {{$user->name}}
+                                    </td>
+                                    <td class="jSortEmail">
+                                        {{$user->email}}
+                                    </td>
+                                    <td class="jSortAccountType">
+                                        {{$user->account_type}}
+                                    </td>
+                                </tr>
+                                <?php $counter+=1;?>
+                            @endforeach
+                            <?php $counter=0?>
+                        </tbody>
+                    </table>
+                </form>
+                <table class="table-footer">
+                    <tr>
+                      <td class="table-pagination">
+                        <button type="button" class="jPaginateBack"><i class="material-icons keyboard_arrow_left">&#xe314;</i></button>
+                        <ul class="pagination"></ul>
+                        <button type="button" class="jPaginateNext"><i class="material-icons keyboard_arrow_right">&#xe315;</i></button>
+                      </td>
+                      <td></td>
+                        <td class="table-search">
+                          <input class="search" placeholder="Search">
+                      </td>
                     </tr>
-                    <?php $counter+=1;?>
-                @endforeach
-                <?php $counter=0?>
-            </form>
-        </table>
+                </table>
+            </div>
     </div>
 
     <!--add user modal-->

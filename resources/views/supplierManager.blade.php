@@ -36,23 +36,20 @@
     <div id="tableSuppliers" class="table-list-container">
       <form id="remove_suppliers_form" method="POST" action="/supplierManager/removeSuppliers">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
-          <table class="table-list table ap_table" data-currentpage="1" >
-
+            <table class="table-list table ap_table" data-currentpage="1" >
 
                   <thead>
-                    <th></th>
-                    <th><button type="button" class="sort" data-sort="jSortName">Nazwa</button></th>
-                    <th><button type="button" class="sort" data-sort="jSortAddress">Adres</button></th>
-                    <th><button type="button" class="sort" data-sort="jSortNip">Nip</button></th>
-                    <th><button type="button" class="sort" data-sort="jSortEmail">Adres email</button></th>
-                    <th><button type="button" class="sort" data-sort="jSortPhoneNumber">Numer telefonu</button></th>
-                    <th><button type="button" class="sort" data-sort="jSortDetails">Informacje dodatkowe</button></th>
+                        <th></th>
+                        <th><button type="button" class="sort" data-sort="jSortName">Nazwa</button></th>
+                        <th><button type="button" class="sort" data-sort="jSortAddress">Adres</button></th>
+                        <th><button type="button" class="sort" data-sort="jSortNip">Nip</button></th>
+                        <th><button type="button" class="sort" data-sort="jSortEmail">Adres email</button></th>
+                        <th><button type="button" class="sort" data-sort="jSortPhoneNumber">Numer telefonu</button></th>
+                        <th><button type="button" class="sort" data-sort="jSortDetails">Informacje dodatkowe</button></th>
                   </thead>
 
                   <!-- IMPORTANT, class="list" must be on tbody -->
                   <tbody class="list">
-
-
                     <?php $counter=0?>
                     @foreach($suppliers as $supplier)
                         <?php
@@ -106,9 +103,9 @@
                     @endforeach
                     <?php $counter=0?>
 
-                </tbody>
+                  </tbody>
 
-            </table>
+              </table>
             </form>
 
             <table class="table-footer">
@@ -125,8 +122,8 @@
               </tr>
             </table>
 
-        </div>
     </div>
+</div>
 
 
 

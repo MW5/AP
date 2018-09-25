@@ -35,76 +35,92 @@
                 <a href='resourcesManager/warehouseOperations' class="btn_styled">Rejestr operacji magazynowych</a>
             </div>
         @endif
-        <table class='ap_table'>
+        <div id="tableResources" class="table-list-container">
             <form id="remove_resources_form" method="POST" action="/resourcesManager/removeResources">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                <tr>
-                    <th></th>
-                    <th>Nazwa</th>
-                    <th>Ilość</th>
-                    <th>Ilość minimalna</th>
-                    <th>Pojemność</th>
-                    <th>Proporcje [preparat:woda]</th>
-                </tr>
-                <?php $counter=0?>
-                @foreach($resources as $resource)
-                        <?php
-                            if($counter%2==0) {
-                                ?>
-                                <tr class='even clickable_row_no_href' data-toggle="modal" data-target="#row_click_decision_modal"
-                                 data-resource-id="{{$resource->id}}"
-                                 data-resource-name="{{$resource->name}}"
-                                 data-resource-critical-quantity="{{$resource->critical_quantity}}"
-                                 data-resource-capacity="{{$resource->capacity}}"
-                                 data-resource-proportions="{{$resource->proportions}}"
-                                 data-resource-description="{{$resource->description}}">
-                                <?php
-                            } else {
-                                ?>
-                                <tr class ='odd clickable_row_no_href' data-toggle="modal" data-target="#row_click_decision_modal"
-                                  data-resource-id="{{$resource->id}}"
-                                  data-resource-name="{{$resource->name}}"
-                                  data-resource-critical-quantity="{{$resource->critical_quantity}}"
-                                  data-resource-capacity="{{$resource->capacity}}"
-                                  data-resource-proportions="{{$resource->proportions}}"
-                                  data-resource-description="{{$resource->description}}">
-                                <?php
-                            }?>
-                            <td>
-                                @if (Auth::user()->account_type == 0)
-                                    <input type="checkbox" class="ap_checkbox" name="ch[]" value="{{$resource->id}}">
-                                @endif
-                            </td>
+                <table class="table-list table ap_table" data-currentpage="1" >
+                    <thead>
+                        <th></th>
+                        <th><button type="button" class="sort" data-sort="jSortName">Nazwa</button></th>
+                        <th><button type="button" class="sort" data-sort="jSortQuantity">Ilość</button></th>
+                        <th><button type="button" class="sort" data-sort="jSortCriticalQuantity">Ilość minimalna</button></th>
+                        <th><button type="button" class="sort" data-sort="jSortCapacity">Pojemność</button></th>
+                        <th><button type="button" class="sort" data-sort="jSortProportions">Proporcje [preparat:woda]</button></th>
+                    </thead>
+                    <tbody class="list">
+                      <?php $counter=0?>
+                      @foreach($resources as $resource)
+                              <?php
+                                  if($counter%2==0) {
+                                      ?>
+                                      <tr class='even clickable_row_no_href' data-toggle="modal" data-target="#row_click_decision_modal"
+                                       data-resource-id="{{$resource->id}}"
+                                       data-resource-name="{{$resource->name}}"
+                                       data-resource-critical-quantity="{{$resource->critical_quantity}}"
+                                       data-resource-capacity="{{$resource->capacity}}"
+                                       data-resource-proportions="{{$resource->proportions}}"
+                                       data-resource-description="{{$resource->description}}">
+                                      <?php
+                                  } else {
+                                      ?>
+                                      <tr class ='odd clickable_row_no_href' data-toggle="modal" data-target="#row_click_decision_modal"
+                                        data-resource-id="{{$resource->id}}"
+                                        data-resource-name="{{$resource->name}}"
+                                        data-resource-critical-quantity="{{$resource->critical_quantity}}"
+                                        data-resource-capacity="{{$resource->capacity}}"
+                                        data-resource-proportions="{{$resource->proportions}}"
+                                        data-resource-description="{{$resource->description}}">
+                                      <?php
+                                  }?>
+                                  <td>
+                                      @if (Auth::user()->account_type == 0)
+                                          <input type="checkbox" class="ap_checkbox" name="ch[]" value="{{$resource->id}}">
+                                      @endif
+                                  </td>
 
-                            <td>
-                                {{$resource->name}}
-                            </td>
-                            @if ($resource->quantity ==  $resource->critical_quantity+1)
-                                <td class="low_quantity">
-                            @elseif ($resource->quantity <=  $resource->critical_quantity)
-                                <td class="critical_quantity">
-                            @else
-                                <td class="normal_quantity">
-                            @endif
+                                  <td class="jSortName">
+                                      {{$resource->name}}
+                                  </td>
+                                  @if ($resource->quantity ==  $resource->critical_quantity+1)
+                                      <td class="low_quantity jSortQuantity">
+                                  @elseif ($resource->quantity <=  $resource->critical_quantity)
+                                      <td class="critical_quantity jSortQuantity">
+                                  @else
+                                      <td class="normal_quantity jSortQuantity">
+                                  @endif
+                                      {{$resource->quantity}}
+                                  </td>
+                                  <td class="jSortCriticalQuantity">
+                                      {{$resource->critical_quantity}}
+                                  </td>
+                                  <td class="jSortCapacity">
+                                      {{$resource->capacity}}
+                                  </td>
+                                  <td class="jSortProportions">
+                                      {{$resource->proportions}}
+                                  </td>
+                              </tr>
+                              <?php $counter+=1;?>
 
-                                {{$resource->quantity}}
-                            </td>
-                            <td>
-                                {{$resource->critical_quantity}}
-                            </td>
-                            <td>
-                                {{$resource->capacity}}
-                            </td>
-                            <td>
-                                {{$resource->proportions}}
-                            </td>
-                        </tr>
-                        <?php $counter+=1;?>
-
-                @endforeach
-                <?php $counter=0?>
+                      @endforeach
+                      <?php $counter=0?>
+                    </tbody>
+                </table>
             </form>
-        </table>
+            <table class="table-footer">
+              <tr>
+                <td class="table-pagination">
+                  <button type="button" class="jPaginateBack"><i class="material-icons keyboard_arrow_left">&#xe314;</i></button>
+                  <ul class="pagination"></ul>
+                  <button type="button" class="jPaginateNext"><i class="material-icons keyboard_arrow_right">&#xe315;</i></button>
+                </td>
+                <td></td>
+                  <td class="table-search">
+                    <input class="search" placeholder="Search">
+                </td>
+              </tr>
+            </table>
+        </div>
     </div>
 
     <!-- row click decision modal -->

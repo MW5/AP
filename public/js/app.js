@@ -1,19 +1,67 @@
 $(document).ready(function() {
-  /* List.js is required to make this table work. */
 
-var optionsSuppliers = {
-  //have to be the same as in data-sort header attributes, and td classes
-  valueNames: [ 'jSortName', 'jSortAddress', 'jSortNip', 'jSortEmail', 'jSortPhoneNumber', 'jSortDetails'],
-  page: 8, //page count for pagination
-  pagination: {
-    innerWindow: 1,
-    left: 0,
-    right: 0,
-    paginationClass: "pagination",
+    let tableToPrepare;
+    
+    function prepareTableData() {
+        switch ($(location).attr('href').substring($(location).attr('href').lastIndexOf("/"))) {
+            case "supplierManager": 
+                tableToPrepare = "tableSuppliers";
+                return ['jSortName', 'jSortAddress', 'jSortNip', 'jSortEmail', 'jSortPhoneNumber', 'jSortDetails'];
+                break;
+            case "userManager": 
+                tableToPrepare = "tableUsers";
+                return ['jSortName', 'jSortEmail', 'jSortAcountType'];
+                break;
+            case "warehouseOperations": 
+                tableToPrepare = "tableWarehouseOperations";
+                return ['jSortName', 'jSortOperationType', 'jSortOldVal', 'jSortValChange', 'jSortNewVal', 
+                    'jSortSupplierName', 'jSortOperationDate', 'jSortUser'];
+                break;
+            case "resourcesManager": 
+                tableToPrepare = "tableResources";
+                return ['jSortName', 'jSortQuantity', 'jSortCriticalQuantity', 'jSortCapacity', 'jSortProportions'];
+                break;
+            case "carTaskManager": 
+                tableToPrepare = "tableCarTasks";
+                return ['jSortRegNum', 'jSortCarTaskType', 'jSortStatus', 'jSortBeginTime', 'jSortBeginUser' ,'jSortEndTime', 'jSortEndUser'];
+                break;
+            case "carManager": 
+                tableToPrepare = "tableCars";
+                return ['jSortRegNum', 'jSortMake', 'jSortModel', 'jSortStatus'];
+                break;
+            default:
+                return [];
+                break;
+        }
     }
-};
 
-var tableList = new List('tableSuppliers', optionsSuppliers);
+//    var optionsSuppliers = {
+//      //have to be the same as in data-sort header attributes, and td classes
+//      valueNames: [ 'jSortName', 'jSortAddress', 'jSortNip', 'jSortEmail', 'jSortPhoneNumber', 'jSortDetails'],
+//      page: 8, //page count for pagination
+//      pagination: {
+//        innerWindow: 1,
+//        left: 0,
+//        right: 0,
+//        paginationClass: "pagination",
+//        }
+//    };
+
+    var tableOptions = {
+          //have to be the same as in data-sort header attributes, and td classes
+          valueNames: prepareTableData(),
+          page: 8, //page count for pagination
+          pagination: {
+            innerWindow: 1,
+            left: 0,
+            right: 0,
+            paginationClass: "pagination",
+            }
+        };
+    
+    if (tableToPrepare != null) {
+        var tableList = new List(tableToPrepare, tableOptions);
+    }
 
 	$('.jPaginateNext').on('click', function(){
 	    var list = $('.pagination').find('li');
