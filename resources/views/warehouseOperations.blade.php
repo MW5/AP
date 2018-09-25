@@ -37,7 +37,6 @@
         <div id="tableWarehouseOperations" class="table-list-container">
             <table class="table-list table ap_table" data-currentpage="1" >
                 <thead>
-                    <th></th>
                     <th><button type="button" class="sort" data-sort="jSortName">Nazwa zasobu</button></th>
                     <th><button type="button" class="sort" data-sort="jSortOperationType">Typ operacji</button></th>
                     <th><button type="button" class="sort" data-sort="jSortOldVal">Poprzednia ilość</button></th>

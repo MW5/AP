@@ -26,14 +26,16 @@
 
 @section('content')
 <div class='container ap_table_container'>
+    <div id="tableSuppliers" class="table-list-container">
     @if (Auth::user()->account_type == 0)
         <div class='ap_action_bar'>
             <button type="button" class="btn_styled" data-toggle="modal" data-target="#add_supplier_modal">Dodaj dostawcę</button>
             <button form="remove_suppliers_form" type="submit" class="btn_styled">Usuń zaznaczonych dostawców</button>
+            <input class="search" placeholder="Filtruj">
         </div>
     @endif
 
-    <div id="tableSuppliers" class="table-list-container">
+    
       <form id="remove_suppliers_form" method="POST" action="/supplierManager/removeSuppliers">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <table class="table-list table ap_table" data-currentpage="1" >
@@ -102,26 +104,15 @@
                         <?php $counter+=1;?>
                     @endforeach
                     <?php $counter=0?>
-
                   </tbody>
-
               </table>
             </form>
-
-            <table class="table-footer">
-              <tr>
-                <td class="table-pagination">
-                  <button type="button" class="jPaginateBack"><i class="material-icons keyboard_arrow_left">&#xe314;</i></button>
-                  <ul class="pagination"></ul>
-                  <button type="button" class="jPaginateNext"><i class="material-icons keyboard_arrow_right">&#xe315;</i></button>
-                </td>
-                <td></td>
-                  <td class="table-search">
-                    <input class="search" placeholder="Search">
-                </td>
-              </tr>
-            </table>
-
+            <div class="row table_action_row">
+                <button type="button" class="jPaginateBack"><</button>
+                <ul class="pagination"></ul>
+                <button type="button" class="jPaginateNext">></button>
+            </div>      
+        </div>
     </div>
 </div>
 

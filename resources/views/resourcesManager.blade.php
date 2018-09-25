@@ -33,6 +33,7 @@
                 <button id="accept_delivery_btn" type="button" class="btn_styled" data-toggle="modal" data-target="#accept_delivery_modal">Przyjmij dostawę</button>
                 <button type="button" class=" btn_styled" data-toggle="modal" data-target="#warehouse_release_modal">Wydaj zasoby</button>
                 <a href='resourcesManager/warehouseOperations' class="btn_styled">Rejestr operacji magazynowych</a>
+
             </div>
         @endif
         <div id="tableResources" class="table-list-container">

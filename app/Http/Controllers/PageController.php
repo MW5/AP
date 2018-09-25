@@ -16,12 +16,12 @@ class PageController extends Controller {
     }
 
     public function index() {
-        $resources = DB::table('resources')->get();
-        $suppliers = DB::table('suppliers')->get();
+        $resources = DB::table('resources')->orderBy('created_at', 'desc')->get();
+        $suppliers = DB::table('suppliers')->orderBy('created_at', 'desc')->get();
         return view('resourcesManager', compact('resources', 'suppliers'));
     }
     public function supplierManager() {
-        $suppliers = DB::table('suppliers')->get();
+        $suppliers = DB::table('suppliers')->orderBy('created_at', 'desc')->get();
         return view('supplierManager', compact('suppliers'));
     }
     public function resourceDetails($id) {
@@ -33,7 +33,7 @@ class PageController extends Controller {
         return view('resourceDetails', compact('warehouseOperations', 'resource'));
     }
     public function warehouseOperations() {
-        $warehouseOperations = DB::table('warehouse_operations')->get();
+        $warehouseOperations = DB::table('warehouse_operations')->orderBy('created_at', 'desc')->get();
         $users = DB::table('users')->get();
         $resources = DB::table('resources')->get();
         $suppliers = DB::table('suppliers')->get();
@@ -41,18 +41,18 @@ class PageController extends Controller {
     }
 
     public function carManager() {
-      $cars = DB::table('cars')->get();
+      $cars = DB::table('cars')->orderBy('created_at', 'desc')->get();
       return view('carManager', compact('cars'));
     }
     public function carTaskManager() {
-      $carTasks = DB::table('car_tasks')->get();
-      $cars = DB::table('cars')->get();
-      $users = DB::table('users')->get();
+      $carTasks = DB::table('car_tasks')->orderBy('created_at', 'desc')->get();
+      $cars = DB::table('cars')->orderBy('created_at', 'desc')->get();
+      $users = DB::table('users')->orderBy('created_at', 'desc')->get();
       return view('carTaskManager', compact('carTasks', 'cars', 'users'));
     }
 
     public function userManager() {
-        $users = DB::table('users')->get();
+        $users = DB::table('users')->orderBy('created_at', 'desc')->get();
         return view('userManager', compact('users'));
     }
 }

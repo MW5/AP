@@ -41,7 +41,7 @@
                             <th></th>
                             <th><button type="button" class="sort" data-sort="jSortName">Nazwa</button></th>
                             <th><button type="button" class="sort" data-sort="jSortEmail">Adres email</button></th>
-                            <th><button type="button" class="sort" data-sort="jSortAccountType">Numer telefonu</button></th>
+                            <th><button type="button" class="sort" data-sort="jSortAccountType">Typ konta</button></th>
                       </thead>
                         <tbody class="list">
                             <?php $counter=0?>

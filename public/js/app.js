@@ -1,31 +1,30 @@
 $(document).ready(function() {
 
     let tableToPrepare;
-    
     function prepareTableData() {
         switch ($(location).attr('href').substring($(location).attr('href').lastIndexOf("/"))) {
-            case "supplierManager": 
+            case "/supplierManager": 
                 tableToPrepare = "tableSuppliers";
                 return ['jSortName', 'jSortAddress', 'jSortNip', 'jSortEmail', 'jSortPhoneNumber', 'jSortDetails'];
                 break;
-            case "userManager": 
+            case "/userManager": 
                 tableToPrepare = "tableUsers";
-                return ['jSortName', 'jSortEmail', 'jSortAcountType'];
+                return ['jSortName', 'jSortEmail', 'jSortAccountType'];
                 break;
-            case "warehouseOperations": 
+            case "/warehouseOperations": 
                 tableToPrepare = "tableWarehouseOperations";
                 return ['jSortName', 'jSortOperationType', 'jSortOldVal', 'jSortValChange', 'jSortNewVal', 
                     'jSortSupplierName', 'jSortOperationDate', 'jSortUser'];
                 break;
-            case "resourcesManager": 
+            case "/resourcesManager": 
                 tableToPrepare = "tableResources";
                 return ['jSortName', 'jSortQuantity', 'jSortCriticalQuantity', 'jSortCapacity', 'jSortProportions'];
                 break;
-            case "carTaskManager": 
+            case "/carTaskManager": 
                 tableToPrepare = "tableCarTasks";
                 return ['jSortRegNum', 'jSortCarTaskType', 'jSortStatus', 'jSortBeginTime', 'jSortBeginUser' ,'jSortEndTime', 'jSortEndUser'];
                 break;
-            case "carManager": 
+            case "/carManager": 
                 tableToPrepare = "tableCars";
                 return ['jSortRegNum', 'jSortMake', 'jSortModel', 'jSortStatus'];
                 break;
@@ -35,24 +34,12 @@ $(document).ready(function() {
         }
     }
 
-//    var optionsSuppliers = {
-//      //have to be the same as in data-sort header attributes, and td classes
-//      valueNames: [ 'jSortName', 'jSortAddress', 'jSortNip', 'jSortEmail', 'jSortPhoneNumber', 'jSortDetails'],
-//      page: 8, //page count for pagination
-//      pagination: {
-//        innerWindow: 1,
-//        left: 0,
-//        right: 0,
-//        paginationClass: "pagination",
-//        }
-//    };
-
     var tableOptions = {
           //have to be the same as in data-sort header attributes, and td classes
           valueNames: prepareTableData(),
-          page: 8, //page count for pagination
+          page: 2, //rows count for pagination
           pagination: {
-            innerWindow: 1,
+            innerWindow: 3,
             left: 0,
             right: 0,
             paginationClass: "pagination",
@@ -133,122 +120,87 @@ $(document).ready(function() {
         }
     });
 
+
     // edit clickable row
-    $(".clickable_row_no_href").click(function(e) {
-      //edit user
-      if ($(this).data("target") == "#edit_user_modal") {
-        //default password change safeguard behaviour
-        $("#edit_password").prop("disabled", true);
-        $("#edit_pass_change_confirmation").prop("checked", false);
-        //fill user data
+
+    $(".ap_table").on("click", ".clickable_row_no_href", function(e) {
         if (e.target.type == "checkbox") {
             e.stopPropagation();
         }
-        else {
-          $("#edit_id").val($(this).data("userId"));
-          $("#edit_name").val($(this).data("userName"));
-          $("#edit_email").val($(this).data("userEmail"));
+        //edit user
+        if ($(this).data("target") == "#edit_user_modal") {
+            //default password change safeguard behaviour
+            $("#edit_password").prop("disabled", true);
+            $("#edit_pass_change_confirmation").prop("checked", false);
+            //fill user data
+            $("#edit_id").val($(this).data("userId"));
+            $("#edit_name").val($(this).data("userName"));
+            $("#edit_email").val($(this).data("userEmail"));
 
-          if ($(this).data("userAccountType") == 0) {
-            $("#edit_radio_admin").attr("checked", "checked");
-          } else {
-            $("#edit_radio_user").attr("checked", "checked");
-          }
-        }
-      //edit supplier
-      } else if ($(this).data("target") == "#edit_supplier_modal") {
-        if (e.target.type == "checkbox") {
-            e.stopPropagation();
-        }
-        else {
-          var supplierId = $(this).data("supplierId");
-          var supplierName = $(this).data("supplierName");
-          var supplierAddress = $(this).data("supplierAddress");
-          var supplierNip = $(this).data("supplierNip");
-          var supplierEmail = $(this).data("supplierEmail");
-          var supplierPhoneNumber = $(this).data("supplierPhoneNumber"); //podkreslnik
-          var supplierDetails= $(this).data("supplierDetails");
-
-           $("#edit_id").val(supplierId);
-           $("#edit_name").val(supplierName);
-           $("#edit_address").val(supplierAddress);
-           $("#edit_nip").val(supplierNip);
-           $("#edit_email").val(supplierEmail);
-           $("#edit_phone_number").val(supplierPhoneNumber);
-           $("#edit_details").val(supplierDetails);
-        }
-      //edit car
-      } else if ($(this).data("target") == "#edit_car_modal") {
-          if (e.target.type == "checkbox") {
-              e.stopPropagation();
-          }
-          else {
+            if ($(this).data("userAccountType") == 0) {
+              $("#edit_radio_admin").attr("checked", "checked");
+            } else {
+              $("#edit_radio_user").attr("checked", "checked");
+            }
+        //edit supplier
+        } else if ($(this).data("target") == "#edit_supplier_modal") {
+           $("#edit_id").val($(this).data("supplierId"));
+           $("#edit_name").val($(this).data("supplierName"));
+           $("#edit_address").val($(this).data("supplierAddress"));
+           $("#edit_nip").val($(this).data("supplierNip"));
+           $("#edit_email").val($(this).data("supplierEmail"));
+           $("#edit_phone_number").val($(this).data("supplierPhoneNumber"));
+           $("#edit_details").val($(this).data("supplierDetails"));
+        //edit car
+        } else if ($(this).data("target") == "#edit_car_modal") {
             $("#edit_id").val($(this).data("carId"));
             $("#edit_reg_num").val($(this).data("carRegNum"));
             $("#edit_make").val($(this).data("carMake"));
             $("#edit_model").val($(this).data("carModel"));
-          }
-      //resource row click decision modal
-      } else if ($(this).data("target") == "#row_click_decision_modal") {
-        if (e.target.type == "checkbox") {
-            e.stopPropagation();
-        } else {
-          var resourceId = $(this).data("resourceId");
-          var resourceName = $(this).data("resourceName");
-          var resourceCriticalQuantity = $(this).data("resourceCriticalQuantity");
-          var resourceCapacity = $(this).data("resourceCapacity");
-          var resourceProportions = $(this).data("resourceProportions");
-          var resourceDescription = $(this).data("resourceDescription");
-          //set properties
-            //details btn
-          $("#details_btn_href").attr("href", "resourcesManager/"+resourceId);
-            //edit btn
-          $("#edit_resource_btn").data("resource-id", resourceId);
-          $("#edit_resource_btn").data("resource-name", resourceName);
-          $("#edit_resource_btn").data("resource-critical-quantity", resourceCriticalQuantity);
-          $("#edit_resource_btn").data("resource-capacity", resourceCapacity);
-          $("#edit_resource_btn").data("resource-proportions", resourceProportions);
-          $("#edit_resource_btn").data("resource-description", resourceDescription);
-        }
-      //edit car task
-      } else if ($(this).data("target") == "#edit_car_task_modal") {
-        if (e.target.type == "checkbox") {
-            e.stopPropagation();
-        }
-        else {
-          $('#begin_time_datepicker').datetimepicker({format : "YYYY-MM-DD HH:mm:ss"});
-          $('#end_time_datepicker').datetimepicker({format : "YYYY-MM-DD HH:mm:ss"});
+        //resource row click decision modal
+        } else if ($(this).data("target") == "#row_click_decision_modal") {
+            var resourceId = $(this).data("resourceId");
+            var resourceName = $(this).data("resourceName");
+            var resourceCriticalQuantity = $(this).data("resourceCriticalQuantity");
+            var resourceCapacity = $(this).data("resourceCapacity");
+            var resourceProportions = $(this).data("resourceProportions");
+            var resourceDescription = $(this).data("resourceDescription");
+            //set properties
+              //details btn
+            $("#details_btn_href").attr("href", "resourcesManager/"+resourceId);
+              //edit btn
+            $("#edit_resource_btn").data("resource-id", $(this).data("resourceId"));
+            $("#edit_resource_btn").data("resource-name", $(this).data("resourceName"));
+            $("#edit_resource_btn").data("resource-critical-quantity", $(this).data("resourceCriticalQuantity"));
+            $("#edit_resource_btn").data("resource-capacity", $(this).data("resourceCapacity"));
+            $("#edit_resource_btn").data("resource-proportions", $(this).data("resourceProportions"));
+            $("#edit_resource_btn").data("resource-description", $(this).data("resourceDescription"));
+        //edit car task
+        } else if ($(this).data("target") == "#edit_car_task_modal") {
+            $('#begin_time_datepicker').datetimepicker({format : "YYYY-MM-DD HH:mm:ss"});
+            $('#end_time_datepicker').datetimepicker({format : "YYYY-MM-DD HH:mm:ss"});
 
-          var carTaskId = $(this).data("carTaskId");
-          var carTaskCarId = $(this).data("carTaskCarId");
-          var carTaskTaskType = $(this).data("carTaskTaskType");
-          var carTaskBeginTime = $(this).data("carTaskBeginTime");
-          var carTaskBeginUser = $(this).data("carTaskBeginUser");
-          var carTaskEndTime = $(this).data("carTaskEndTime");
-          var carTaskEndUser = $(this).data("carTaskEndUser");
+             $("#edit_id").val($(this).data("carTaskId"));
+             $("#edit_car_id").val($(this).data("carTaskCarId"));
+             $("#edit_task_type").val($(this).data("carTaskTaskType"));
+             $("#edit_begin_time").val($(this).data("carTaskBeginTime"));
+             $("#edit_begin_user").val($(this).data("carTaskBeginUser"));
+             $("#edit_end_time").val($(this).data("carTaskEndTime"));
+             $("#edit_end_user").val($(this).data("carTaskEndUser"));
 
-           $("#edit_id").val(carTaskId);
-           $("#edit_car_id").val(carTaskCarId);
-           $("#edit_task_type").val(carTaskTaskType);
-           $("#edit_begin_time").val(carTaskBeginTime);
-           $("#edit_begin_user").val(carTaskBeginUser);
-           $("#edit_end_time").val(carTaskEndTime);
-           $("#edit_end_user").val(carTaskEndUser);
-
-           $("#edit_car_id").select2({
-              language: "pl",
-              dropdownParent: $("#edit_car_task_modal")
-           });
-           $("#edit_begin_user").select2({
-              language: "pl",
-              dropdownParent: $("#edit_car_task_modal")
-           });
-           $("#edit_end_user").select2({
-              language: "pl",
-              dropdownParent: $("#edit_car_task_modal")
-           });
+             $("#edit_car_id").select2({
+                language: "pl",
+                dropdownParent: $("#edit_car_task_modal")
+             });
+             $("#edit_begin_user").select2({
+                language: "pl",
+                dropdownParent: $("#edit_car_task_modal")
+             });
+             $("#edit_end_user").select2({
+                language: "pl",
+                dropdownParent: $("#edit_car_task_modal")
+             });
         }
-      }
     });
 
     //edit resource modal
