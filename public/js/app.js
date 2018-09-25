@@ -37,11 +37,11 @@ $(document).ready(function() {
     var tableOptions = {
           //have to be the same as in data-sort header attributes, and td classes
           valueNames: prepareTableData(),
-          page: 2, //rows count for pagination
+          page: 10, //rows count for pagination
           pagination: {
             innerWindow: 3,
-            left: 0,
-            right: 0,
+            left: 1,
+            right: 1,
             paginationClass: "pagination",
             }
         };
@@ -49,7 +49,6 @@ $(document).ready(function() {
     if (tableToPrepare != null) {
         var tableList = new List(tableToPrepare, tableOptions);
     }
-
 	$('.jPaginateNext').on('click', function(){
 	    var list = $('.pagination').find('li');
 	    $.each(list, function(position, element){
@@ -58,8 +57,6 @@ $(document).ready(function() {
 	        }
 	    })
 	});
-
-
 	$('.jPaginateBack').on('click', function(){
 	    var list = $('.pagination').find('li');
 	    $.each(list, function(position, element){
@@ -68,9 +65,6 @@ $(document).ready(function() {
 	        }
 	    })
 	});
-
-
-
 
     //alert box
     setTimeout(
@@ -86,24 +80,6 @@ $(document).ready(function() {
       }
     });
 
-    //warehouse release increase/decrease buttons
-    $(".resource_increase").click(function() {
-        var clickedBtnId = $(this).attr("id");
-        var inputFieldId = clickedBtnId.replace("_inc_btn_release", "_field_release");
-        var currVal = $("#"+inputFieldId).val();
-        currVal++;
-        $("#"+inputFieldId).val(currVal);
-    });
-    $(".resource_decrease").click(function() {
-        var clickedBtnId = $(this).attr("id");
-        var inputFieldId = clickedBtnId.replace("_dec_btn_release", "_field_release");
-        var currVal = $("#"+inputFieldId).val();
-        if (currVal>0) {
-            currVal--;
-            $("#"+inputFieldId).val(currVal);
-        }
-    });
-
     //draggable modal
     $(".modal-dialog").draggable({
         handle: ".modal-header"
@@ -112,7 +88,7 @@ $(document).ready(function() {
 
     //clickable rows and checkbox click fix
     $(".clickable_row").click(function(e) {
-        if (e.target.type == "checkbox") {
+        if (e.target.getAttribute('class') == "checkmark" || e.target.type == "checkbox") {
             e.stopPropagation();
         }
         else {
@@ -124,9 +100,10 @@ $(document).ready(function() {
     // edit clickable row
 
     $(".ap_table").on("click", ".clickable_row_no_href", function(e) {
-        if (e.target.type == "checkbox") {
+        if (e.target.getAttribute('class') == "checkmark" || e.target.type == "checkbox") {
             e.stopPropagation();
         }
+        
         //edit user
         if ($(this).data("target") == "#edit_user_modal") {
             //default password change safeguard behaviour
@@ -222,51 +199,122 @@ $(document).ready(function() {
 
       //accept delivery
       $("#accept_delivery_btn").click(function() {
-        var resourceIds = [];
-        var resourceNames = [];
-          $(':checkbox:checked').each(function(i){
-            resourceIds[i] = $(this).val();
-            resourceNames[i] = $(this).parent().parent().data("resourceName");
+          $("#accept_delivery_select_resources").select2({
+             language: "pl",
+             dropdownParent: $("#accept_delivery_modal")
           });
-
-          for (var i=0; i<resourceIds.length; i++) {
-            $("#accept_delivery_resources").append(
-              "<div class='row'>\
-                  <div class='form-group'>\
-                      <label class='control-label col-sm-6 horizontal_label' for='"+resourceNames[i]+"_field_accept'>"+resourceNames[i]+"</label>\
-                      <div class='col-sm-4'>\
-                          <button type='button' class='resource_increase' id='"+resourceIds[i]+"_inc_btn_accept'>+</button>\
-                          <button type='button' class='resource_decrease' id='"+resourceIds[i]+"_dec_btn_accept'>-</button>\
-                      </div>\
-                      <div class='col-sm-2'>\
-                          <input type='hidden' name='res_id[]' value="+resourceIds[i]+">\
-                          <input id='"+resourceIds[i]+"_field_accept' type='text' class='form-control horizontal_input' name='qty_field_accept[]'\
-                                 value=0>\
-                      </div>\
-                  </div>\
-              </div>"
-            )
-          }
-          $("#accept_delivery_select").select2({
+          $("#accept_delivery_select_supplier").select2({
              language: "pl",
              dropdownParent: $("#accept_delivery_modal")
           });
       });
+      
+      //clear modal after closing
       $("#accept_delivery_modal").on("hidden.bs.modal", function () {
         $("#accept_delivery_resources").empty();
     });
+    
+    //accept delivery confirm resources
+    $("#accept_delivery_resources_btn").click(function() {
+        $("#accept_delivery_resources").empty();
+        var resourceIds = [];
+        var resourceNames = [];
+        var selectedResources = $("#accept_delivery_select_resources").select2('data');
+        for (var i=0; i<selectedResources.length; i++){
+            resourceIds[i] = selectedResources[i].id;
+            resourceNames[i] = selectedResources[i].text;
+        };
+        for (var i=0; i<resourceIds.length; i++) {
+          $("#accept_delivery_resources").append(
+            "<div class='row'>\
+                <div class='form-group'>\
+                    <label class='control-label col-sm-6 horizontal_label' for='"+resourceNames[i]+"_field_accept'>"+resourceNames[i]+"</label>\
+                    <div class='col-sm-4'>\
+                        <button type='button' class='resource_increase' id='"+resourceIds[i]+"_inc_btn_accept'>+</button>\
+                        <button type='button' class='resource_decrease' id='"+resourceIds[i]+"_dec_btn_accept'>-</button>\
+                    </div>\
+                    <div class='col-sm-2'>\
+                        <input type='hidden' name='res_id[]' value="+resourceIds[i]+">\
+                        <input id='"+resourceIds[i]+"_field_accept' type='text' class='form-control horizontal_input' name='qty_field_accept[]'\
+                               value=0>\
+                    </div>\
+                </div>\
+            </div>"
+          )
+        }
+    })
 
     //accept delivery increase/decrease buttons
-        $("#accept_delivery_modal").on("click", ".resource_increase", function() {
+    $("#accept_delivery_modal").on("click", ".resource_increase", function() {
+        var clickedBtnId = $(this).attr("id");
+        var inputFieldId = clickedBtnId.replace("_inc_btn_accept", "_field_accept");
+        var currVal = $("#"+inputFieldId).val();
+        currVal++;
+        $("#"+inputFieldId).val(currVal);
+    });
+    $("#accept_delivery_modal").on("click", ".resource_decrease", function() {
+        var clickedBtnId = $(this).attr("id");
+        var inputFieldId = clickedBtnId.replace("_dec_btn_accept", "_field_accept");
+        var currVal = $("#"+inputFieldId).val();
+        if (currVal>0) {
+            currVal--;
+            $("#"+inputFieldId).val(currVal);
+        }
+    });
+        
+        //accept release
+    $("#warehouse_release_btn").click(function() {
+        $("#accept_release_select_resources").select2({
+           language: "pl",
+           dropdownParent: $("#warehouse_release_modal")
+        });
+    });
+
+    //clear modal after closing
+    $("#accept_release_modal").on("hidden.bs.modal", function () {
+        $("#accept_release_resources").empty();
+    });
+    //warehouse release confirm resources
+    $("#accept_release_resources_btn").click(function() {
+        $("#accept_release_resources").empty();
+        var resourceIds = [];
+        var resourceNames = [];
+        var selectedResources = $("#accept_release_select_resources").select2('data');
+        for (var i=0; i<selectedResources.length; i++){
+            resourceIds[i] = selectedResources[i].id;
+            resourceNames[i] = selectedResources[i].text;
+        };
+        for (var i=0; i<resourceIds.length; i++) {
+          $("#accept_release_resources").append(
+            "<div class='row'>\
+                <div class='form-group'>\
+                    <label class='control-label col-sm-6 horizontal_label' for='"+resourceNames[i]+"_field_release'>"+resourceNames[i]+"</label>\
+                    <div class='col-sm-4'>\
+                        <button type='button' class='resource_increase' id='"+resourceIds[i]+"_inc_btn_release'>+</button>\
+                        <button type='button' class='resource_decrease' id='"+resourceIds[i]+"_dec_btn_release'>-</button>\
+                    </div>\
+                    <div class='col-sm-2'>\
+                        <input type='hidden' name='res_id[]' value="+resourceIds[i]+">\
+                        <input id='"+resourceIds[i]+"_field_release' type='text' class='form-control horizontal_input' name='qty_field_release[]'\
+                               value=0>\
+                    </div>\
+                </div>\
+            </div>"
+          )
+        }
+    })
+
+    //warehouse release increase/decrease buttons
+    $("#warehouse_release_modal").on("click", ".resource_increase", function() {
             var clickedBtnId = $(this).attr("id");
-            var inputFieldId = clickedBtnId.replace("_inc_btn_accept", "_field_accept");
+            var inputFieldId = clickedBtnId.replace("_inc_btn_release", "_field_release");
             var currVal = $("#"+inputFieldId).val();
             currVal++;
             $("#"+inputFieldId).val(currVal);
         });
-        $("#accept_delivery_modal").on("click", ".resource_decrease", function() {
+    $("#warehouse_release_modal").on("click", ".resource_decrease", function() {
             var clickedBtnId = $(this).attr("id");
-            var inputFieldId = clickedBtnId.replace("_dec_btn_accept", "_field_accept");
+            var inputFieldId = clickedBtnId.replace("_dec_btn_release", "_field_release");
             var currVal = $("#"+inputFieldId).val();
             if (currVal>0) {
                 currVal--;

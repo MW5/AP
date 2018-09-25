@@ -4,9 +4,11 @@
   /*--body_background_color: rgb(187, 185, 241);*/
   --body_background_color: white;
   --nav_background_color: rgb(76, 72, 180);
-  --table_row_gradient_even_color: rgb(137, 133, 237);
-  --table_row_gradient_odd_color: rgb(169, 167, 240);
+  --table_row_gradient_even_color: rgba(191, 189, 252,0.1);
+  --table_row_gradient_odd_color: rgba(191, 189, 252,0.1);
   --main_text_color: white;
+  --btn_styled_padding_vertical: 8px;
+  --btn_styled_padding_horizontal: 24px;
 }
 
 html {
@@ -67,12 +69,71 @@ footer {
 }
 
 /*checkbox size*/
-.ap_checkbox {
-    -ms-transform: scale(1.2); /* IE */
-    -moz-transform: scale(1.2); /* FF */
-    -webkit-transform: scale(1.2); /* Safari and Chrome */
-    -o-transform: scale(1.2); /* Opera */
-     padding: 10px;
+
+.checkbox_container {
+      display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+ /*Hide the browser's default checkbox*/ 
+.checkbox_container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: -5px;
+  left: 0;
+  height: 30px;
+  width: 30px;
+  background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.checkbox_container:hover input ~ .checkmark {
+  background-color: var(--nav_background_color);
+  transform: scale(1.2);
+  transition: 0.2s ease-in-out;
+}
+
+/* When the checkbox is checked, add a blue background */
+.checkbox_container input:checked ~ .checkmark {
+  background-color: var(--nav_background_color);
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.checkbox_container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.checkbox_container .checkmark:after {
+  left: 13px;
+  top: 7px;
+  width: 5px;
+  height: 15px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
 }
 
 /*alert box*/
@@ -103,11 +164,12 @@ footer {
 
 /*buttons*/
 .btn_styled {
-    padding: 8px 12px;
+    padding: var(--btn_styled_padding_vertical) var(--btn_styled_padding_horizontal);
     background: var(--nav_background_color);
     color: var(--main_text_color);
-    border: none;
-    border-radius: 0px;
+    border: 1px solid;
+    border-color: var(--nav_background_color);
+    border-radius: 4px;
     transition: 0.2s ease-in-out;
     line-height: normal;
 }
@@ -115,7 +177,6 @@ footer {
 .btn_styled:hover {
     background: var(--body_background_color);
     color: var(--nav_background_color);
-    border: none;
     text-decoration: none;
 }
 
@@ -195,6 +256,18 @@ footer {
 .ap_action_bar {
     margin-bottom: 10px;
 }
+.search {
+    color: var(--nav_background_color);
+}
+@media only screen and (max-width: 600px) {
+    .ap_action_bar > input, .ap_action_bar > .btn_styled {
+        display: inline-block;
+        margin-top: 2px;
+    }
+    .search {
+        margin-top: 2px;
+    }
+}
 
 .ap_radio_label {
     padding-left: 10px;
@@ -219,16 +292,43 @@ footer {
     margin: 20px;
 }
 
-.pagination > .active > a, .pagination > .active > a:hover  {
-    color: var(--nav_background_color);
-    background-color: var(--body_background_color);
-    border-color: var(--nav_background_color);
+.pagination {
+    display: block;
 }
+
+.sort {
+    width: 100%;
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 8px 0px;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+    transition: all 0.2s ease-in-out;
+    border: 1px solid;
+    border-color: var(--body_background_color);
+    border-radius: 4px;
+}
+.sort:hover {
+    border: 1px solid;
+    border-color: var(--nav_background_color);
+    border-radius: 4px;
+}
+
 .pagination > li > a, .pagination > li > span {
     color: var(--body_background_color);
     background-color: var(--nav_background_color);
     border-color: var(--nav_background_color);
     transition: 0.2s ease-in-out;
+    float: none;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+.pagination > .active > a, .pagination > .active > a:hover  {
+    color: var(--nav_background_color);
+    background-color: var(--body_background_color);
+    border-color: var(--nav_background_color);
 }
 .pagination > li > a:hover, .pagination > li > span:hover {
     color: var(--nav_background_color);

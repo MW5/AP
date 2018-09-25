@@ -26,6 +26,7 @@
 
 @section('content')
     <div class='container ap_table_container'>
+        <div id="tableWarehouseOperations" class="table-list-container">
         @if (Auth::user()->account_type == 0)
             <div class='ap_action_bar'>
                 <a href='/resourcesManager' class="btn_styled">Wróć</a>
@@ -34,7 +35,6 @@
 
             </div>
         @endif
-        <div id="tableWarehouseOperations" class="table-list-container">
             <table class="table-list table ap_table" data-currentpage="1" >
                 <thead>
                     <th><button type="button" class="sort" data-sort="jSortName">Nazwa zasobu</button></th>
@@ -110,20 +110,11 @@
                     <?php $counter=0?>
                 </tbody>
             </table>
-            <!--tutaj gdzies byl zamkniety form-->
-            <table class="table-footer">
-              <tr>
-                <td class="table-pagination">
-                  <button type="button" class="jPaginateBack"><i class="material-icons keyboard_arrow_left">&#xe314;</i></button>
-                  <ul class="pagination"></ul>
-                  <button type="button" class="jPaginateNext"><i class="material-icons keyboard_arrow_right">&#xe315;</i></button>
-                </td>
-                <td></td>
-                  <td class="table-search">
-                    <input class="search" placeholder="Search">
-                </td>
-              </tr>
-            </table>
+            <div class="table_action_row">
+                <ul class="pagination"></ul>
+                <button type="button" class="jPaginateBack btn_styled"><</button>
+                <button type="button" class="jPaginateNext btn_styled">></button>
+            </div> 
         </div>
     </div>
 

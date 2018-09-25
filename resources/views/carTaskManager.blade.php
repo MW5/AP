@@ -26,13 +26,14 @@
 
 @section('content')
     <div class='container ap_table_container'>
+        <div id="tableCarTasks" class="table-list-container">
         @if (Auth::user()->account_type == 0)
             <div class='ap_action_bar'>
                 <button id="add_car_task_btn" type="button" class="btn_styled" data-toggle="modal" data-target="#add_car_task_modal">Dodaj zlecenie</button>
                 <button form="remove_car_tasks_form" type="submit" class="btn_styled">Usuń zaznaczone zlecenia</button>
+                <input class="search" placeholder="Filtruj">
             </div>
         @endif
-        <div id="tableCarTasks" class="table-list-container">
             <form id="remove_car_tasks_form" method="POST" action="/carTaskManager/removeCarTasks">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <table class="table-list table ap_table" data-currentpage="1" >
@@ -76,7 +77,10 @@
                             }?>
 
                             <td>
-                                <input type="checkbox" class="ap_checkbox" name="ch[]" value="{{$carTask->id}}">
+                                <label class="checkbox_container">
+                                    <input type="checkbox" class="ap_checkbox" name="ch[]" value="{{$carTask->id}}">
+                                    <span class="checkmark"></span>
+                                </label>
                             </td>
                             <td class="jSortRegNum">
                               @foreach($cars as $car)
@@ -110,19 +114,11 @@
                     </tbody>
                 </table>
             </form>
-            <table class="table-footer">
-              <tr>
-                <td class="table-pagination">
-                  <button type="button" class="jPaginateBack"><i class="material-icons keyboard_arrow_left">&#xe314;</i></button>
-                  <ul class="pagination"></ul>
-                  <button type="button" class="jPaginateNext"><i class="material-icons keyboard_arrow_right">&#xe315;</i></button>
-                </td>
-                <td></td>
-                  <td class="table-search">
-                    <input class="search" placeholder="Search">
-                </td>
-              </tr>
-            </table>
+            <div class="table_action_row">
+                <ul class="pagination"></ul>
+                <button type="button" class="jPaginateBack btn_styled"><</button>
+                <button type="button" class="jPaginateNext btn_styled">></button>
+            </div>  
         </div>
     </div>
 

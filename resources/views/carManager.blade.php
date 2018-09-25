@@ -26,82 +26,79 @@
 
 @section('content')
     <div class='container ap_table_container'>
-        @if (Auth::user()->account_type == 0)
-            <div class='ap_action_bar'>
-                <button type="button" class="btn_styled" data-toggle="modal" data-target="#add_car_modal">Dodaj samochód</button>
-                <button form="remove_cars_form" type="submit" class="btn_styled">Usuń zaznaczone samochody</button>
-            </div>
-        @endif
         <div id="tableCars" class="table-list-container">
+            @if (Auth::user()->account_type == 0)
+                <div class='ap_action_bar'>
+                    <button type="button" class="btn_styled" data-toggle="modal" data-target="#add_car_modal">Dodaj samochód</button>
+                    <button form="remove_cars_form" type="submit" class="btn_styled">Usuń zaznaczone samochody</button>
+                    <input class="search" placeholder="Filtruj">
+                </div>
+            @endif
+
             <form id="remove_cars_form" method="POST" action="/carManager/removeCars">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <table class="table-list table ap_table" data-currentpage="1" >
-                <thead>
+                    <thead>
                         <th></th>
                         <th><button type="button" class="sort" data-sort="jSortRegNum">Numer rejestracyjny</button></th>
                         <th><button type="button" class="sort" data-sort="jSortMake">Marka</button></th>
                         <th><button type="button" class="sort" data-sort="jSortModel">Model</button></th>
                         <th><button type="button" class="sort" data-sort="jSortStatus">Status</button></th>
-                  </thead>
+                    </thead>
                     <tbody class="list">
-                  <?php $counter=0?>
-                  @foreach($cars as $car)
-                      <?php
-                          if($counter%2==0) {
-                              ?>
-                          <tr class='even clickable_row_no_href' data-toggle="modal" data-target="#edit_car_modal"
-                           data-car-id="{{$car->id}}"
-                           data-car-reg-num="{{$car->reg_num}}"
-                           data-car-make="{{$car->make}}"
-                           data-car-model="{{$car->model}}"
-                           data-car-status="{{$car->status}}">
-                              <?php
-                          } else {
-                              ?>
-                              <tr class='odd clickable_row_no_href' data-toggle="modal" data-target="#edit_car_modal"
-                               data-car-id="{{$car->id}}"
-                               data-car-reg-num="{{$car->reg_num}}"
-                               data-car-make="{{$car->make}}"
-                               data-car-model="{{$car->model}}"
-                               data-car-status="{{$car->status}}">
-                              <?php
-                          }?>
+                    <?php $counter=0?>
+                    @foreach($cars as $car)
+                        <?php
+                            if($counter%2==0) {
+                                 ?>
+                            <tr class='even clickable_row_no_href' data-toggle="modal" data-target="#edit_car_modal"
+                             data-car-id="{{$car->id}}"
+                             data-car-reg-num="{{$car->reg_num}}"
+                             data-car-make="{{$car->make}}"
+                             data-car-model="{{$car->model}}"
+                             data-car-status="{{$car->status}}">
+                                <?php
+                            } else {
+                            ?>
+                            <tr class='odd clickable_row_no_href' data-toggle="modal" data-target="#edit_car_modal"
+                             data-car-id="{{$car->id}}"
+                             data-car-reg-num="{{$car->reg_num}}"
+                             data-car-make="{{$car->make}}"
+                             data-car-model="{{$car->model}}"
+                             data-car-status="{{$car->status}}">
+                            <?php
+                            }?>
 
-                          <td>
-                              <input type="checkbox" class="ap_checkbox" name="ch[]" value="{{$car->id}}">
-                          </td>
-                          <td class="jSortRegNum">
-                              {{$car->reg_num}}
-                          </td>
-                          <td class="jSortMake">
-                              {{$car->make}}
-                          </td>
-                          <td class="jSortModel">
-                              {{$car->model}}
-                          </td>
-                          <td class="jSortStatus">
-                              {{$car->status}}
-                          </td>
-                      </tr>
-                      <?php $counter+=1;?>
-                  @endforeach
-                  <?php $counter=0?>
+                            <td>
+                                <label class="checkbox_container">
+                                    <input type="checkbox" class="ap_checkbox" name="ch[]" value="{{$car->id}}">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </td>
+                            <td class="jSortRegNum">
+                                {{$car->reg_num}}
+                            </td>
+                            <td class="jSortMake">
+                                {{$car->make}}
+                            </td>
+                            <td class="jSortModel">
+                                {{$car->model}}
+                            </td>
+                            <td class="jSortStatus">
+                                {{$car->status}}
+                            </td>
+                        </tr>
+                        <?php $counter+=1;?>
+                    @endforeach
+                    <?php $counter=0?>
                     </tbody>
                 </table>
             </form>
-            <table class="table-footer">
-              <tr>
-                <td class="table-pagination">
-                  <button type="button" class="jPaginateBack"><i class="material-icons keyboard_arrow_left">&#xe314;</i></button>
-                  <ul class="pagination"></ul>
-                  <button type="button" class="jPaginateNext"><i class="material-icons keyboard_arrow_right">&#xe315;</i></button>
-                </td>
-                <td></td>
-                  <td class="table-search">
-                    <input class="search" placeholder="Search">
-                </td>
-              </tr>
-            </table>
+            <div class="table_action_row">
+                <ul class="pagination"></ul>
+                <button type="button" class="jPaginateBack btn_styled"><</button>
+                <button type="button" class="jPaginateNext btn_styled">></button>
+            </div>      
         </div>
     </div>
 

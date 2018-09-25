@@ -25,22 +25,19 @@
 @endsection
 
 @section('content')
-<div class='container ap_table_container'>
-    <div id="tableSuppliers" class="table-list-container">
-    @if (Auth::user()->account_type == 0)
-        <div class='ap_action_bar'>
-            <button type="button" class="btn_styled" data-toggle="modal" data-target="#add_supplier_modal">Dodaj dostawcę</button>
-            <button form="remove_suppliers_form" type="submit" class="btn_styled">Usuń zaznaczonych dostawców</button>
-            <input class="search" placeholder="Filtruj">
-        </div>
-    @endif
-
-    
-      <form id="remove_suppliers_form" method="POST" action="/supplierManager/removeSuppliers">
-        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-            <table class="table-list table ap_table" data-currentpage="1" >
-
-                  <thead>
+    <div class='container ap_table_container'>
+        <div id="tableSuppliers" class="table-list-container">
+            @if (Auth::user()->account_type == 0)
+                <div class='ap_action_bar'>
+                    <button type="button" class="btn_styled" data-toggle="modal" data-target="#add_supplier_modal">Dodaj dostawcę</button>
+                    <button form="remove_suppliers_form" type="submit" class="btn_styled">Usuń zaznaczonych dostawców</button>
+                    <input class="search" placeholder="Filtruj">
+                </div>
+            @endif
+            <form id="remove_suppliers_form" method="POST" action="/supplierManager/removeSuppliers">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <table class="table-list table ap_table" data-currentpage="1" >
+                    <thead>
                         <th></th>
                         <th><button type="button" class="sort" data-sort="jSortName">Nazwa</button></th>
                         <th><button type="button" class="sort" data-sort="jSortAddress">Adres</button></th>
@@ -48,73 +45,73 @@
                         <th><button type="button" class="sort" data-sort="jSortEmail">Adres email</button></th>
                         <th><button type="button" class="sort" data-sort="jSortPhoneNumber">Numer telefonu</button></th>
                         <th><button type="button" class="sort" data-sort="jSortDetails">Informacje dodatkowe</button></th>
-                  </thead>
-
-                  <!-- IMPORTANT, class="list" must be on tbody -->
-                  <tbody class="list">
-                    <?php $counter=0?>
-                    @foreach($suppliers as $supplier)
-                        <?php
-                            if($counter%2==0) {
-                                ?>
-                            <tr class='even clickable_row_no_href' data-toggle="modal" data-target="#edit_supplier_modal"
-                             data-supplier-id="{{$supplier->id}}"
-                             data-supplier-name="{{$supplier->name}}"
-                             data-supplier-address="{{$supplier->address}}"
-                             data-supplier-nip="{{$supplier->nip}}"
-                             data-supplier-email="{{$supplier->email}}"
-                             data-supplier-phone-number="{{$supplier->phone_number}}"
-                             data-supplier-details="{{$supplier->details}}">
+                    </thead>
+                    <tbody class="list">
+                        <?php $counter=0?>
+                        @foreach($suppliers as $supplier)
+                            <?php
+                                if($counter%2==0) {
+                                    ?>
+                                <tr class='even clickable_row_no_href' data-toggle="modal" data-target="#edit_supplier_modal"
+                                    data-supplier-id="{{$supplier->id}}"
+                                    data-supplier-name="{{$supplier->name}}"
+                                    data-supplier-address="{{$supplier->address}}"
+                                    data-supplier-nip="{{$supplier->nip}}"
+                                    data-supplier-email="{{$supplier->email}}"
+                                    data-supplier-phone-number="{{$supplier->phone_number}}"
+                                    data-supplier-details="{{$supplier->details}}">
                                 <?php
-                            } else {
-                                ?>
+                                } else {
+                                    ?>
                                 <tr class='odd clickable_row_no_href' data-toggle="modal" data-target="#edit_supplier_modal"
-                                 data-supplier-id="{{$supplier->id}}"
-                                 data-supplier-name="{{$supplier->name}}"
-                                 data-supplier-address="{{$supplier->address}}"
-                                 data-supplier-nip="{{$supplier->nip}}"
-                                 data-supplier-email="{{$supplier->email}}"
-                                 data-supplier-phone-number="{{$supplier->phone_number}}"
-                                 data-supplier-details="{{$supplier->details}}">
+                                    data-supplier-id="{{$supplier->id}}"
+                                    data-supplier-name="{{$supplier->name}}"
+                                    data-supplier-address="{{$supplier->address}}"
+                                    data-supplier-nip="{{$supplier->nip}}"
+                                    data-supplier-email="{{$supplier->email}}"
+                                    data-supplier-phone-number="{{$supplier->phone_number}}"
+                                    data-supplier-details="{{$supplier->details}}">
                                 <?php
-                            }?>
+                                }?>
 
-                            <td>
-                                <input type="checkbox" class="ap_checkbox" name="ch[]" value="{{$supplier->id}}">
-                            </td>
-                            <td class="jSortName">
-                                {{$supplier->name}}
-                            </td>
-                            <td class="jSortAddress">
-                                {{$supplier->address}}
-                            </td>
-                            <td class="jSortNip">
-                                {{$supplier->nip}}
-                            </td>
-                            <td class="jSortEmail">
-                                {{$supplier->email}}
-                            </td>
-                            <td class="jSortPhoneNumber">
-                                {{$supplier->phone_number}}
-                            </td>
-                            <td class="jSortDetails">
-                                {{$supplier->details}}
-                            </td>
-                        </tr>
-                        <?php $counter+=1;?>
-                    @endforeach
-                    <?php $counter=0?>
-                  </tbody>
-              </table>
+                                <td>
+                                    <label class="checkbox_container">
+                                        <input type="checkbox" class="ap_checkbox" name="ch[]" value="{{$supplier->id}}">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </td>
+                                <td class="jSortName">
+                                    {{$supplier->name}}
+                                </td>
+                                <td class="jSortAddress">
+                                    {{$supplier->address}}
+                                </td>
+                                <td class="jSortNip">
+                                    {{$supplier->nip}}
+                                </td>
+                                <td class="jSortEmail">
+                                    {{$supplier->email}}
+                                </td>
+                                <td class="jSortPhoneNumber">
+                                    {{$supplier->phone_number}}
+                                </td>
+                                <td class="jSortDetails">
+                                    {{$supplier->details}}
+                                </td>
+                            </tr>
+                            <?php $counter+=1;?>
+                        @endforeach
+                        <?php $counter=0?>
+                    </tbody>
+                </table>
             </form>
-            <div class="row table_action_row">
-                <button type="button" class="jPaginateBack"><</button>
+            <div class="table_action_row">
                 <ul class="pagination"></ul>
-                <button type="button" class="jPaginateNext">></button>
+                <button type="button" class="jPaginateBack btn_styled"><</button>
+                <button type="button" class="jPaginateNext btn_styled">></button>
             </div>      
         </div>
     </div>
-</div>
 
 
 
