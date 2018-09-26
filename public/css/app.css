@@ -71,69 +71,70 @@ footer {
 /*checkbox size*/
 
 .checkbox_container {
-      display: block;
-  position: relative;
-  padding-left: 35px;
-  margin-bottom: 12px;
-  cursor: pointer;
-  font-size: 22px;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
  /*Hide the browser's default checkbox*/ 
 .checkbox_container input {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
 }
 
 /* Create a custom checkbox */
 .checkmark {
-  position: absolute;
-  top: -5px;
-  left: 0;
-  height: 30px;
-  width: 30px;
-  background-color: #eee;
+    position: absolute;
+    top: -5px;
+    left: 0;
+    height: 30px;
+    width: 30px;
+    border: 1px solid var(--nav_background_color);
+    border-radius: 4px;
 }
 
 /* On mouse-over, add a grey background color */
 .checkbox_container:hover input ~ .checkmark {
-  background-color: var(--nav_background_color);
-  transform: scale(1.2);
-  transition: 0.2s ease-in-out;
+    background-color: var(--nav_background_color);
+    transform: scale(1.2);
+    transition: 0.2s ease-in-out;
 }
 
 /* When the checkbox is checked, add a blue background */
 .checkbox_container input:checked ~ .checkmark {
-  background-color: var(--nav_background_color);
+    background-color: var(--nav_background_color);
 }
 
 /* Create the checkmark/indicator (hidden when not checked) */
 .checkmark:after {
-  content: "";
-  position: absolute;
-  display: none;
+    content: "";
+    position: absolute;
+    display: none;
 }
 
 /* Show the checkmark when checked */
 .checkbox_container input:checked ~ .checkmark:after {
-  display: block;
+    display: block;
 }
 
 /* Style the checkmark/indicator */
 .checkbox_container .checkmark:after {
-  left: 13px;
-  top: 7px;
-  width: 5px;
-  height: 15px;
-  border: solid white;
-  border-width: 0 3px 3px 0;
-  -webkit-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  transform: rotate(45deg);
+    left: 13px;
+    top: 7px;
+    width: 5px;
+    height: 15px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
 }
 
 /*alert box*/
@@ -149,11 +150,18 @@ footer {
     z-index: 10000;
 }
 
+.ap_form_row {
+    margin-top: 10px;
+}
+.ap_form_row > .btn_styled {
+    width: 100%;
+}
+
 .modal_styled {
     color: var(--nav_background_color);
     background: var(--body_background_color);
     border-color: var(--nav_background_color);
-    border-radius: 0px;
+    border-radius: 4px;
 }
 .modal_styled .panel_styled {
     font-weight: bold;
@@ -172,6 +180,7 @@ footer {
     border-radius: 4px;
     transition: 0.2s ease-in-out;
     line-height: normal;
+    margin-bottom: 4px;
 }
 
 .btn_styled:hover {
@@ -180,10 +189,10 @@ footer {
     text-decoration: none;
 }
 
-/*aplication tables*/
-.ap_table_container {
-
-}
+/*.ap_select {
+    display: inline-block;
+    width: 100%;
+}*/
 .ap_table {
     /*color: var(--main_text_color);*/
     width: 100%;
@@ -262,7 +271,6 @@ footer {
 @media only screen and (max-width: 600px) {
     .ap_action_bar > input, .ap_action_bar > .btn_styled {
         display: inline-block;
-        margin-top: 2px;
     }
     .search {
         margin-top: 2px;

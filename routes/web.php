@@ -17,14 +17,14 @@ Route::get('/', 'PageController@index');
 Route::get('/home', 'PageController@index');
 
 
-Route::get('/resourcesManager', 'PageController@index');
-Route::post('/resourcesManager/addResource', 'ResourcesManagerController@addResource');
-Route::post('/resourcesManager/editResource/', 'ResourcesManagerController@editResource');
-Route::post('/resourcesManager/removeResources', 'ResourcesManagerController@removeResources');
-Route::post('/resourcesManager/acceptDelivery', 'ResourcesManagerController@acceptDelivery');
-Route::post('/resourcesManager/warehouseRelease', 'ResourcesManagerController@warehouseRelease');
-Route::get('/resourcesManager/warehouseOperations', 'PageController@warehouseOperations');
-Route::get('/resourcesManager/{resource}', 'PageController@resourceDetails');
+Route::get('/resourceManager', 'PageController@index');
+Route::post('/resourceManager/addResource', 'ResourceManagerController@addResource');
+Route::post('/resourceManager/editResource/', 'ResourceManagerController@editResource');
+Route::post('/resourceManager/removeResources', 'ResourceManagerController@removeResources');
+Route::post('/resourceManager/acceptDelivery', 'ResourceManagerController@acceptDelivery');
+Route::post('/resourceManager/warehouseRelease', 'ResourceManagerController@warehouseRelease');
+Route::get('/resourceManager/warehouseOperations', 'PageController@warehouseOperations');
+Route::get('/resourceManager/{resource}', 'PageController@resourceDetails');
 
 //Route::get(report route);
 

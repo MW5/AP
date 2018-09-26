@@ -16,7 +16,7 @@ $(document).ready(function() {
                 return ['jSortName', 'jSortOperationType', 'jSortOldVal', 'jSortValChange', 'jSortNewVal', 
                     'jSortSupplierName', 'jSortOperationDate', 'jSortUser'];
                 break;
-            case "/resourcesManager": 
+            case "/resourceManager": 
                 tableToPrepare = "tableResources";
                 return ['jSortName', 'jSortQuantity', 'jSortCriticalQuantity', 'jSortCapacity', 'jSortProportions'];
                 break;
@@ -144,7 +144,7 @@ $(document).ready(function() {
             var resourceDescription = $(this).data("resourceDescription");
             //set properties
               //details btn
-            $("#details_btn_href").attr("href", "resourcesManager/"+resourceId);
+            $("#details_btn_href").attr("href", "resourceManager/"+resourceId);
               //edit btn
             $("#edit_resource_btn").data("resource-id", $(this).data("resourceId"));
             $("#edit_resource_btn").data("resource-name", $(this).data("resourceName"));
@@ -158,22 +158,30 @@ $(document).ready(function() {
             $('#end_time_datepicker').datetimepicker({format : "YYYY-MM-DD HH:mm:ss"});
 
              $("#edit_id").val($(this).data("carTaskId"));
-             $("#edit_car_id").val($(this).data("carTaskCarId"));
+             $("#edit_car_reg_num").val($(this).data("carTaskCarRegNum"));
              $("#edit_task_type").val($(this).data("carTaskTaskType"));
              $("#edit_begin_time").val($(this).data("carTaskBeginTime"));
-             $("#edit_begin_user").val($(this).data("carTaskBeginUser"));
+             $("#edit_begin_user_name").val($(this).data("carTaskBeginUserName"));
              $("#edit_end_time").val($(this).data("carTaskEndTime"));
-             $("#edit_end_user").val($(this).data("carTaskEndUser"));
+             $("#edit_end_user_name").val($(this).data("carTaskEndUserName"));
 
-             $("#edit_car_id").select2({
+             $("#edit_car_reg_num").select2({
+                width: '100%',
                 language: "pl",
                 dropdownParent: $("#edit_car_task_modal")
              });
-             $("#edit_begin_user").select2({
+             $("#edit_task_type").select2({
+                width: '100%',
                 language: "pl",
                 dropdownParent: $("#edit_car_task_modal")
              });
-             $("#edit_end_user").select2({
+             $("#edit_begin_user_name").select2({
+                width: '100%',
+                language: "pl",
+                dropdownParent: $("#edit_car_task_modal")
+             });
+             $("#edit_end_user_name").select2({
+                width: '100%',
                 language: "pl",
                 dropdownParent: $("#edit_car_task_modal")
              });
@@ -200,10 +208,12 @@ $(document).ready(function() {
       //accept delivery
       $("#accept_delivery_btn").click(function() {
           $("#accept_delivery_select_resources").select2({
+             width: '100%',
              language: "pl",
              dropdownParent: $("#accept_delivery_modal")
           });
           $("#accept_delivery_select_supplier").select2({
+             width: '100%',
              language: "pl",
              dropdownParent: $("#accept_delivery_modal")
           });
@@ -227,11 +237,11 @@ $(document).ready(function() {
         for (var i=0; i<resourceIds.length; i++) {
           $("#accept_delivery_resources").append(
             "<div class='row'>\
-                <div class='form-group'>\
-                    <label class='control-label col-sm-6 horizontal_label' for='"+resourceNames[i]+"_field_accept'>"+resourceNames[i]+"</label>\
-                    <div class='col-sm-4'>\
-                        <button type='button' class='resource_increase' id='"+resourceIds[i]+"_inc_btn_accept'>+</button>\
-                        <button type='button' class='resource_decrease' id='"+resourceIds[i]+"_dec_btn_accept'>-</button>\
+                <div class='ap_form_row'>\
+                    <label class='control-label col-sm-7 horizontal_label' for='"+resourceNames[i]+"_field_accept'>"+resourceNames[i]+"</label>\
+                    <div class='col-sm-3'>\
+                        <button type='button' class='resource_increase btn_styled' id='"+resourceIds[i]+"_inc_btn_accept'>+</button>\
+                        <button type='button' class='resource_decrease btn_styled' id='"+resourceIds[i]+"_dec_btn_accept'>-</button>\
                     </div>\
                     <div class='col-sm-2'>\
                         <input type='hidden' name='res_id[]' value="+resourceIds[i]+">\
@@ -265,6 +275,7 @@ $(document).ready(function() {
         //accept release
     $("#warehouse_release_btn").click(function() {
         $("#accept_release_select_resources").select2({
+           width: '100%',
            language: "pl",
            dropdownParent: $("#warehouse_release_modal")
         });
@@ -288,10 +299,10 @@ $(document).ready(function() {
           $("#accept_release_resources").append(
             "<div class='row'>\
                 <div class='form-group'>\
-                    <label class='control-label col-sm-6 horizontal_label' for='"+resourceNames[i]+"_field_release'>"+resourceNames[i]+"</label>\
-                    <div class='col-sm-4'>\
-                        <button type='button' class='resource_increase' id='"+resourceIds[i]+"_inc_btn_release'>+</button>\
-                        <button type='button' class='resource_decrease' id='"+resourceIds[i]+"_dec_btn_release'>-</button>\
+                    <label class='control-label col-sm-7 horizontal_label' for='"+resourceNames[i]+"_field_release'>"+resourceNames[i]+"</label>\
+                    <div class='col-sm-3'>\
+                        <button type='button' class='resource_increase btn_styled' id='"+resourceIds[i]+"_inc_btn_release'>+</button>\
+                        <button type='button' class='resource_decrease btn_styled' id='"+resourceIds[i]+"_dec_btn_release'>-</button>\
                     </div>\
                     <div class='col-sm-2'>\
                         <input type='hidden' name='res_id[]' value="+resourceIds[i]+">\
@@ -333,7 +344,13 @@ $(document).ready(function() {
 
     //add car task modal
     $("#add_car_task_btn").click(function() {
-      $("#add_car_id").select2({
+      $("#add_car_reg_num").select2({
+          width: '100%',
+          language: "pl",
+          dropdownParent: $("#add_car_task_modal")
+      });
+      $("#add_car_task_type").select2({
+          width: '100%',
           language: "pl",
           dropdownParent: $("#add_car_task_modal")
       });

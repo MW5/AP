@@ -14,7 +14,7 @@ class CarManagerController extends Controller
           foreach($request->get('ch') as $c) {
               $car = Car::find($c);
               if($car->delete()) {
-                $carTasks = CarTask::where('car_id',$car->id)->get();
+                $carTasks = CarTask::where('car_reg_num',$car->reg_num)->get();
                 foreach($carTasks as $cT) {
                   $cT->delete();
                 }
@@ -40,12 +40,12 @@ class CarManagerController extends Controller
       $car->reg_num = $request->reg_num;
       $car->make = $request->make;
       $car->model = $request->model;
-      $car->status = 0;
+      $car->status = "do weryfikacji";
       if($car->save()) {
         $carTask = new CarTask();
-        $carTask->car_id = $car->id;
-        $carTask->task_type = 0;
-        $carTask->status = 0;
+        $carTask->car_reg_num = $car->reg_num;
+        $carTask->task_type = "weryfikacja stanu";
+        $carTask->status = "nowe";
         $carTask->save();
       }
 
@@ -56,6 +56,7 @@ class CarManagerController extends Controller
 
   function editCar(Request $request) {
     $car =  Car::find($request->id);
+    $carTasks = CarTask::where('car_reg_num',$car->reg_num)->get();
 
       $this->validate($request,[
           'reg_num'=>'required|min:1|max:10|unique:cars,reg_num,'.$car->id,
@@ -66,7 +67,13 @@ class CarManagerController extends Controller
       $car->reg_num = $request->reg_num;
       $car->make = $request->make;
       $car->model = $request->model;
-      $car->update();
+      
+      if($car->update()) {
+                foreach($carTasks as $cT) {
+                  $cT->car_reg_num = $request->reg_num;
+                  $cT->update();
+                }
+              };
 
       Session::flash('message', 'Pomyślnie edytowano samochód '.$car->reg_num);
       Session::flash('alert-class', 'alert-success');

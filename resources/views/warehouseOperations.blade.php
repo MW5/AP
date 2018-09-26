@@ -27,12 +27,11 @@
 @section('content')
     <div class='container ap_table_container'>
         <div id="tableWarehouseOperations" class="table-list-container">
-        @if (Auth::user()->account_type == 0)
+        @if (Auth::user()->account_type == "administracyjne")
             <div class='ap_action_bar'>
-                <a href='/resourcesManager' class="btn_styled">Wróć</a>
-                <!--TEMPORATY SOLUTION-->
-                <button type="button" class="btn_styled" id="report_warehouse_operations">Raportuj</button>
-
+                <a href='/resourceManager' class="btn_styled">Wróć</a>
+                <button type="button" class="btn_styled export_list_btn">Eksportuj</button>
+                <input class="search" placeholder="Filtruj">
             </div>
         @endif
             <table class="table-list table ap_table" data-currentpage="1" >
@@ -61,48 +60,32 @@
                             }?>
 
                             <td class="jSortName">
-                                @foreach ($resources as $r)
-                                  @if ($r->id == $wO->resource_id)
-                                    {{$r->name}}
-                                  @endif
-                                @endforeach
+                                {{$wO->resource_name}}
                             </td>
                             <td class="jSortOperationType">
-                              @if ($wO->operation_type == 0)
-                                przyjęcie
-                              @else
-                                wydanie
-                              @endif
+                                {{$wO->operation_type}}
                             </td>
                             <td class="jSortOldVal">
                                 {{$wO->old_val}}
                             </td>
                             <td class="jSortValChange">
-                                @if ($wO->operation_type == 0)
-                                    + {{$wO->quantity_change}}
+                                @if ($wO->operation_type == "przyjęcie")
+                                    +{{$wO->quantity_change}}
                                 @else
-                                    - {{$wO->quantity_change}}
+                                    -{{$wO->quantity_change}}
                                 @endif
                             </td>
                             <td class="jSortNewVal">
                                 {{$wO->new_val}}
                             </td>
                             <td class="jSortSupplierName">
-                              @foreach ($suppliers as $s)
-                                @if ($s->id == $wO->supplier_id)
-                                  {{$s->name}}
-                                @endif
-                              @endforeach
+                                {{$wO->supplier_name}}
                             </td>
                             <td class="jSortOperationDate">
                                 {{$wO->created_at}}
                             </td>
                             <td class="jSortUser">
-                              @foreach ($users as $u)
-                                @if ($u->id == $wO->user_id)
-                                  {{$u->name}}
-                                @endif
-                              @endforeach
+                                {{$wO->user_name}}
                             </td>
                         </tr>
                         <?php $counter+=1;?>

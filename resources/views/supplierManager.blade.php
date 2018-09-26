@@ -31,6 +31,7 @@
                 <div class='ap_action_bar'>
                     <button type="button" class="btn_styled" data-toggle="modal" data-target="#add_supplier_modal">Dodaj dostawcę</button>
                     <button form="remove_suppliers_form" type="submit" class="btn_styled">Usuń zaznaczonych dostawców</button>
+                    <button type="button" class="btn_styled export_list_btn">Eksportuj</button>
                     <input class="search" placeholder="Filtruj">
                 </div>
             @endif

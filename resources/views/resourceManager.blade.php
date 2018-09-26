@@ -27,17 +27,18 @@
 @section('content')
     <div class='container ap_table_container'>
         <div id="tableResources" class="table-list-container">
-            @if (Auth::user()->account_type == 0)
+            @if (Auth::user()->account_type == "administracyjne")
                 <div class='ap_action_bar'>
                     <button type="button" class="btn_styled" data-toggle="modal" data-target="#add_resource_modal">Dodaj zasób</button>
                     <button form="remove_resources_form" type="submit" class="btn_styled">Usuń zaznaczone zasoby</button>
                     <button id="accept_delivery_btn" type="button" class="btn_styled" data-toggle="modal" data-target="#accept_delivery_modal">Przyjmij dostawę</button>
                     <button id="warehouse_release_btn" type="button" class=" btn_styled" data-toggle="modal" data-target="#warehouse_release_modal">Wydaj zasoby</button>
-                    <a href='resourcesManager/warehouseOperations' class="btn_styled">Rejestr operacji magazynowych</a>
+                    <a href='resourceManager/warehouseOperations' class="btn_styled">Rejestr operacji magazynowych</a>
+                    <button type="button" class="btn_styled export_list_btn">Eksportuj</button>
                     <input class="search" placeholder="Filtruj">
                 </div>
             @endif
-            <form id="remove_resources_form" method="POST" action="/resourcesManager/removeResources">
+            <form id="remove_resources_form" method="POST" action="/resourceManager/removeResources">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <table class="table-list table ap_table" data-currentpage="1" >
                     <thead>
@@ -74,7 +75,7 @@
                                     <?php
                                 }?>
                                 <td>
-                                    @if (Auth::user()->account_type == 0)
+                                    @if (Auth::user()->account_type == "administracyjne")
                                         <label class="checkbox_container">
                                             <input type="checkbox" class="ap_checkbox" name="ch[]" value="{{$resource->id}}">
                                             <span class="checkmark"></span>
@@ -147,7 +148,7 @@
                     <h4 class="modal-title">Dodaj zasób</h4>
                 </div>
                 <div class="modal-body">
-                    <form id="add_resource_form" method="POST" action="/resourcesManager/addResource">
+                    <form id="add_resource_form" method="POST" action="/resourceManager/addResource">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
                         <div class="form-group">
@@ -198,7 +199,7 @@
                     <h4 class="modal-title">Edytuj zasób</h4>
                 </div>
                 <div class="modal-body">
-                    <form id="edit_resource_form" method="POST" action="/resourcesManager/editResource">
+                    <form id="edit_resource_form" method="POST" action="/resourceManager/editResource">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <input id="edit_id" type="hidden" name="id">
 
@@ -250,22 +251,25 @@
                     <h4 class="modal-title">Przyjmij dostawę</h4>
                 </div>
                 <div class="modal-body">
-                    <form class='ap_form' id="accept_delivery_form" method="POST" action="/resourcesManager/acceptDelivery">
+                    <form class='ap_form' id="accept_delivery_form" method="POST" action="/resourceManager/acceptDelivery">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                        <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
-
-                        <div id="accept_delivery_resources">
+                        <input type="hidden" name="user_name" value="{{Auth::user()->name}}">
+                        <div class="ap_form_row" id="accept_delivery_resources">
                         </div>
-                        <div class="form-group">
-                            <label for="resource_ids">Wybierz zasoby:</label>
-                                <select class="js-example-basic-multiple" name="states[]" multiple="multiple" id="accept_delivery_select_resources" name='resource_ids'>
+                        <div class="ap_form_row">
+                            <label for="resource_ids">Wybierz zasoby:</label></br>
+                                <select class="js-example-basic-multiple ap_form_select" name="states[]" multiple="multiple" id="accept_delivery_select_resources" name='resource_ids'>
                                     @foreach ($resources as $resource)
                                       <option value='{{$resource->id}}'>{{$resource->name}}</option>
                                     @endforeach
                                 </select>
-                            <button type="button" class="btn_styled" id="accept_delivery_resources_btn">Zatwierdź</button>
+                        </div>
+                        <div class="ap_form_row">
+                            <button type="button" class="btn_styled" id="accept_delivery_resources_btn">Dodaj do listy</button>
+                        </div>
+                        <div class="ap_form_row">
                             <label for="supplier_id">Dostawa z:</label>
-                              <select id="accept_delivery_select_supplier" name='supplier_id'>
+                            <select id="accept_delivery_select_supplier" class="ap_form_select" name='supplier_id'>
                                   @foreach ($suppliers as $supplier)
                                     <option value='{{$supplier->id}}'>{{$supplier->name}}</option>
                                   @endforeach
@@ -291,19 +295,21 @@
                     <h4 class="modal-title">Wydaj zasoby</h4>
                 </div>
                 <div class="modal-body">
-                    <form id="warehouse_release_form" class='form-horizontal' method="POST" action="/resourcesManager/warehouseRelease">
+                    <form id="warehouse_release_form" class='ap_form' method="POST" action="/resourceManager/warehouseRelease">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                        <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
-                        <div id="accept_release_resources">
+                        <input type="hidden" name="user_name" value="{{Auth::user()->name}}">
+                        <div class="ap_form_row" id="accept_release_resources">
                         </div>
-                        <div class="form-group">
+                        <div class="ap_form_row">
                             <label for="resource_ids">Wybierz zasoby:</label>
                                 <select class="js-example-basic-multiple" name="states[]" multiple="multiple" id="accept_release_select_resources" name='resource_ids'>
                                     @foreach ($resources as $resource)
                                       <option value='{{$resource->id}}'>{{$resource->name}}</option>
                                     @endforeach
                                 </select>
-                            <button type="button" class="btn_styled" id="accept_release_resources_btn">Zatwierdź</button>
+                        </div>
+                        <div class="ap_form_row">
+                            <button type="button" class="btn_styled" id="accept_release_resources_btn">Dodaj do listy</button>
                         </div>
                     </form>
                 </div>

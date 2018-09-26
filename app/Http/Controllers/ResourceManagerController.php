@@ -7,7 +7,7 @@ use App\Resource;
 use App\WarehouseOperation;
 use Session;
 
-class ResourcesManagerController extends Controller
+class ResourceManagerController extends Controller
 {
     function removeResources(Request $request) {
         if(!empty($request->get('ch')) != 0) {
@@ -71,7 +71,9 @@ class ResourcesManagerController extends Controller
     }
 
     function acceptDelivery(Request $request) {
-
+        $this->validate($request,[
+            'qty_field_accept'=>'required'
+        ]);
         $qtyArr = array();
         $arrCounter = 0;
         $arrBadVal = false;
@@ -98,13 +100,13 @@ class ResourcesManagerController extends Controller
                     $resource->save();
                     //logging
                     $warehouseOperation = new WarehouseOperation();
-                    $warehouseOperation->resource_id = $resource->id;
+                    $warehouseOperation->resource_name = $resource->name;
                     $warehouseOperation->operation_type = $warehouseOperation->operationAccept;
                     $warehouseOperation->old_val = $resource->quantity-$qtyArr[$arrCounter];
                     $warehouseOperation->quantity_change = $qtyArr[$arrCounter];
                     $warehouseOperation->new_val = $resource->quantity;
-                    $warehouseOperation->supplier_id = $request->supplier_id;
-                    $warehouseOperation->user_id = $request->user_id;
+                    $warehouseOperation->supplier_name = $request->supplier_name;
+                    $warehouseOperation->user_name = $request->user_name;
                     $warehouseOperation->save();
                 }
                 $arrCounter++;
@@ -122,6 +124,9 @@ class ResourcesManagerController extends Controller
     }
 
     function warehouseRelease(Request $request) {
+        $this->validate($request,[
+            'qty_field_release'=>'required'
+        ]);
         $qtyArr = array();
         $arrCounter = 0;
         $arrBadVal = false;
@@ -157,13 +162,13 @@ class ResourcesManagerController extends Controller
                     $resource->save();
                     //logging
                     $warehouseOperation = new WarehouseOperation();
-                    $warehouseOperation->resource_id = $resource->id;
+                    $warehouseOperation->resource_name = $resource->name;
                     $warehouseOperation->operation_type = $warehouseOperation->operationRelease;
                     $warehouseOperation->old_val = $resource->quantity+$qtyArr[$arrCounter];
                     $warehouseOperation->quantity_change = $qtyArr[$arrCounter];
                     $warehouseOperation->new_val = $resource->quantity;
-                    $warehouseOperation->supplier_id = $request->supplier_id;
-                    $warehouseOperation->user_id = $request->user_id;
+                    $warehouseOperation->supplier_name = $request->supplier_name;
+                    $warehouseOperation->user_name = $request->user_name;
                     $warehouseOperation->save();
                 }
                 $arrCounter++;

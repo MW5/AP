@@ -17,19 +17,19 @@ class PageController extends Controller {
 
     public function index() {
         $resources = DB::table('resources')->orderBy('created_at', 'desc')->get();
-        $suppliers = DB::table('suppliers')->orderBy('created_at', 'desc')->get();
-        return view('resourcesManager', compact('resources', 'suppliers'));
+        $suppliers = DB::table('suppliers')->get();
+        return view('resourceManager', compact('resources', 'suppliers'));
     }
     public function supplierManager() {
         $suppliers = DB::table('suppliers')->orderBy('created_at', 'desc')->get();
         return view('supplierManager', compact('suppliers'));
     }
     public function resourceDetails($id) {
+        $resource = Resource::find($id);
         $warehouseOperations = WarehouseOperation::where([
             ['created_at', '>=', date("Y-m-d", strtotime('-30 days'))],
-            ['resource_id', $id]
+            ['resource_name', $resource->name]
           ])->get();
-        $resource = Resource::find($id);
         return view('resourceDetails', compact('warehouseOperations', 'resource'));
     }
     public function warehouseOperations() {
@@ -46,8 +46,8 @@ class PageController extends Controller {
     }
     public function carTaskManager() {
       $carTasks = DB::table('car_tasks')->orderBy('created_at', 'desc')->get();
-      $cars = DB::table('cars')->orderBy('created_at', 'desc')->get();
-      $users = DB::table('users')->orderBy('created_at', 'desc')->get();
+      $cars = DB::table('cars')->get();
+      $users = DB::table('users')->get();
       return view('carTaskManager', compact('carTasks', 'cars', 'users'));
     }
 

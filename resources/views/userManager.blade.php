@@ -31,6 +31,7 @@
             <div class='ap_action_bar'>
                 <button type="button" class="btn_styled" data-toggle="modal" data-target="#add_user_modal">Dodaj użytkownika</button>
                 <button form="remove_users_form" type="submit" class="btn_styled">Usuń zaznaczonych użytkowników</button>
+                <button type="button" class="btn_styled export_list_btn">Eksportuj</button>
                 <input class="search" placeholder="Filtruj">
             </div>
         @endif
@@ -66,7 +67,7 @@
                                 }?>
 
                                 <td>
-                                @if ($user->name != Auth::user()->name && Auth::user()->account_type == 0)
+                                @if ($user->name != Auth::user()->name && Auth::user()->account_type == "administrator")
                                     <label class="checkbox_container">
                                         <input type="checkbox" class="ap_checkbox" name="ch[]" value="{{$user->id}}">
                                         <span class="checkmark"></span>
@@ -123,8 +124,8 @@
                         </div>
                         <div class="form-group">
                             <label for="account_type">Typ konta:</label></br>
-                            <input id="radio_user" type="radio"  name="account_type" value='1'><span class='ap_radio_label'>Użytkownika</span></br>
-                            <input id="radio_admin" type="radio"  name="account_type" value='0'><span class='ap_radio_label'>Administracyjne</span>
+                            <input id="radio_user" type="radio"  name="account_type" value='użytkownika'><span class='ap_radio_label'>Użytkownika</span></br>
+                            <input id="radio_admin" type="radio"  name="account_type" value='administracyjne'><span class='ap_radio_label'>Administracyjne</span>
                         </div>
 
                         <div class="form-group">

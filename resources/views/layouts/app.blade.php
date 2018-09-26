@@ -14,6 +14,8 @@
         <script src="{{ URL::asset('js/bootstrap.min.js')}}"></script>
         <script src="{{ URL::asset('js/jquery-ui.min.js')}}"></script>
         <script src="{{ URL::asset('js/app.js')}}"></script>
+        <script src="{{ URL::asset('js/papaparse.min.js')}}"></script>
+        <script src="{{ URL::asset('js/filterExportService.js')}}"></script>
         <script src="/node_modules/moment/min/moment.min.js"></script>
         <script src="/node_modules/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
         <link rel="stylesheet" href="/node_modules/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
@@ -55,7 +57,7 @@
                   </span>
                 </div>
                 <ul class="nav navbar-nav navbar-left">
-                    <li><a class="nav_href" href="/resourcesManager">Moduł zasobów magazynowych</a></li>
+                    <li><a class="nav_href" href="/resourceManager">Moduł zasobów magazynowych</a></li>
                     <li><a class="nav_href" href="/supplierManager">Moduł dostawców</a></li>
                     <li><a class="nav_href" href="/carManager">Moduł samochodów</a></li>
                     <li><a class="nav_href" href="/carTaskManager">Moduł zleceń</a></li>

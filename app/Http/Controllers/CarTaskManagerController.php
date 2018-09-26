@@ -27,19 +27,19 @@ class CarTaskManagerController extends Controller
 
   function addCarTask(Request $request) {
       $this->validate($request,[
-          'car_id'=>'required',
+          'car_reg_num'=>'required',
           'task_type'=>'required'
       ]);
 
       $carTask = new CarTask();
-      $car =  Car::find($request->car_id);
-
-      $carTask->car_id = $car->id;
+      $car =  Car::find($request->car_reg_num);
+      
+      $carTask->car_reg_num = $car->reg_num;
       $carTask->task_type = $request->task_type;
-      $carTask->status = 0;
+      $carTask->status = "nowe";
       $carTask->save();
 
-      Session::flash('message', 'Pomyślnie dodano zadanie dla samochodu '.$carTask->reg_num.'TUTAJ ZMIANY STANÓW');
+      Session::flash('message', 'Pomyślnie dodano zadanie dla samochodu '.$car->reg_num.'TUTAJ ZMIANY STANÓW');
       Session::flash('alert-class', 'alert-success');
       return back();
   }
@@ -47,25 +47,25 @@ class CarTaskManagerController extends Controller
   function editCarTask(Request $request) {
       $carTask =  CarTask::find($request->id);
       $this->validate($request,[
-          'car_id'=>'required',
+          'car_reg_num'=>'required',
           'task_type'=>'required',
-          'begin_time' => 'required_with_all:begin_user_id|date_format:Y-m-d H:i:s|nullable',
-          'begin_user_id' => 'required_with_all:begin_time|nullable',
-          'end_time' => 'required_with_all:end_user_id_time|date_format:Y-m-d H:i:s|after:begin_time|nullable',
-          'end_user_id' => 'required_with_all:end_time|nullable'
+          'begin_time' => 'required_with_all:begin_user_name|date_format:Y-m-d H:i:s|nullable',
+          'begin_user_name' => 'required_with_all:begin_time|nullable',
+          'end_time' => 'required_with_all:end_user_name|date_format:Y-m-d H:i:s|after:begin_time|nullable',
+          'end_user_name' => 'required_with_all:end_time|nullable'
       ]);
 
-      $carTask->car_id = $request->car_id;
+      $carTask->car_reg_num = $request->car_reg_num;
       $carTask->task_type = $request->task_type;
       $carTask->begin_time = $request->begin_time;
-      $carTask->begin_user_id = $request->begin_user_id;
+      $carTask->begin_user_name = $request->begin_user_name;
       $carTask->end_time = $request->end_time;
-      $carTask->end_user_id = $request->end_user_id;
+      $carTask->end_user_name = $request->end_user_name;
 
       if($request->begin_time!="" && $request->end_time=="") {
-        $carTask->status = 1;
+        $carTask->status = "realizowane";
       } else if ($request->end_time!="") {
-        $carTask->status = 2;
+        $carTask->status = "zakończone";
       }
       $carTask->update();
 

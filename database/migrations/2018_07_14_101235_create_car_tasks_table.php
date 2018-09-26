@@ -15,13 +15,13 @@ class CreateCarTasksTable extends Migration
     {
         Schema::create('car_tasks', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('car_id');
-            $table->integer('task_type');
-            $table->integer('status');
+            $table->string('car_reg_num');
+            $table->string('task_type');
+            $table->string('status');
             $table->dateTime('begin_time')->nullable();
-            $table->integer('begin_user_id')->nullable();
+            $table->string('begin_user_name')->nullable();
             $table->dateTime('end_time')->nullable();
-            $table->integer('end_user_id')->nullable();
+            $table->string('end_user_name')->nullable();
             $table->timestamps();
         });
     }

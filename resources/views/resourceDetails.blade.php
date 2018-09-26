@@ -27,7 +27,7 @@
 @section('content')
     <div class='container ap_table_container'>
         <div class='ap_action_bar'>
-            <a href='/resourcesManager' class="btn_styled">Wróć</a>
+            <a href='/resourceManager' class="btn_styled">Wróć</a>
         </div>
         <div class="resource_description_container">
             <h1>{{$resource->name}}</h1>
@@ -49,12 +49,14 @@
               type: 'line',
               data: {
                 labels: [
+                    "{{$resource->created_at}}",
                   @foreach($warehouseOperations as $wO)
                       "{{$wO->created_at}}",
                   @endforeach
                 ],
                 datasets: [{
                     data: [
+                       0,
                       @foreach($warehouseOperations as $wO)
                           {{$wO->new_val}},
                       @endforeach
