@@ -182,6 +182,9 @@ footer {
     line-height: normal;
     margin-bottom: 4px;
 }
+.modal-footer .btn {
+    margin: 0px;
+}
 
 .btn_styled:hover {
     background: var(--body_background_color);

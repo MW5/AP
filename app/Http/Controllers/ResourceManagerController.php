@@ -167,7 +167,6 @@ class ResourceManagerController extends Controller
                     $warehouseOperation->old_val = $resource->quantity+$qtyArr[$arrCounter];
                     $warehouseOperation->quantity_change = $qtyArr[$arrCounter];
                     $warehouseOperation->new_val = $resource->quantity;
-                    $warehouseOperation->supplier_name = $request->supplier_name;
                     $warehouseOperation->user_name = $request->user_name;
                     $warehouseOperation->save();
                 }
