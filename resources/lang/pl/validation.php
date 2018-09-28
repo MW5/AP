@@ -15,13 +15,13 @@ return [
 
     'accepted'             => 'The :attribute must be accepted.',
     'active_url'           => 'The :attribute is not a valid URL.',
-    'after'                => 'The :attribute must be a date after :date.',
+    'after'                => ':attribute musi być poźniejsza niż :date.',
     'after_or_equal'       => 'The :attribute must be a date after or equal to :date.',
     'alpha'                => 'The :attribute may only contain letters.',
     'alpha_dash'           => 'The :attribute may only contain letters, numbers, and dashes.',
     'alpha_num'            => 'The :attribute may only contain letters and numbers.',
     'array'                => 'The :attribute must be an array.',
-    'before'               => 'The :attribute must be a date before :date.',
+    'before'               => ':attribute musi być wcześniejsza od before :date.',
     'before_or_equal'      => 'The :attribute must be a date before or equal to :date.',
     'between'              => [
         'numeric' => 'The :attribute must be between :min and :max.',
@@ -72,7 +72,7 @@ return [
     'required_if'          => 'The :attribute field is required when :other is :value.',
     'required_unless'      => 'The :attribute field is required unless :other is in :values.',
     'required_with'        => 'The :attribute field is required when :values is present.',
-    'required_with_all'    => 'The :attribute field is required when :values is present.',
+    'required_with_all'    => ':attribute musi być w parze z polem :values.',
     'required_without'     => 'The :attribute field is required when :values is not present.',
     'required_without_all' => 'The :attribute field is required when none of :values are present.',
     'same'                 => 'The :attribute and :other must match.',
@@ -117,7 +117,22 @@ return [
     */
 
     'attributes' => [
-        'name' => 'nazwa'
+        'name' => 'nazwa',
+        'critical_quantity' => 'minimalna wymagana ilość',
+        'description' => 'opis',
+        'qty_field_accept' => 'zasobów',
+        'qty_field_accept' => 'zasobów',
+        'address' => 'adres',
+        'phone_number' => 'numer telefonu',
+        'reg_num' => 'numer rejestracyjny',
+        'make' => 'marka',
+        'model' => 'model',
+        'account_type' => 'typ konta',
+        'password'=> 'hasło',
+        'end_time' => 'data zakończenia',
+        'begin_time' => 'data rozpoczęcia',
+        'begin_user_name' => 'użytkownik rozpoczynający',
+        'end_user_name' => 'użytkownik kończący'
     ],
 
 ];
