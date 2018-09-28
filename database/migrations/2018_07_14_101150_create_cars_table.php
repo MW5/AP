@@ -18,7 +18,7 @@ class CreateCarsTable extends Migration
             $table->string('reg_num');
             $table->string('make');
             $table->string('model');
-            $table->string('status');
+            $table->string('status')->nullable();
             $table->timestamps();
         });
     }

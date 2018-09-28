@@ -7,6 +7,7 @@ use App\WarehouseOperation;
 use App\CarTask;
 use App\Supplier;
 use App\Car;
+use App\CarStatusSetterService;
 
 /*
 |--------------------------------------------------------------------------
@@ -174,5 +175,10 @@ Route::post('/serveTask', function(Request $request) {
         $carTask->end_time = $currentDate;
         $carTask->end_user_name = $userName;
     }
-    return $carTask->update();
+    
+    if ($carTask->update()) {
+        CarStatusSetterService::setCarStatus($carTask);
+        return "true";
+    }
+    return "false";
 });

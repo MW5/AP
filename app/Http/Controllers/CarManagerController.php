@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Car;
 use App\CarTask;
 use Session;
+use App\CarStatusSetterService;
 
 class CarManagerController extends Controller
 {
@@ -20,7 +21,7 @@ class CarManagerController extends Controller
                 }
               };
           }
-          Session::flash('message', 'Pomyślnie usunięto samochody +TUTAJ USUWAJ TEŻ ZLECENIA POWIĄZANE');
+          Session::flash('message', 'Pomyślnie usunięto samochody');
           Session::flash('alert-class', 'alert-success');
       } else {
           Session::flash('message', 'Wybierz samochody do usunięcia');
@@ -40,13 +41,13 @@ class CarManagerController extends Controller
       $car->reg_num = $request->reg_num;
       $car->make = $request->make;
       $car->model = $request->model;
-      $car->status = "do weryfikacji";
       if($car->save()) {
         $carTask = new CarTask();
         $carTask->car_reg_num = $car->reg_num;
         $carTask->task_type = "weryfikacja stanu";
         $carTask->status = "nowe";
         $carTask->save();
+        CarStatusSetterService::setCarStatus($carTask);
       }
 
       Session::flash('message', 'Pomyślnie dodano samochód '.$car->reg_num.'oraz zlecenie weryfikacji');

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Car;
 use App\CarTask;
 use Session;
+use App\CarStatusSetterService;
 
 class CarTaskManagerController extends Controller
 {
@@ -14,8 +15,9 @@ class CarTaskManagerController extends Controller
           foreach($request->get('ch') as $c) {
               $carTask = CarTask::find($c);
               $carTask->delete();
+              CarStatusSetterService::setCarStatus($carTask);
           }
-          Session::flash('message', 'Pomyślnie usunięto zlecenia +TUTAJ ZMIANY STANÓW SAMOCHODU');
+          Session::flash('message', 'Pomyślnie usunięto zlecenia');
           Session::flash('alert-class', 'alert-success');
       } else {
           Session::flash('message', 'Wybierz zlecenia do usunięcia');
@@ -38,8 +40,9 @@ class CarTaskManagerController extends Controller
       $carTask->task_type = $request->task_type;
       $carTask->status = "nowe";
       $carTask->save();
+      CarStatusSetterService::setCarStatus($carTask);
 
-      Session::flash('message', 'Pomyślnie dodano zadanie dla samochodu '.$car->reg_num.'TUTAJ ZMIANY STANÓW');
+      Session::flash('message', 'Pomyślnie dodano zadanie dla samochodu '.$car->reg_num);
       Session::flash('alert-class', 'alert-success');
       return back();
   }
@@ -68,6 +71,7 @@ class CarTaskManagerController extends Controller
         $carTask->status = "zakończone";
       }
       $carTask->update();
+      CarStatusSetterService::setCarStatus($carTask);
 
       Session::flash('message', $request->begin_time);
       Session::flash('message', 'Pomyślnie edytowano zlecenie');

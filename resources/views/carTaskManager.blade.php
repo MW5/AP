@@ -144,7 +144,7 @@
                         <div class="form-group">
                             <label for="make">Typ zlecenia:</label>
                             <select id="add_car_task_type" name="task_type">
-                              <option>weryfikacje stanu</option>
+                              <option>weryfikacja stanu</option>
                               <option>polerowanie</option>
                               <option>autodetailing</option>
                             </select>

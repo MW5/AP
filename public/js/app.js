@@ -37,7 +37,7 @@ $(document).ready(function() {
     var tableOptions = {
           //have to be the same as in data-sort header attributes, and td classes
           valueNames: prepareTableData(),
-          page: 10, //rows count for pagination
+          page: 20, //rows count for pagination
           pagination: {
             innerWindow: 3,
             left: 1,
