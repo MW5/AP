@@ -1,28 +1,31 @@
 $(document).ready(function() {
-
     let tableToPrepare;
     function prepareTableData() {
         switch ($(location).attr('href').substring($(location).attr('href').lastIndexOf("/"))) {
             case "/supplierManager": 
                 tableToPrepare = "tableSuppliers";
-                return ['jSortName', 'jSortAddress', 'jSortNip', 'jSortEmail', 'jSortPhoneNumber', 'jSortDetails'];
+                return ['jSortName', 'jSortAddress', 'jSortNip', 'jSortEmail',
+                    'jSortPhoneNumber', 'jSortDetails'];
                 break;
             case "/userManager": 
                 tableToPrepare = "tableUsers";
-                return ['jSortName', 'jSortEmail', 'jSortAccountType'];
+                return ['jSortName', 'jSortEmail', 'jSortAccountType', 'jSortWarehouse'];
                 break;
             case "/warehouseOperations": 
                 tableToPrepare = "tableWarehouseOperations";
-                return ['jSortName', 'jSortOperationType', 'jSortOldVal', 'jSortValChange', 'jSortNewVal', 
-                    'jSortSupplierName', 'jSortOperationDate', 'jSortUser'];
+                return ['jSortName', 'jSortOperationType', 'jSortOldVal', 'jSortValChange',
+                    'jSortNewVal', 'jSortSupplierName', 'jSortOperationDate',
+                    'jSortUser', 'jSortWarehouse'];
                 break;
             case "/resourceManager": 
                 tableToPrepare = "tableResources";
-                return ['jSortName', 'jSortQuantity', 'jSortCriticalQuantity', 'jSortCapacity', 'jSortProportions'];
+                return ['jSortCode', 'jSortName', 'jSortQuantity', 'jSortCriticalQuantity',
+                    'jSortCapacity', 'jSortProportions', 'jSortWarehouse'];
                 break;
             case "/carTaskManager": 
                 tableToPrepare = "tableCarTasks";
-                return ['jSortRegNum', 'jSortCarTaskType', 'jSortStatus', 'jSortBeginTime', 'jSortBeginUser' ,'jSortEndTime', 'jSortEndUser'];
+                return ['jSortRegNum', 'jSortCarTaskType', 'jSortStatus',
+                    'jSortBeginTime', 'jSortBeginUser' ,'jSortEndTime', 'jSortEndUser'];
                 break;
             case "/carManager": 
                 tableToPrepare = "tableCars";
@@ -37,7 +40,7 @@ $(document).ready(function() {
     var tableOptions = {
           //have to be the same as in data-sort header attributes, and td classes
           valueNames: prepareTableData(),
-          page: 20, //rows count for pagination
+          page: 15, //rows count for pagination
           pagination: {
             innerWindow: 3,
             left: 1,
@@ -49,22 +52,22 @@ $(document).ready(function() {
     if (tableToPrepare != null) {
         var tableList = new List(tableToPrepare, tableOptions);
     }
-	$('.jPaginateNext').on('click', function(){
-	    var list = $('.pagination').find('li');
-	    $.each(list, function(position, element){
-	        if($(element).is('.active')){
-	            $(list[position+1]).trigger('click');
-	        }
-	    })
-	});
-	$('.jPaginateBack').on('click', function(){
-	    var list = $('.pagination').find('li');
-	    $.each(list, function(position, element){
-	        if($(element).is('.active')){
-	            $(list[position-1]).trigger('click');
-	        }
-	    })
-	});
+    $('.jPaginateNext').on('click', function(){
+        var list = $('.pagination').find('li');
+        $.each(list, function(position, element){
+            if($(element).is('.active')){
+                $(list[position+1]).trigger('click');
+            }
+        })
+    });
+    $('.jPaginateBack').on('click', function(){
+        var list = $('.pagination').find('li');
+        $.each(list, function(position, element){
+            if($(element).is('.active')){
+                $(list[position-1]).trigger('click');
+            }
+        })
+    });
 
     //alert box
     setTimeout(
@@ -96,9 +99,7 @@ $(document).ready(function() {
         }
     });
 
-
     // edit clickable row
-
     $(".ap_table").on("click", ".clickable_row_no_href", function(e) {
         if (e.target.getAttribute('class') == "checkmark" || e.target.type == "checkbox") {
             e.stopPropagation();
@@ -113,12 +114,13 @@ $(document).ready(function() {
             $("#edit_id").val($(this).data("userId"));
             $("#edit_name").val($(this).data("userName"));
             $("#edit_email").val($(this).data("userEmail"));
+            $("#edit_warehouse").val($(this).data("userWarehouse"));
 
-            if ($(this).data("userAccountType") == 0) {
-              $("#edit_radio_admin").attr("checked", "checked");
-            } else {
-              $("#edit_radio_user").attr("checked", "checked");
-            }
+            $("#edit_user_account_type").select2({
+                width: '100%',
+                language: "pl",
+                dropdownParent: $("#edit_user_modal")
+             });
         //edit supplier
         } else if ($(this).data("target") == "#edit_supplier_modal") {
            $("#edit_id").val($(this).data("supplierId"));
@@ -137,6 +139,7 @@ $(document).ready(function() {
         //resource row click decision modal
         } else if ($(this).data("target") == "#row_click_decision_modal") {
             var resourceId = $(this).data("resourceId");
+            var resourceCode = $(this).data("resourceCode");
             var resourceName = $(this).data("resourceName");
             var resourceCriticalQuantity = $(this).data("resourceCriticalQuantity");
             var resourceCapacity = $(this).data("resourceCapacity");
@@ -147,6 +150,7 @@ $(document).ready(function() {
             $("#details_btn_href").attr("href", "resourceManager/"+resourceId);
               //edit btn
             $("#edit_resource_btn").data("resource-id", $(this).data("resourceId"));
+            $("#edit_resource_btn").data("resource-code", $(this).data("resourceCode"));
             $("#edit_resource_btn").data("resource-name", $(this).data("resourceName"));
             $("#edit_resource_btn").data("resource-critical-quantity", $(this).data("resourceCriticalQuantity"));
             $("#edit_resource_btn").data("resource-capacity", $(this).data("resourceCapacity"));
@@ -191,6 +195,8 @@ $(document).ready(function() {
     //edit resource modal
     $("#edit_resource_btn").click(function() {
           var resourceId = $(this).data("resourceId");
+          var resourceCode = $(this).data("resourceCode");
+          console.log(resourceCode);
           var resourceName = $(this).data("resourceName");
           var resourceCriticalQuantity = $(this).data("resourceCriticalQuantity");
           var resourceCapacity = $(this).data("resourceCapacity");
@@ -198,6 +204,7 @@ $(document).ready(function() {
           var resourceDescription = $(this).data("resourceDescription");
 
           $("#edit_id").val(resourceId);
+          $("#edit_code").val(resourceCode);
           $("#edit_name").val(resourceName);
           $("#edit_critical_quantity").val(resourceCriticalQuantity);
           $("#edit_capacity").val(resourceCapacity);
@@ -355,6 +362,13 @@ $(document).ready(function() {
           dropdownParent: $("#add_car_task_modal")
       });
     });
+    
+    //add user modal
+    $("#user_account_type").select2({
+        width: '100%',
+        language: "pl",
+        dropdownParent: $("#add_user_modal")
+     });
 
     //TEMPORARY SOLUTION
     $('#report_warehouse_operations').click(function () {

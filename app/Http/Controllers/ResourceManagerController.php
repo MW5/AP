@@ -6,6 +6,11 @@ use Illuminate\Http\Request;
 use App\Resource;
 use App\WarehouseOperation;
 use Session;
+use Illuminate\Support\Facades\Auth;
+use App\Rules\NameExistsInWarehouse;
+use App\Rules\CodeExistsInWarehouse;
+use App\Rules\NameExistsInWarehouseEditFix;
+use App\Rules\CodeExistsInWarehouseEditFix;
 
 class ResourceManagerController extends Controller
 {
@@ -26,20 +31,24 @@ class ResourceManagerController extends Controller
     }
 
     function addResource(Request $request) {
+        $resource = new Resource();
         $this->validate($request,[
-            'name'=>'required|min:1|max:50|unique:resources',
+            'code' => new CodeExistsInWarehouse,
+            'name' => new NameExistsInWarehouse,
             'critical_quantity'=>'required|min:0|max:1000|numeric',
             'capacity'=>'max:20',
             'proportions'=>'max:20',
             'description'=>'required|min:5|max:400'
         ]);
         $resource = new Resource();
+        $resource->code = $request->code;
         $resource->name = $request->name;
         $resource->quantity = 0;
         $resource->critical_quantity = $request->critical_quantity;
         $resource->capacity = $request->capacity;
         $resource->proportions = $request->proportions;
         $resource->description = $request->description;
+        $resource->warehouse = Auth::user()->warehouse;
         $resource->save();
 
         Session::flash('message', 'Pomyślnie dodano '.$resource->name);
@@ -51,13 +60,15 @@ class ResourceManagerController extends Controller
       $resource =  Resource::find($request->id);
 
         $this->validate($request,[
-          'name'=>'required|min:1|max:50|unique:resources,name,'.$resource->id,
+          'code'=> new CodeExistsInWarehouseEditFix($request->code, $request->id),
+          'name'=> new NameExistsInWarehouseEditFix($request->name, $request->id),
           'critical_quantity'=>'required|min:0|max:1000|numeric',
           'capacity'=>'max:20',
           'proportions'=>'max:20',
           'description'=>'required|min:5|max:400'
         ]);
 
+        $resource->code = $request->code;
         $resource->name = $request->name;
         $resource->critical_quantity = $request->critical_quantity;
         $resource->capacity = $request->capacity;
@@ -107,6 +118,7 @@ class ResourceManagerController extends Controller
                     $warehouseOperation->new_val = $resource->quantity;
                     $warehouseOperation->supplier_name = $request->supplier_name;
                     $warehouseOperation->user_name = $request->user_name;
+                    $warehouseOperation->warehouse = Auth::user()->warehouse;
                     $warehouseOperation->save();
                 }
                 $arrCounter++;
@@ -168,6 +180,7 @@ class ResourceManagerController extends Controller
                     $warehouseOperation->quantity_change = $qtyArr[$arrCounter];
                     $warehouseOperation->new_val = $resource->quantity;
                     $warehouseOperation->user_name = $request->user_name;
+                    $warehouseOperation->warehouse = Auth::user()->warehouse;
                     $warehouseOperation->save();
                 }
                 $arrCounter++;

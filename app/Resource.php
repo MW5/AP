@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Resource extends Model
 {
     protected $fillable = [
-        'name', 'quantity', 'capacity', 'proportions', 'description'
+        'code', 'name', 'quantity', 'capacity', 'proportions', 'description', 'warehouse'
     ];
 }

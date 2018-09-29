@@ -27,27 +27,27 @@
 @section('content')
     <div class='container ap_table_container'>
         <div id="tableResources" class="table-list-container">
-            @if (Auth::user()->account_type == "administracyjne")
-                <div class='ap_action_bar'>
-                    <button type="button" class="btn_styled" data-toggle="modal" data-target="#add_resource_modal">Dodaj zasób</button>
-                    <button form="remove_resources_form" type="submit" class="btn_styled">Usuń zaznaczone zasoby</button>
-                    <button id="accept_delivery_btn" type="button" class="btn_styled" data-toggle="modal" data-target="#accept_delivery_modal">Przyjmij dostawę</button>
-                    <button id="warehouse_release_btn" type="button" class=" btn_styled" data-toggle="modal" data-target="#warehouse_release_modal">Wydaj zasoby</button>
-                    <a href='resourceManager/warehouseOperations' class="btn_styled">Rejestr operacji magazynowych</a>
-                    <button type="button" class="btn_styled export_list_btn">Eksportuj</button>
-                    <input class="search" placeholder="Filtruj">
-                </div>
-            @endif
+            <div class='ap_action_bar'>
+                <button type="button" class="btn_styled" data-toggle="modal" data-target="#add_resource_modal">Dodaj zasób</button>
+                <button form="remove_resources_form" type="submit" class="btn_styled">Usuń zaznaczone zasoby</button>
+                <button id="accept_delivery_btn" type="button" class="btn_styled" data-toggle="modal" data-target="#accept_delivery_modal">Przyjmij dostawę</button>
+                <button id="warehouse_release_btn" type="button" class=" btn_styled" data-toggle="modal" data-target="#warehouse_release_modal">Wydaj zasoby</button>
+                <a href='resourceManager/warehouseOperations' class="btn_styled">Rejestr operacji magazynowych</a>
+                <button type="button" class="btn_styled export_list_btn">Eksportuj</button>
+                <input class="search" placeholder="Filtruj">
+            </div>
             <form id="remove_resources_form" method="POST" action="/resourceManager/removeResources">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <table class="table-list table ap_table" data-currentpage="1" >
                     <thead>
                         <th></th>
+                        <th><button type="button" class="sort" data-sort="jSortCode">Kod zasobu</button></th>
                         <th><button type="button" class="sort" data-sort="jSortName">Nazwa</button></th>
                         <th><button type="button" class="sort" data-sort="jSortQuantity">Ilość</button></th>
                         <th><button type="button" class="sort" data-sort="jSortCriticalQuantity">Ilość minimalna</button></th>
                         <th><button type="button" class="sort" data-sort="jSortCapacity">Pojemność</button></th>
                         <th><button type="button" class="sort" data-sort="jSortProportions">Proporcje [preparat:woda]</button></th>
+                        <th><button type="button" class="sort" data-sort="jSortWarehouse">Magazyn</button></th>
                     </thead>
                     <tbody class="list">
                       <?php $counter=0?>
@@ -57,6 +57,7 @@
                                     ?>
                                     <tr class='even clickable_row_no_href' data-toggle="modal" data-target="#row_click_decision_modal"
                                         data-resource-id="{{$resource->id}}"
+                                        data-resource-code="{{$resource->code}}"
                                         data-resource-name="{{$resource->name}}"
                                         data-resource-critical-quantity="{{$resource->critical_quantity}}"
                                         data-resource-capacity="{{$resource->capacity}}"
@@ -67,6 +68,7 @@
                                     ?>
                                     <tr class ='odd clickable_row_no_href' data-toggle="modal" data-target="#row_click_decision_modal"
                                         data-resource-id="{{$resource->id}}"
+                                        data-resource-code="{{$resource->code}}"
                                         data-resource-name="{{$resource->name}}"
                                         data-resource-critical-quantity="{{$resource->critical_quantity}}"
                                         data-resource-capacity="{{$resource->capacity}}"
@@ -75,12 +77,13 @@
                                     <?php
                                 }?>
                                 <td>
-                                    @if (Auth::user()->account_type == "administracyjne")
-                                        <label class="checkbox_container">
-                                            <input type="checkbox" class="ap_checkbox" name="ch[]" value="{{$resource->id}}">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    @endif
+                                    <label class="checkbox_container">
+                                        <input type="checkbox" class="ap_checkbox" name="ch[]" value="{{$resource->id}}">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </td>
+                                <td class="jSortCode">
+                                    {{$resource->code}}
                                 </td>
                                 <td class="jSortName">
                                     {{$resource->name}}
@@ -102,6 +105,9 @@
                                 </td>
                                 <td class="jSortProportions">
                                     {{$resource->proportions}}
+                                </td>
+                                <td class="jSortWarehouse">
+                                    {{$resource->warehouse}}
                                 </td>
                             </tr>
                             <?php $counter+=1;?>
@@ -150,6 +156,12 @@
                 <div class="modal-body">
                     <form id="add_resource_form" method="POST" action="/resourceManager/addResource">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        
+                        <div class="form-group">
+                            <label for="code">Kod zasobu:</label>
+                            <input id="code" type="text" class="form-control" name="code" placeholder="1-50 znaków"
+                                value="{{ old('code') }}">
+                        </div>
 
                         <div class="form-group">
                             <label for="name">Nazwa:</label>
@@ -202,6 +214,12 @@
                     <form id="edit_resource_form" method="POST" action="/resourceManager/editResource">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <input id="edit_id" type="hidden" name="id">
+                        
+                        <div class="form-group">
+                            <label for="edit_code">Kod zasobu:</label>
+                            <input id="edit_code" type="text" class="form-control" name="code" placeholder="1-50 znaków"
+                                value="{{ old('code') }}">
+                        </div>
 
                         <div class="form-group">
                             <label for="edit_name">Nazwa:</label>

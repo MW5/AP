@@ -22,6 +22,7 @@ class CreateWarehouseOperationsTable extends Migration
             $table->integer('new_val');
             $table->string('supplier_name')->nullable();
             $table->string('user_name');
+            $table->string('warehouse');
             $table->timestamps();
         });
     }

@@ -36,6 +36,15 @@ class userManagerController extends Controller
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
         $user->account_type = $request->account_type;
+        if ($user->account_type == $user->autodetailingForeman
+                || $user->account_type == $user->autodetailer) {
+            $user->warehouse = $user->warehouseAutodetailing;
+        } else if ($user->account_type == $user->polishingServiceForeman
+                || $user->account_type == $user->polishingServiceWorker) {
+            $user->warehouse = $user->warehousePolishingService;
+        } else if ($user->account_type == $user->manager) {
+            $user->warehouse = $user->warehouseAll;
+        }
         $user->save();
         Session::flash('message', 'Pomyślnie dodano użytkownika '.$user->name);
         Session::flash('alert-class', 'alert-success');
@@ -58,6 +67,15 @@ class userManagerController extends Controller
             $user->password = bcrypt($request->password);
         }
         $user->account_type = $request->account_type;
+        if ($user->account_type == $user->autodetailingForeman
+                || $user->account_type == $user->autodetailer) {
+            $user->warehouse = $user->warehouseAutodetailing;
+        } else if ($user->account_type == $user->polishingServiceForeman
+                || $user->account_type == $user->polishingServiceWorker) {
+            $user->warehouse = $user->warehousePolishingService;
+        } else if ($user->account_type == $user->manager) {
+            $user->warehouse = $user->warehouseAll;
+        }
         $user->update();
 
         Session::flash('message', 'Pomyślnie edytowano użytkownika '.$user->name);

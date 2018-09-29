@@ -10,13 +10,23 @@ class User extends Authenticatable
 {
     use Notifiable;
     
+    public $manager = "menadżer";
+    public $polishingServiceForeman = "brygadzista polerni";
+    public $autodetailingForeman = "brygadzista hali autodetailingu";
+    public $polishingServiceWorker = "pracownik polerni";
+    public $autodetailer = "pracownik autodetailingu";
+    
+    public $warehouseAll = "menadżer";
+    public $warehousePolishingService = "polernia";
+    public $warehouseAutodetailing = "autodetailing";
+    
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'account_type' //account type added
+        'name', 'email', 'password', 'account_type', 'warehouse'
     ];
 
     /**
@@ -32,4 +42,8 @@ class User extends Authenticatable
     {
         $this->notify(new MailResetPasswordToken($token));
     }
+    
+    
+    
+    
 }

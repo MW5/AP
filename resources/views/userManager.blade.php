@@ -27,14 +27,14 @@
 @section('content')
     <div class='container ap_table_container'>
         <div id="tableUsers" class="table-list-container">
-        @if (Auth::user()->account_type == 0)
             <div class='ap_action_bar'>
+                @if (Auth::user()->account_type == Auth::user()->manager)
                 <button type="button" class="btn_styled" data-toggle="modal" data-target="#add_user_modal">Dodaj użytkownika</button>
                 <button form="remove_users_form" type="submit" class="btn_styled">Usuń zaznaczonych użytkowników</button>
+                @endif
                 <button type="button" class="btn_styled export_list_btn">Eksportuj</button>
                 <input class="search" placeholder="Filtruj">
             </div>
-        @endif
             <form id="remove_users_form" method="POST" action="/userManager/removeUsers">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <table class="table-list table ap_table" data-currentpage="1" >
@@ -43,6 +43,7 @@
                         <th><button type="button" class="sort" data-sort="jSortName">Nazwa</button></th>
                         <th><button type="button" class="sort" data-sort="jSortEmail">Adres email</button></th>
                         <th><button type="button" class="sort" data-sort="jSortAccountType">Typ konta</button></th>
+                        <th><button type="button" class="sort" data-sort="jSortWarehouse">Magazyn</button></th>
                   </thead>
                     <tbody class="list">
                         <?php $counter=0?>
@@ -50,24 +51,34 @@
                             <?php
                                 if($counter%2==0) {
                                     ?>
+                        @if (Auth::user()->account_type == Auth::user()->manager)
                                 <tr class='even clickable_row_no_href' data-toggle="modal" data-target="#edit_user_modal"
+                        @else
+                                <tr class='even not-active' data-toggle="modal" data-target="#edit_user_modal"
+                        @endif
                                  data-user-id="{{$user->id}}"
                                  data-user-name="{{$user->name}}"
                                  data-user-email="{{$user->email}}"
-                                 data-user-account-type="{{$user->account_type}}">
+                                 data-user-account-type="{{$user->account_type}}"
+                                 data-user-warehouse="{{$user->warehouse}}">
                                     <?php
                                 } else {
                                     ?>
-                                    <tr class ='odd clickable_row_no_href' data-toggle="modal" data-target="#edit_user_modal"
+                                    @if (Auth::user()->account_type == Auth::user()->manager)
+                                            <tr class='odd clickable_row_no_href' data-toggle="modal" data-target="#edit_user_modal"
+                                    @else
+                                            <tr class='odd not-active' data-toggle="modal" data-target="#edit_user_modal"
+                                    @endif
                                     data-user-id="{{$user->id}}"
                                     data-user-name="{{$user->name}}"
                                     data-user-email="{{$user->email}}"
-                                    data-user-account-type="{{$user->account_type}}">
+                                    data-user-account-type="{{$user->account_type}}"
+                                    data-user-warehouse="{{$user->warehouse}}">
                                     <?php
                                 }?>
 
                                 <td>
-                                @if ($user->name != Auth::user()->name && Auth::user()->account_type == "administrator")
+                                @if ($user->name != Auth::user()->name && Auth::user()->account_type == Auth::user()->manager)
                                     <label class="checkbox_container">
                                         <input type="checkbox" class="ap_checkbox" name="ch[]" value="{{$user->id}}">
                                         <span class="checkmark"></span>
@@ -82,6 +93,9 @@
                                 </td>
                                 <td class="jSortAccountType">
                                     {{$user->account_type}}
+                                </td>
+                                <td class="jSortWarehouse">
+                                    {{$user->warehouse}}
                                 </td>
                             </tr>
                             <?php $counter+=1;?>
@@ -123,11 +137,15 @@
                                 value="{{ old('email') }}">
                         </div>
                         <div class="form-group">
-                            <label for="account_type">Typ konta:</label></br>
-                            <input id="radio_user" type="radio"  name="account_type" value='użytkownika'><span class='ap_radio_label'>Użytkownika</span></br>
-                            <input id="radio_admin" type="radio"  name="account_type" value='administracyjne'><span class='ap_radio_label'>Administracyjne</span>
+                            <label for="password">Typ konta:</label>
+                            <select id="user_account_type" name="account_type">
+                              <option value="menadżer">menadżer</option>
+                              <option value="brygadzista polerni">brygadzista polerni</option>
+                              <option value="brygadzista hali autodetailingu">brygadzista hali autodetailingu</option>
+                              <option value="pracownik polerni">pracownik polerni</option>
+                              <option value="pracownik autodetailingu">pracownik autodetailingu</option>
+                            </select>
                         </div>
-
                         <div class="form-group">
                             <label for="password">Hasło:</label>
                             <input id ="password" type="password" class="form-control" name="password" placeholder="6-20 znaków">
@@ -166,9 +184,14 @@
                             <input id="edit_email" type="text" class="form-control" name="email" placeholder="6-40 znaków">
                         </div>
                         <div class="form-group">
-                            <label for="edit_account_type">Typ konta:</label></br>
-                            <input id="edit_radio_user" type="radio"  name="account_type" value='1'><span class='ap_radio_label'>Użytkownika</span></br>
-                            <input id="edit_radio_admin" type="radio"  name="account_type" value='0'><span class='ap_radio_label'>Administracyjne</span>
+                            <label for="password">Typ konta:</label>
+                            <select id="edit_user_account_type" name="account_type">
+                              <option value="menadżer">menadżer</option>
+                              <option value="brygadzista polerni">brygadzista polerni</option>
+                              <option value="brygadzista hali autodetailingu">brygadzista hali autodetailingu</option>
+                              <option value="pracownik polerni">pracownik polerni</option>
+                              <option value="pracownik autodetailingu">pracownik autodetailingu</option>
+                            </select>
                         </div>
 
                         <div class="form-group">

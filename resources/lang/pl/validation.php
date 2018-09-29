@@ -53,7 +53,7 @@ return [
     'max'                  => [
         'numeric' => 'Wartość :attribute nie może być większa niż :max.',
         'file'    => 'Wartość :attribute nie może być większa niż :max kilobytes.',
-        'string'  => 'Wartość :attribute nie może być większa niż :max characters.',
+        'string'  => 'Wartość :attribute nie może być większa niż :max znaków.',
         'array'   => 'Wartość :attribute nie może być większa niż :max items.',
     ],
     'mimes'                => 'The :attribute must be a file of type: :values.',
@@ -61,7 +61,7 @@ return [
     'min'                  => [
         'numeric' => 'Wartość :attribute nie może być mniejsza niż :min.',
         'file'    => 'Wartość :attribute nie może być mniejsza niż :min kilobytes.',
-        'string'  => 'Wartość :attribute nie może być mniejsza niż :min characters.',
+        'string'  => 'Wartość :attribute nie może być mniejsza niż :min znaków.',
         'array'   => 'Wartość :attribute nie może być mniejsza niż :min items.',
     ],
     'not_in'               => 'The selected :attribute is invalid.',
@@ -84,7 +84,7 @@ return [
     ],
     'string'               => 'Pole :attribute musi zawierać tekst.',
     'timezone'             => 'The :attribute must be a valid zone.',
-    'unique'               => ':attribute zajęty',
+    'unique'               => 'Wartość w polu :attribute jest już wykorzystywana.',
     'uploaded'             => 'The :attribute failed to upload.',
     'url'                  => 'The :attribute format is invalid.',
 
@@ -118,6 +118,7 @@ return [
 
     'attributes' => [
         'name' => 'nazwa',
+        'code'=> 'kod zasobu',
         'critical_quantity' => 'minimalna wymagana ilość',
         'description' => 'opis',
         'qty_field_accept' => 'zasobów',

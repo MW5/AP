@@ -31,6 +31,7 @@
         </div>
         <div class="resource_description_container">
             <h1>{{$resource->name}}</h1>
+            <h3>Kod zasobu: {{$resource->code}}</h3>
             <h3>Obecny stan magazynowy: {{$resource->quantity}}</h3>
             <h3>Minimalna wymagana ilość: {{$resource->critical_quantity}}</h3>
             @if($resource->capacity != "")

@@ -22,6 +22,10 @@ body {
     background-color: var(--body_background_color);
 }
 
+.not-active {
+  pointer-events: none;
+}
+
 /*navbar*/
 .navbar {
     background: var(--nav_background_color);
@@ -296,6 +300,11 @@ footer {
 /*resource description*/
 .resource_description_container {
     margin: 20px 0px 0px 20px;
+}
+.resource_description_container > h1 {
+    text-align: center;
+    font-weight: bold;
+    font-size: 50px;
 }
 
 .resource_description {

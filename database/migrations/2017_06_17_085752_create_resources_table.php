@@ -15,12 +15,14 @@ class CreateResourcesTable extends Migration
     {
         Schema::create('resources', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('code');
             $table->string('name');
             $table->integer('quantity');
             $table->integer('critical_quantity');
             $table->string('capacity')->nullable();
             $table->string('proportions')->nullable();
             $table->longtext('description');
+            $table->string('warehouse');
             $table->timestamps();
         });
     }

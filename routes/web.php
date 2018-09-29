@@ -17,7 +17,7 @@ Route::get('/', 'PageController@index');
 Route::get('/home', 'PageController@index');
 
 
-Route::get('/resourceManager', 'PageController@index');
+Route::get('/resourceManager', 'PageController@resourceManager');
 Route::post('/resourceManager/addResource', 'ResourceManagerController@addResource');
 Route::post('/resourceManager/editResource/', 'ResourceManagerController@editResource');
 Route::post('/resourceManager/removeResources', 'ResourceManagerController@removeResources');

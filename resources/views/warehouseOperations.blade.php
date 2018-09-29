@@ -27,13 +27,11 @@
 @section('content')
     <div class='container ap_table_container'>
         <div id="tableWarehouseOperations" class="table-list-container">
-        @if (Auth::user()->account_type == "administracyjne")
             <div class='ap_action_bar'>
                 <a href='/resourceManager' class="btn_styled">Wróć</a>
                 <button type="button" class="btn_styled export_list_btn">Eksportuj</button>
                 <input class="search" placeholder="Filtruj">
             </div>
-        @endif
             <table class="table-list table ap_table" data-currentpage="1" >
                 <thead>
                     <th><button type="button" class="sort" data-sort="jSortName">Nazwa zasobu</button></th>
@@ -44,6 +42,7 @@
                     <th><button type="button" class="sort" data-sort="jSortSupplierName">Firma</button></th>
                     <th><button type="button" class="sort" data-sort="jSortOperationDate">Data operacji</button></th>
                     <th><button type="button" class="sort" data-sort="jSortUser">Użytkownik</button></th>
+                    <th><button type="button" class="sort" data-sort="jSortWarehouse">Magazyn</button></th>
                 </thead>
                 <tbody class="list">
                     <?php $counter=0?>
@@ -86,6 +85,9 @@
                             </td>
                             <td class="jSortUser">
                                 {{$wO->user_name}}
+                            </td>
+                            <td class="jSortWarehouse">
+                                {{$wO->warehouse}}
                             </td>
                         </tr>
                         <?php $counter+=1;?>

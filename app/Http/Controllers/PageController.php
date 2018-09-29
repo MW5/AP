@@ -9,6 +9,7 @@ use App\WarehouseOperation;
 use App\CarTask;
 use App\User;
 use App\Supplier;
+use Illuminate\Support\Facades\Auth;
 
 class PageController extends Controller {
     public function __construct() {
@@ -16,7 +17,17 @@ class PageController extends Controller {
     }
 
     public function index() {
-        $resources = DB::table('resources')->orderBy('created_at', 'desc')->get();
+        return view('greetView');
+    }
+    public function resourceManager() {
+        if (Auth::user()->account_type == Auth::user()->manager) {
+            $resources = DB::table('resources')->orderBy('created_at', 'desc')->get();
+        } else if (Auth::user()->account_type == Auth::user()->autodetailingForeman) {
+            $resources = DB::table('resources')->where('warehouse','autodetailing')->orderBy('created_at', 'desc')->get();
+        } else if (Auth::user()->account_type == Auth::user()->polishingServiceForeman) {
+            $resources = DB::table('resources')->where('warehouse','polernia')->orderBy('created_at', 'desc')->get();
+        }
+        
         $suppliers = DB::table('suppliers')->get();
         return view('resourceManager', compact('resources', 'suppliers'));
     }
@@ -33,7 +44,15 @@ class PageController extends Controller {
         return view('resourceDetails', compact('warehouseOperations', 'resource'));
     }
     public function warehouseOperations() {
-        $warehouseOperations = DB::table('warehouse_operations')->orderBy('created_at', 'desc')->get();
+        if (Auth::user()->account_type == Auth::user()->manager) {
+            $warehouseOperations = DB::table('warehouse_operations')->orderBy('created_at', 'desc')->get();
+        } else if (Auth::user()->account_type == Auth::user()->autodetailingForeman) {
+            $warehouseOperations = DB::table('warehouse_operations')->where('warehouse','autodetailing')->
+                    orWhere('warehouse', 'menadżer')->orderBy('created_at', 'desc')->get();
+        } else if (Auth::user()->account_type == Auth::user()->polishingServiceForeman) {
+            $warehouseOperations = DB::table('warehouse_operations')->where('warehouse', 'polernia')->
+                    orWhere('warehouse', 'menadżer')->orderBy('created_at', 'desc')->get();
+        }
         $users = DB::table('users')->get();
         $resources = DB::table('resources')->get();
         $suppliers = DB::table('suppliers')->get();

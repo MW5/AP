@@ -27,14 +27,12 @@
 @section('content')
     <div class='container ap_table_container'>
         <div id="tableCarTasks" class="table-list-container">
-        @if (Auth::user()->account_type == 0)
             <div class='ap_action_bar'>
                 <button id="add_car_task_btn" type="button" class="btn_styled" data-toggle="modal" data-target="#add_car_task_modal">Dodaj zlecenie</button>
                 <button form="remove_car_tasks_form" type="submit" class="btn_styled">Usuń zaznaczone zlecenia</button>
                 <button type="button" class="btn_styled export_list_btn">Eksportuj</button>
                 <input class="search" placeholder="Filtruj">
             </div>
-        @endif
             <form id="remove_car_tasks_form" method="POST" action="/carTaskManager/removeCarTasks">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <table class="table-list table ap_table" data-currentpage="1" >
@@ -78,10 +76,12 @@
                             }?>
 
                             <td>
+                                @if (Auth::user()->account_type == Auth::user()->manager)
                                 <label class="checkbox_container">
                                     <input type="checkbox" class="ap_checkbox" name="ch[]" value="{{$carTask->id}}">
                                     <span class="checkmark"></span>
                                 </label>
+                                @endif
                             </td>
                             <td class="jSortRegNum">
                                 {{$carTask->car_reg_num}}

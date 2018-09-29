@@ -27,14 +27,12 @@
 @section('content')
     <div class='container ap_table_container'>
         <div id="tableSuppliers" class="table-list-container">
-            @if (Auth::user()->account_type == 0)
-                <div class='ap_action_bar'>
-                    <button type="button" class="btn_styled" data-toggle="modal" data-target="#add_supplier_modal">Dodaj dostawcę</button>
-                    <button form="remove_suppliers_form" type="submit" class="btn_styled">Usuń zaznaczonych dostawców</button>
-                    <button type="button" class="btn_styled export_list_btn">Eksportuj</button>
-                    <input class="search" placeholder="Filtruj">
-                </div>
-            @endif
+            <div class='ap_action_bar'>
+                <button type="button" class="btn_styled" data-toggle="modal" data-target="#add_supplier_modal">Dodaj dostawcę</button>
+                <button form="remove_suppliers_form" type="submit" class="btn_styled">Usuń zaznaczonych dostawców</button>
+                <button type="button" class="btn_styled export_list_btn">Eksportuj</button>
+                <input class="search" placeholder="Filtruj">
+            </div>
             <form id="remove_suppliers_form" method="POST" action="/supplierManager/removeSuppliers">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <table class="table-list table ap_table" data-currentpage="1" >

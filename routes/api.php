@@ -37,7 +37,8 @@ Route::post('/credentialsApi', function(Request $request) {
 
 Route::post('/getResources', function(Request $request) {
     if ($request->token == "token") {
-        $resources = DB::table('resources')->get();
+        $user = User::where('name',$request->name)->first();
+        $resources = DB::table('resources')->where('warehouse',$user->warehouse)->get();
         echo $resources;
     } else {
         echo "false";
@@ -46,7 +47,11 @@ Route::post('/getResources', function(Request $request) {
 
 Route::post('/releaseResource', function(Request $request) {
     if ($request->token == "token") {
-        $resource = Resource::where('name', '=', $request->name)->first();
+        $user = User::where('name',$request->userName)->first();
+        
+        $resource = Resource::where('name', '=', $request->name)->
+                where('warehouse',$user->warehouse)->first();
+        
         if ($resource->quantity > 0) {
             $resource->quantity = $resource->quantity-1;
             $resource->save();
@@ -55,9 +60,10 @@ Route::post('/releaseResource', function(Request $request) {
             $warehouseOperation->resource_name = $resource->name;
             $warehouseOperation->operation_type = $warehouseOperation->operationRelease;
             $warehouseOperation->old_val = $resource->quantity+1;
-            $warehouseOperation->quantity_change = -1;
+            $warehouseOperation->quantity_change = 1;
             $warehouseOperation->new_val = $resource->quantity;
             $warehouseOperation->user_name = $request->userName;
+            $warehouseOperation->warehouse = $user->warehouse;
             $warehouseOperation->save();
 
             return "true";
@@ -67,10 +73,8 @@ Route::post('/releaseResource', function(Request $request) {
     }
 });
     
-Route::get('/getFiltered', function(Request $request) {
-    
+Route::get('/getFiltered', function(Request $request) { 
     $pattern = htmlspecialchars($request->pattern);
-
     switch ($request->module) {
         case "resources":
             $query = Resource::query();
