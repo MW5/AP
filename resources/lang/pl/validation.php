@@ -133,7 +133,8 @@ return [
         'end_time' => 'data zakończenia',
         'begin_time' => 'data rozpoczęcia',
         'begin_user_name' => 'użytkownik rozpoczynający',
-        'end_user_name' => 'użytkownik kończący'
+        'end_user_name' => 'użytkownik kończący',
+        'qty_field_order' => 'zasobów'
     ],
 
 ];

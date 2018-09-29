@@ -40,7 +40,7 @@ class SupplierManagerController extends Controller
       $supplier->email = $request->email;
       $supplier->phone_number = $request->phone_number;
       $supplier->details = $request->details;
-      
+
       $supplier->save();
       Session::flash('message', 'Pomyślnie dodano dostawcę '.$supplier->name);
       Session::flash('alert-class', 'alert-success');

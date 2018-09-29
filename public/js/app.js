@@ -2,32 +2,32 @@ $(document).ready(function() {
     let tableToPrepare;
     function prepareTableData() {
         switch ($(location).attr('href').substring($(location).attr('href').lastIndexOf("/"))) {
-            case "/supplierManager": 
+            case "/supplierManager":
                 tableToPrepare = "tableSuppliers";
                 return ['jSortName', 'jSortAddress', 'jSortNip', 'jSortEmail',
                     'jSortPhoneNumber', 'jSortDetails'];
                 break;
-            case "/userManager": 
+            case "/userManager":
                 tableToPrepare = "tableUsers";
                 return ['jSortName', 'jSortEmail', 'jSortAccountType', 'jSortWarehouse'];
                 break;
-            case "/warehouseOperations": 
+            case "/warehouseOperations":
                 tableToPrepare = "tableWarehouseOperations";
                 return ['jSortName', 'jSortOperationType', 'jSortOldVal', 'jSortValChange',
                     'jSortNewVal', 'jSortSupplierName', 'jSortOperationDate',
                     'jSortUser', 'jSortWarehouse'];
                 break;
-            case "/resourceManager": 
+            case "/resourceManager":
                 tableToPrepare = "tableResources";
                 return ['jSortCode', 'jSortName', 'jSortQuantity', 'jSortCriticalQuantity',
                     'jSortCapacity', 'jSortProportions', 'jSortWarehouse'];
                 break;
-            case "/carTaskManager": 
+            case "/carTaskManager":
                 tableToPrepare = "tableCarTasks";
                 return ['jSortRegNum', 'jSortCarTaskType', 'jSortStatus',
                     'jSortBeginTime', 'jSortBeginUser' ,'jSortEndTime', 'jSortEndUser'];
                 break;
-            case "/carManager": 
+            case "/carManager":
                 tableToPrepare = "tableCars";
                 return ['jSortRegNum', 'jSortMake', 'jSortModel', 'jSortStatus'];
                 break;
@@ -48,7 +48,7 @@ $(document).ready(function() {
             paginationClass: "pagination",
             }
         };
-    
+
     if (tableToPrepare != null) {
         var tableList = new List(tableToPrepare, tableOptions);
     }
@@ -104,7 +104,7 @@ $(document).ready(function() {
         if (e.target.getAttribute('class') == "checkmark" || e.target.type == "checkbox") {
             e.stopPropagation();
         }
-        
+
         //edit user
         if ($(this).data("target") == "#edit_user_modal") {
             //default password change safeguard behaviour
@@ -225,12 +225,12 @@ $(document).ready(function() {
              dropdownParent: $("#accept_delivery_modal")
           });
       });
-      
+
       //clear modal after closing
       $("#accept_delivery_modal").on("hidden.bs.modal", function () {
         $("#accept_delivery_resources").empty();
     });
-    
+
     //accept delivery confirm resources
     $("#accept_delivery_resources_btn").click(function() {
         $("#accept_delivery_resources").empty();
@@ -278,7 +278,7 @@ $(document).ready(function() {
             $("#"+inputFieldId).val(currVal);
         }
     });
-        
+
         //accept release
     $("#warehouse_release_btn").click(function() {
         $("#accept_release_select_resources").select2({
@@ -287,6 +287,67 @@ $(document).ready(function() {
            dropdownParent: $("#warehouse_release_modal")
         });
     });
+
+    //prepare order
+    $("#prepare_order_btn").click(function() {
+        $("#prepare_order_select_resources").select2({
+           width: '100%',
+           language: "pl",
+           dropdownParent: $("#prepare_order_modal")
+        });
+        $("#prepare_order_select_email").select2({
+           width: '100%',
+           language: "pl",
+           dropdownParent: $("#prepare_order_modal")
+        });
+    });
+    $("#accept_order_resources_btn").click(function() {
+        $("#prepare_order_resources").empty();
+        var resourceIds = [];
+        var resourceNames = [];
+        var selectedResources = $("#prepare_order_select_resources").select2('data');
+        for (var i=0; i<selectedResources.length; i++){
+            resourceIds[i] = selectedResources[i].id;
+            resourceNames[i] = selectedResources[i].text;
+        };
+        for (var i=0; i<resourceIds.length; i++) {
+          $("#prepare_order_resources").append(
+            "<div class='row'>\
+                <div class='form-group'>\
+                    <label class='control-label col-sm-7 horizontal_label' for='"+resourceNames[i]+"_field_release'>"+resourceNames[i]+"</label>\
+                    <div class='col-sm-3'>\
+                        <button type='button' class='resource_increase btn_styled' id='"+resourceIds[i]+"_inc_btn_order'>+</button>\
+                        <button type='button' class='resource_decrease btn_styled' id='"+resourceIds[i]+"_dec_btn_order'>-</button>\
+                    </div>\
+                    <div class='col-sm-2'>\
+                        <input type='hidden' name='res_id[]' value="+resourceIds[i]+">\
+                        <input id='"+resourceIds[i]+"_field_order' type='text' class='form-control horizontal_input' name='qty_field_order[]'\
+                               value=0>\
+                    </div>\
+                </div>\
+            </div>"
+          )
+        }
+    })
+
+    //prepare order increase decrease btns
+    //warehouse release increase/decrease buttons
+    $("#prepare_order_modal").on("click", ".resource_increase", function() {
+            var clickedBtnId = $(this).attr("id");
+            var inputFieldId = clickedBtnId.replace("_inc_btn_order", "_field_order");
+            var currVal = $("#"+inputFieldId).val();
+            currVal++;
+            $("#"+inputFieldId).val(currVal);
+        });
+    $("#prepare_order_modal").on("click", ".resource_decrease", function() {
+            var clickedBtnId = $(this).attr("id");
+            var inputFieldId = clickedBtnId.replace("_dec_btn_order", "_field_order");
+            var currVal = $("#"+inputFieldId).val();
+            if (currVal>0) {
+                currVal--;
+                $("#"+inputFieldId).val(currVal);
+            }
+        });
 
     //clear modal after closing
     $("#accept_release_modal").on("hidden.bs.modal", function () {
@@ -362,7 +423,7 @@ $(document).ready(function() {
           dropdownParent: $("#add_car_task_modal")
       });
     });
-    
+
     //add user modal
     $("#user_account_type").select2({
         width: '100%',

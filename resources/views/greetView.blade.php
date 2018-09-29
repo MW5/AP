@@ -25,6 +25,9 @@
 @endsection
 
 @section('content')
-<h1>Witamy w aplikacji wspomagania zarządzaniem działem samochodów używanych.</h1>
-<h2>Proszę wybrać moduł z paska nawigacyjnego</h2>
+<div class='greet_view'>
+    <div class='greet_view_text_container'>
+        <p>Aplikacja wspomagająca zarządzanie Działem Samochodów Używanych</p>
+    </div>
+</div>
 @endsection

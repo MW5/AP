@@ -34,6 +34,7 @@
                 <button id="warehouse_release_btn" type="button" class=" btn_styled" data-toggle="modal" data-target="#warehouse_release_modal">Wydaj zasoby</button>
                 <a href='resourceManager/warehouseOperations' class="btn_styled">Rejestr operacji magazynowych</a>
                 <button type="button" class="btn_styled export_list_btn">Eksportuj</button>
+                <button id="prepare_order_btn" type="button" class="btn_styled" data-toggle="modal" data-target="#prepare_order_modal">Przygotuj zamówienie</button>
                 <input class="search" placeholder="Filtruj">
             </div>
             <form id="remove_resources_form" method="POST" action="/resourceManager/removeResources">
@@ -120,7 +121,7 @@
                 <ul class="pagination"></ul>
                 <button type="button" class="jPaginateBack btn_styled"><</button>
                 <button type="button" class="jPaginateNext btn_styled">></button>
-            </div>  
+            </div>
     </div>
 
     <!-- row click decision modal -->
@@ -156,7 +157,7 @@
                 <div class="modal-body">
                     <form id="add_resource_form" method="POST" action="/resourceManager/addResource">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                        
+
                         <div class="form-group">
                             <label for="code">Kod zasobu:</label>
                             <input id="code" type="text" class="form-control" name="code" placeholder="1-50 znaków"
@@ -214,7 +215,7 @@
                     <form id="edit_resource_form" method="POST" action="/resourceManager/editResource">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <input id="edit_id" type="hidden" name="id">
-                        
+
                         <div class="form-group">
                             <label for="edit_code">Kod zasobu:</label>
                             <input id="edit_code" type="text" class="form-control" name="code" placeholder="1-50 znaków"
@@ -334,6 +335,51 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn_styled btn_warning" data-dismiss="modal">Zamknij</button>
                     <button form="warehouse_release_form" type="submit" class="btn btn_styled btn_safe">Wydaj</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+     <!-- prepare order modal -->
+    <div class="modal fade" tabindex="-1" role="dialog" id="prepare_order_modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content modal_styled">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Przygotuj zamówienie</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="prepare_order_form" class='ap_form' method="POST" action="/resourceManager/prepareOrder">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        <input type="hidden" name="user_name" value="{{Auth::user()->name}}">
+                        <div class="ap_form_row" id="prepare_order_resources">
+                        </div>
+                        <div class="ap_form_row">
+                            <label for="resource_ids">Wybierz zasoby:</label>
+                                <select class="js-example-basic-multiple" name="states[]" multiple="multiple" id="prepare_order_select_resources" name='resource_ids'>
+                                    @foreach ($resources as $resource)
+                                      <option value='{{$resource->id}}'>{{$resource->name}}</option>
+                                    @endforeach
+                                </select>
+                        </div>
+                        <div class="ap_form_row">
+                            <button type="button" class="btn_styled" id="accept_order_resources_btn">Dodaj do listy</button>
+                        </div>
+                        <div class="ap_form_row">
+                            <label for="order_email">Wyślij zamówienie do:</label>
+                            <select id="prepare_order_select_email" class="ap_form_select" name='order_email'>
+                                <option value='{{Auth::user()->email}}'>Wyślij do mnie: {{Auth::user()->email}}</option>
+                                @foreach ($suppliers as $supplier)
+                                  <option value='{{$supplier->id}}'>{{$supplier->name}}: {{$supplier->email}}</option>
+                                  @endforeach
+                              </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn_styled btn_warning" data-dismiss="modal">Zamknij</button>
+                    <button form="prepare_order_form" type="submit" class="btn btn_styled btn_safe">Złóż zamówienie</button>
                 </div>
             </div>
         </div>

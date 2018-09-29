@@ -25,6 +25,7 @@ Route::post('/resourceManager/acceptDelivery', 'ResourceManagerController@accept
 Route::post('/resourceManager/warehouseRelease', 'ResourceManagerController@warehouseRelease');
 Route::get('/resourceManager/warehouseOperations', 'PageController@warehouseOperations');
 Route::get('/resourceManager/{resource}', 'PageController@resourceDetails');
+Route::post('/resourceManager/prepareOrder', 'ResourceManagerController@prepareOrder');
 
 //Route::get(report route);
 

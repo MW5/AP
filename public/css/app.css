@@ -2,7 +2,7 @@
 
 :root {
   /*--body_background_color: rgb(187, 185, 241);*/
-  --body_background_color: white;
+  --body_background_color: rgb(250, 249, 255);
   --nav_background_color: rgb(76, 72, 180);
   --table_row_gradient_even_color: rgba(191, 189, 252,0.1);
   --table_row_gradient_odd_color: rgba(191, 189, 252,0.1);
@@ -86,7 +86,7 @@ footer {
     -ms-user-select: none;
     user-select: none;
 }
- /*Hide the browser's default checkbox*/ 
+ /*Hide the browser's default checkbox*/
 .checkbox_container input {
     position: absolute;
     opacity: 0;
@@ -250,8 +250,28 @@ footer {
 .low_quantity {
 
 }
+.low_quantity::after {
+    content: '';
+    display: inline-block;
+    height: 10px;
+    width: 10px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    background-color: gold;
+}
 .critical_quantity {
 
+}
+.critical_quantity::after {
+    content: '';
+    display: inline-block;
+    height: 10px;
+    width: 10px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    background-color: red;
 }
                         /*figure out a way to distinguish deliveries from warehouse releases - a green upside triangle on accept?*/
 /*warehouse operations*/
@@ -275,12 +295,44 @@ footer {
 .search {
     color: var(--nav_background_color);
 }
+
+.greet_view {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height: 100vh;
+  width: 100vw;
+  background-image: url(/images/greet.png);
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover;
+}
+
+.greet_view_text_container {
+  border-top: 1px solid white;
+  border-right: 1px solid white;
+  border-bottom: 1px solid white;
+  font-size: 40px;
+  font-weight: bold;
+  background-color: rgba(76, 72, 180, 0.6);
+  color: white;
+  position: absolute;
+  padding: 40px;
+  top: 40%;
+  left: 0;
+  width: 70vw;
+}
+
 @media only screen and (max-width: 600px) {
     .ap_action_bar > input, .ap_action_bar > .btn_styled {
         display: inline-block;
     }
     .search {
         margin-top: 2px;
+    }
+    .greet_view_text_container {
+      top:60%;
+      font-size: 20px;
     }
 }
 
@@ -360,6 +412,3 @@ footer {
     width: 100%;
     text-align: center;
 }
-
-
-

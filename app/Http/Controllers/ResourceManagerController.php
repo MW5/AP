@@ -11,6 +11,7 @@ use App\Rules\NameExistsInWarehouse;
 use App\Rules\CodeExistsInWarehouse;
 use App\Rules\NameExistsInWarehouseEditFix;
 use App\Rules\CodeExistsInWarehouseEditFix;
+use Mail;
 
 class ResourceManagerController extends Controller
 {
@@ -199,5 +200,58 @@ class ResourceManagerController extends Controller
         }
         return back();
     }
+
+    function prepareOrder(Request $request) {
+        $order = "";
+        $this->validate($request,[
+            'qty_field_order'=>'required'
+        ]);
+        $qtyArr = array();
+        $arrCounter = 0;
+        $arrBadVal = false;
+        $arrZeroVals = true;
+
+        foreach ($request->get('qty_field_order') as $qty) {
+                array_push($qtyArr, $qty);
+        }
+
+        foreach ($qtyArr as $qty) {
+            if($qty<0) {
+                $arrBadVal = true;
+            }
+            if($qty>0) {
+                $arrZeroVals = false;
+            }
+        }
+        foreach($request->get('res_id') as $res) {
+                $resource = Resource::find($res);
+                $arrCounter++;
+            }
+        $arrCounter = 0;
+
+        if (!$arrBadVal && !$arrZeroVals) {
+            foreach($request->get('res_id') as $res) {
+                $resource = Resource::find($res);
+                $resource->quantity = $resource->quantity+$qtyArr[$arrCounter];
+                if($qtyArr[$arrCounter]>0) {
+                    $order = $order . "<li>" . $resource->code . " / " . $resource->name . " / " .
+                    $resource->quantity . "</li>";
+                }
+             $arrCounter++;
+            }
+        }
+
+        Mail::send('emails.mailOrder',
+            ['resourcesOrdered'=>$order],
+            function ($message) use ($request) {
+                $message->from('dsu@dsu.pl', 'System generowania zamówień DSU');
+                $message->to($request->order_email);
+                $message->subject('Zamówienie DSU');
+            }
+        );
+
+        Session::flash('message', 'Zamówienie zostało wysłane');
+        Session::flash('alert-class', 'alert-success');
+      }
 
 }
