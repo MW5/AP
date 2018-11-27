@@ -371,7 +371,7 @@
                             <select id="prepare_order_select_email" class="ap_form_select" name='order_email'>
                                 <option value='{{Auth::user()->email}}'>Wyślij do mnie: {{Auth::user()->email}}</option>
                                 @foreach ($suppliers as $supplier)
-                                  <option value='{{$supplier->id}}'>{{$supplier->name}}: {{$supplier->email}}</option>
+                                  <option value='{{$supplier->email}}'>{{$supplier->name}}: {{$supplier->email}}</option>
                                   @endforeach
                               </select>
                         </div>

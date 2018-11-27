@@ -114,6 +114,7 @@ $(document).ready(function() {
             $("#edit_id").val($(this).data("userId"));
             $("#edit_name").val($(this).data("userName"));
             $("#edit_email").val($(this).data("userEmail"));
+            $("#edit_user_account_type").val($(this).data("userAccountType"));
             $("#edit_warehouse").val($(this).data("userWarehouse"));
 
             $("#edit_user_account_type").select2({

@@ -240,7 +240,6 @@ class ResourceManagerController extends Controller
              $arrCounter++;
             }
         }
-
         Mail::send('emails.mailOrder',
             ['resourcesOrdered'=>$order],
             function ($message) use ($request) {
@@ -252,6 +251,7 @@ class ResourceManagerController extends Controller
 
         Session::flash('message', 'Zamówienie zostało wysłane');
         Session::flash('alert-class', 'alert-success');
+        return back();
       }
 
 }
